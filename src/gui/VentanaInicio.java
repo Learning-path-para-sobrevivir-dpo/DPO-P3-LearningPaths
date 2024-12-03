@@ -48,6 +48,8 @@ public class VentanaInicio extends JFrame {
         setResizable( false );
         setSize( 600, 400 );
         setTitle( "Bienvenidos" );
+        setDefaultCloseOperation( EXIT_ON_CLOSE );
+        setLocationRelativeTo( null );
 	}
 
 	public void crearUsuario() {
