@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.HeadlessException;
 
@@ -22,14 +23,16 @@ public class VentanaInicio extends JFrame {
 		
 		JLabel bienvenida = new JLabel("Bienvenido a la Aplicación!!!");
 		bienvenida.setHorizontalAlignment(JLabel.CENTER);
-		bienvenida.setFont(new Font("Brush Script MT", Font.PLAIN, 40));
+		bienvenida.setFont(new Font("Javanese Text", Font.BOLD, 40));
 		
 		JLabel sub = new JLabel("Seleccione lo que quiere hacer");
 		sub.setHorizontalAlignment(JLabel.CENTER);
-		
+		sub.setFont(new Font("Calibri", Font.BOLD, 20));
 		
 		JPanel header = new JPanel();
 		header.setLayout(new BorderLayout());
+		header.setBorder(new EmptyBorder(10, 0, 20, 0));
+		header.setBackground(new Color(236, 145, 146));
 		header.add(bienvenida, BorderLayout.NORTH);
 		header.add(sub, BorderLayout.SOUTH);
 		add(header, BorderLayout.NORTH);
@@ -44,6 +47,7 @@ public class VentanaInicio extends JFrame {
         setDefaultCloseOperation( DISPOSE_ON_CLOSE );
         setResizable( false );
         setSize( 600, 400 );
+        setTitle( "Bienvenidos" );
 	}
 
 	public void crearUsuario() {
@@ -58,6 +62,6 @@ public class VentanaInicio extends JFrame {
 
 	public void salir() {
 		// TODO Auto-generated method stub
-		
+		dispose();
 	}
 }

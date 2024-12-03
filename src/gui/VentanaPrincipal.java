@@ -19,7 +19,6 @@ public class VentanaPrincipal extends JFrame {
 		ventanaInicio.setVisible(true);
 		setTitle( "Learning Path App" );
         setDefaultCloseOperation( EXIT_ON_CLOSE );
-        setSize( 400, 600 );
         setLocationRelativeTo( null );
 	}
 	
