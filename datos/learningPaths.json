@@ -1,0 +1,59 @@
+[
+    {
+        "descripcion": "curso sobre gatos",
+        "fechaModificacion": "2024-11-18",
+        "nivelDificultad": 3,
+        "rating": 0,
+        "titulo": "Todo sobre gatos",
+        "estudiantes": [],
+        "actividades": {
+            "1": "27290200",
+            "2": "69504730",
+            "3": "45020453"
+        },
+        "version": 1,
+        "autor": "Sara García",
+        "objetivo": "aprender sobre gatos",
+        "progresosEstudiantiles": {},
+        "duracion": 0,
+        "fechaCreacion": "2024-11-20"
+    },
+    {
+        "descripcion": "Curso que te enseña todo sobre Estructuras de Datos en Java",
+        "fechaModificacion": "22/10/2024",
+        "nivelDificultad": 1,
+        "rating": 0,
+        "titulo": "Estructuras de Datos en Java",
+        "estudiantes": [],
+        "actividades": {},
+        "version": 1,
+        "autor": "Marta Martínez",
+        "objetivo": "Conocer todo sobre Estructuras de Datos en Java",
+        "progresosEstudiantiles": {},
+        "duracion": 0,
+        "fechaCreacion": "2024-11-20"
+    },
+    {
+        "descripcion": "Curso creativo de arte",
+        "fechaModificacion": "2024-10-23",
+        "nivelDificultad": 2,
+        "rating": 0,
+        "titulo": "Arte y Sociedad",
+        "estudiantes": ["Juliana Hernandez"],
+        "actividades": {
+            "1": "51977106",
+            "2": "95752950",
+            "3": "31997514",
+            "4": "40579652"
+        },
+        "version": 1,
+        "autor": "Marta Martínez",
+        "objetivo": "Aprender sobre arte y sociedad",
+        "progresosEstudiantiles": {"Juliana Hernandez": [
+            "Arte y Sociedad",
+            "Juliana Hernandez"
+        ]},
+        "duracion": 0,
+        "fechaCreacion": "2024-11-20"
+    }
+]
