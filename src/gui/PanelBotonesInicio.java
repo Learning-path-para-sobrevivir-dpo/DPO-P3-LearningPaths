@@ -31,9 +31,9 @@ public class PanelBotonesInicio extends JPanel implements ActionListener {
     private JButton butNuevo;
     private JButton butIniciarSesion;
     private JButton butSalir;
-    private VentanaInicio ventanaInicio;
+    private VentanaPrincipal ventanaInicio;
     
-	public PanelBotonesInicio(VentanaInicio ventanaInicio) {
+	public PanelBotonesInicio(VentanaPrincipal ventanaInicio) {
 		this.ventanaInicio = ventanaInicio;
 		setLayout(new GridLayout(3,1,20,20));
 		setBorder(new EmptyBorder(50,200,50,200));

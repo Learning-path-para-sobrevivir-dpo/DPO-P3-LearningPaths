@@ -12,12 +12,18 @@ import javax.swing.border.EmptyBorder;
 
 import persistencia.ManejoDatos;
 
-public class VentanaInicio extends JFrame {
+@SuppressWarnings("serial")
+public class VentanaPrincipal extends JFrame {
 	
 	private PanelBotonesInicio panelBotones;
 	private ManejoDatos datos;
+	
+	public static void main(String[] args) {
+		ManejoDatos datos = new ManejoDatos();
+		VentanaPrincipal ventana = new VentanaPrincipal(datos);
+	}
 
-	public VentanaInicio(ManejoDatos datos) throws HeadlessException {
+	public VentanaPrincipal(ManejoDatos datos) throws HeadlessException {
 		this.datos = datos;
 		setLayout(new BorderLayout());
 		

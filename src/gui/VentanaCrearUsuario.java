@@ -5,5 +5,5 @@ import javax.swing.JFrame;
 @SuppressWarnings("serial")
 public class VentanaCrearUsuario extends JFrame {
 	private PanelBotononesCrearUsuario panelBotones;
-	private VentanaPrincipal
+	private VentanaPrincipal ventanaInicio;
 }
