@@ -1,11 +1,14 @@
 package gui;
 
+import java.awt.Component;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 public class PanelBotonesInicio extends JPanel implements ActionListener {
 	/**
@@ -30,11 +33,13 @@ public class PanelBotonesInicio extends JPanel implements ActionListener {
     
 	public PanelBotonesInicio(VentanaInicio ventanaInicio) {
 		this.ventanaInicio = ventanaInicio;
-		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		setLayout(new GridLayout(3,1,40,40));
+		setBorder(new EmptyBorder(50,100,50,100));
 		
 		butNuevo = new JButton("Crear perfil");
 		butNuevo.addActionListener(this);
 		butNuevo.setActionCommand(NUEVO);
+		butNuevo.setSize(40, 10);
 		
 		butIniciarSesion = new JButton("Iniciar Sesion");
 		butIniciarSesion.addActionListener(this);
@@ -47,6 +52,7 @@ public class PanelBotonesInicio extends JPanel implements ActionListener {
 		add(butNuevo);
 		add(butIniciarSesion);
 		add(butSalir);
+		
 	}
 
 
