@@ -1,9 +1,15 @@
 package gui.crearUsuario;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.HeadlessException;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 import gui.GUIManejoDatos;
 import gui.VentanaPrincipal;
@@ -14,38 +20,111 @@ import modelo.Usuario;
 @SuppressWarnings("serial")
 public class VentanaCrearUsuario extends JFrame {
 	
-	private PanelBotononesCrearUsuario panelBotones;
 	private VentanaPrincipal ventanaInicio;
 	private GUIManejoDatos datos;
+	
+	private PanelBotononesCrearUsuario panelBotones;
+	private PanelRecibirInfoUsuario detallesUsuario;
 	
 	public VentanaCrearUsuario(VentanaPrincipal ventanaInicio, GUIManejoDatos datos) throws HeadlessException {
 		
 		this.ventanaInicio = ventanaInicio;
 		this.datos = datos;
+		setLayout(new BorderLayout());
+		
+		panelBotones = new PanelBotononesCrearUsuario(this);
+		detallesUsuario = new PanelRecibirInfoUsuario();
+		
+		JLabel titulo = new JLabel("Crear Usuario");
+		titulo.setFont(new Font("Calibri", Font.BOLD, 30));
+		titulo.setHorizontalAlignment(JLabel.CENTER);
+		JPanel header = new JPanel();
+		header.setLayout(new BorderLayout());
+		header.setBorder(new EmptyBorder(20, 0, 20, 0));
+		header.setBackground(new Color(236, 145, 146));
+		header.add(titulo);
+		
+		add(header, BorderLayout.NORTH);
+		add(detallesUsuario, BorderLayout.CENTER);
+		add(panelBotones, BorderLayout.SOUTH);
+		setTitle( "Crear Usuario" );
+        setDefaultCloseOperation( EXIT_ON_CLOSE );
+        setSize( 600, 500 );
+        setLocationRelativeTo( null );
+        setVisible( true );
 	}
 	
-	public void crearNuevoUsuario(String login, String correo, String contraseña, String tipo)
+	public void crearNuevoUsuario()
 	{
+		String login = detallesUsuario.getLogin(); 
+		String correo = detallesUsuario.getCorreo();
+		String contraseña = detallesUsuario.getContrasenia(); 
+		String tipo = detallesUsuario.getTipo();
 		Usuario u = null;
-		if (tipo.equals("Profesor"))
+		if (login == null || login.equals("") || correo == null|| correo.equals("") ||
+				contraseña == null || contraseña.equals("") || tipo == null || tipo.equals(""))
 		{
-			u = new Profesor(login, correo, contraseña, tipo);
-		}
-		else if (tipo.equals("Estudiante"))
-		{
-			u = new Estudiante(login, correo, contraseña, tipo);
-		}
-		
-		if (u != null)
-		{
-			datos.añadirUsuario(u);
-			JOptionPane.showMessageDialog(this, "Hubo un error creando su perfil. Intentelo de nuevo");
+			JOptionPane.showMessageDialog(this, "Asegurese de llenar todos los campos");
 		}
 		else {
-			JOptionPane.showMessageDialog(this, "Hubo un error creando su perfil. Intentelo de nuevo");
+			boolean existe = existeLogin();
+			boolean coinciden = coincidenContrasenia();
+			if (existe)
+			{
+				JOptionPane.showMessageDialog(this, "El login ingresado ya esta en uso");
+			}
+			else if (!coinciden)
+			{
+				JOptionPane.showMessageDialog(this, "Las contraseñas ingresadas no coinciden");
+			}
+			else 
+			{
+				if (tipo.equals("Profesor"))
+				{
+					u = new Profesor(login, correo, contraseña, tipo);
+				}
+				else if (tipo.equals("Estudiante"))
+				{
+					u = new Estudiante(login, correo, contraseña, tipo);
+				}
+
+				if (u != null)
+				{
+					datos.añadirUsuario(u);
+					JOptionPane.showMessageDialog(this, "Usuario creado exitosamente");
+					volverInicio();
+				}
+				else {
+					JOptionPane.showMessageDialog(this, "Hubo un error creando su perfil. Intentelo de nuevo");
+				}
+			}
 		}
 	}
 	
-	
+	public void volverInicio()
+	{
+		ventanaInicio.setVisible(true);
+		dispose();
+	}
+
+	public boolean existeLogin() {
+		String login = detallesUsuario.getLogin();
+		return datos.existeUsuario(login);
+	}
+
+	public boolean coincidenContrasenia() {
+		boolean coinciden = true;
+		String contrasenia = detallesUsuario.getContrasenia();
+		String confirmacion = detallesUsuario.getConfirmacionContrasenia();
+		if (confirmacion != null)
+		{
+			if (!contrasenia.equals(confirmacion))
+			{
+				coinciden = false;
+			}
+		}
+
+		return coinciden;
+	}
 	
 }

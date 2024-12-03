@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 @SuppressWarnings("serial")
 public class PanelRecibirInfoUsuario extends JPanel {
@@ -17,7 +18,8 @@ public class PanelRecibirInfoUsuario extends JPanel {
 	private JPasswordField confirmacionContraseña;
 	private JComboBox<String> tipo;
 	public PanelRecibirInfoUsuario() {
-		setLayout(new GridLayout(5, 2));
+		setLayout(new GridLayout(5, 2, 30, 30));
+		setBorder(new EmptyBorder(30,30,30,30));
 		
 		JLabel l = new JLabel("Login:");
 		JLabel c = new JLabel("Correo: ");
@@ -50,22 +52,22 @@ public class PanelRecibirInfoUsuario extends JPanel {
 	
 	public String getLogin()
 	{
-		return (String) login.getText().trim();
+		return (String) login.getText();
 	}
 	
 	public String getCorreo()
 	{
-		return (String) correo.getText().trim();
+		return (String) correo.getText();
 	}
 	
 	public String getContrasenia()
 	{
-		return (String) contraseña.getSelectedText().trim();
+		return String.valueOf(contraseña.getPassword());
 	}
 	
 	public String getConfirmacionContrasenia()
 	{
-		return (String) confirmacionContraseña.getSelectedText().trim();
+		return String.valueOf(confirmacionContraseña.getPassword());
 	}
 	
 	public String getTipo()

@@ -1,6 +1,15 @@
 [
     {
         "tipo": "estudiante",
+        "learningPaths": [],
+        "tipoEspecifico": "Estudiante",
+        "progresosLearningPaths": [],
+        "correo": "e.piedra@gmail.com",
+        "login": "Emma Stone",
+        "contraseña": "Contrasenia"
+    },
+    {
+        "tipo": "estudiante",
         "learningPaths": ["Arte y Sociedad"],
         "tipoEspecifico": "Estudiante",
         "progresosLearningPaths": [[

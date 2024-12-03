@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import gui.crearUsuario.VentanaCrearUsuario;
 import modelo.Usuario;
 import persistencia.ManejoDatos;
 
@@ -18,6 +19,7 @@ public class VentanaPrincipal extends JFrame {
 	
 	private PanelBotonesInicio panelBotones;
 	private GUIManejoDatos datos;
+	private VentanaCrearUsuario ventanaCrear;
 	
 	public static void main(String[] args) {
 		GUIManejoDatos datos = new GUIManejoDatos();
@@ -61,7 +63,12 @@ public class VentanaPrincipal extends JFrame {
 
 	public void mostrarVentanaCrearUsuario() {
 		// TODO Auto-generated method stub
-		
+		if (ventanaCrear == null || !ventanaCrear.isVisible())
+		{
+			ventanaCrear = new VentanaCrearUsuario(this, datos);
+			ventanaCrear.setVisible(true);
+			setVisible(false);
+		}
 	}
 
 	public void mostrarVentanaIniciarSesion() {

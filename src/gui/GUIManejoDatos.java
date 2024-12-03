@@ -13,6 +13,7 @@ public class GUIManejoDatos {
 
 	public GUIManejoDatos() {
 		datos = new ManejoDatos();
+		datos.cargarDatos();
 	}
 	
 	public void añadirUsuario(Usuario u)
