@@ -10,20 +10,21 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import modelo.Usuario;
 import persistencia.ManejoDatos;
 
 @SuppressWarnings("serial")
 public class VentanaPrincipal extends JFrame {
 	
 	private PanelBotonesInicio panelBotones;
-	private ManejoDatos datos;
+	private GUIManejoDatos datos;
 	
 	public static void main(String[] args) {
-		ManejoDatos datos = new ManejoDatos();
+		GUIManejoDatos datos = new GUIManejoDatos();
 		VentanaPrincipal ventana = new VentanaPrincipal(datos);
 	}
 
-	public VentanaPrincipal(ManejoDatos datos) throws HeadlessException {
+	public VentanaPrincipal(GUIManejoDatos datos) throws HeadlessException {
 		this.datos = datos;
 		setLayout(new BorderLayout());
 		
@@ -58,12 +59,12 @@ public class VentanaPrincipal extends JFrame {
         setLocationRelativeTo( null );
 	}
 
-	public void crearUsuario() {
+	public void mostrarVentanaCrearUsuario() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void iniciarSesion() {
+	public void mostrarVentanaIniciarSesion() {
 		// TODO Auto-generated method stub
 		
 	}
