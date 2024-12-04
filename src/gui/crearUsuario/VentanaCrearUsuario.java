@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import gui.GUIManejoDatos;
+import gui.PanelHeader;
 import gui.VentanaPrincipal;
 import modelo.Estudiante;
 import modelo.Profesor;
@@ -35,14 +36,7 @@ public class VentanaCrearUsuario extends JFrame {
 		panelBotones = new PanelBotononesCrearUsuario(this);
 		detallesUsuario = new PanelRecibirInfoUsuario();
 		
-		JLabel titulo = new JLabel("Crear Usuario");
-		titulo.setFont(new Font("Calibri", Font.BOLD, 30));
-		titulo.setHorizontalAlignment(JLabel.CENTER);
-		JPanel header = new JPanel();
-		header.setLayout(new BorderLayout());
-		header.setBorder(new EmptyBorder(20, 0, 20, 0));
-		header.setBackground(new Color(236, 145, 146));
-		header.add(titulo);
+		PanelHeader header = new PanelHeader("Crear Usuario");
 		
 		add(header, BorderLayout.NORTH);
 		add(detallesUsuario, BorderLayout.CENTER);
