@@ -1,12 +1,14 @@
 package gui.interfazProfesor.Creador;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -36,6 +38,7 @@ public class VentanaProfCreadorLP extends JFrame {
 
 		JPanel pBotones = new JPanel();
 	    
+		pBotones.setLayout(new GridLayout(8,1));
 		JButton bVerLPCreados = new JButton("Ver todos mis Learning Paths");
 		JButton bCrearLP = new JButton("Crear Learning Path");
 		JButton bVerReviews = new JButton("Ver reseñas");
@@ -56,10 +59,10 @@ public class VentanaProfCreadorLP extends JFrame {
 
 		
 		
-		add(pBotones, BorderLayout.CENTER);
+		add(pBotones, BorderLayout.WEST);
 		
         listaPaths = new PanelListaPaths( this );
-        add( listaPaths , BorderLayout.SOUTH);
+        add( listaPaths , BorderLayout.EAST);
         
 		
 		setVisible(true);
