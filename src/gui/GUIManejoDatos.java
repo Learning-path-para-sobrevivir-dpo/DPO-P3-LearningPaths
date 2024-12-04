@@ -43,4 +43,10 @@ public class GUIManejoDatos {
 				
 		return existe;
 	}
+	
+	public Usuario getUsuario(String login, String contrasenia)
+	{
+		Usuario u = datos.getUsuario(login, contrasenia);
+		return u;
+	}
 }
