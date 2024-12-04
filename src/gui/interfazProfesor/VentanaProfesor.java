@@ -10,13 +10,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import gui.GUIManejoDatos;
+import gui.PanelHeader;
 import gui.VentanaPrincipal;
 import gui.crearUsuario.VentanaCrearUsuario;
 import gui.interfazProfesor.Creador.VentanaProfCreadorLP;
 import modelo.Profesor;
 
 
-public class VentanaProfesor extends JFrame implements ActionListener{
+@SuppressWarnings("serial")
+public class VentanaProfesor extends JFrame{
 	
 	private VentanaPrincipal ventanaInicio;
 	private VentanaProfCreadorLP ventanaCreador;
@@ -24,7 +26,8 @@ public class VentanaProfesor extends JFrame implements ActionListener{
 	private Profesor prof;
 	private GUIManejoDatos datos;
 	
-    private static final String CREADOR = "creador";
+	private PanelBotonesOpcionesProf panelBotones;
+	
 	
 	public VentanaProfesor(Profesor p, GUIManejoDatos datos, VentanaPrincipal ventanaInicio) {
 		// TODO Auto-generated constructor stub
@@ -33,13 +36,10 @@ public class VentanaProfesor extends JFrame implements ActionListener{
 		this.ventanaInicio = ventanaInicio;
 		setLayout(new BorderLayout());
 		
-		JLabel intro = new JLabel ("Profesor(a), que desea hacer hoy: ");
+		PanelHeader intro = new PanelHeader("Profesor(a), que desea hacer hoy: ");
 		
-		JPanel panelBotones = new JPanel();
-		JButton butCreadorLP = new JButton("Gestionar Learning Paths");
-		butCreadorLP.addActionListener(this);
-		butCreadorLP.setActionCommand(CREADOR);
-		panelBotones.add(butCreadorLP);
+		
+		panelBotones = new PanelBotonesOpcionesProf(this);
 		
 		add(intro, BorderLayout.NORTH);
 		add(panelBotones, BorderLayout.CENTER);
@@ -57,16 +57,7 @@ public class VentanaProfesor extends JFrame implements ActionListener{
         setLocationRelativeTo( null );
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		String comando = e.getActionCommand( );
-		if (comando.equals(CREADOR))
-		{
-			this.mostrarVentanaCreador();
-		}
-		
-	}
+	
 	
 	public void mostrarVentanaCreador() {
 		// TODO Auto-generated method stub
