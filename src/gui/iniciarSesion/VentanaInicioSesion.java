@@ -97,7 +97,7 @@ public class VentanaInicioSesion extends JFrame {
 	
 	public void mostrarVentanaProfesor(Profesor p)
 	{
-		if (ventanaProf == null || !ventanaInicio.isVisible())
+		if (ventanaProf == null || !ventanaProf.isVisible())
 		{
 			ventanaProf = new VentanaProfesor(p, datos, ventanaInicio);
 			ventanaProf.setVisible(true);
