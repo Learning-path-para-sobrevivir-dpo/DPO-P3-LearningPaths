@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import gui.GUIManejoDatos;
@@ -67,6 +68,27 @@ public class VentanaProfesor extends JFrame{
 			ventanaCreador.setVisible(true);
 			setVisible(false);
 		}
+	}
+
+
+
+	public void mostrarVentanaSeguimiento() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	public void cerrarSesion() {
+		// TODO Auto-generated method stub
+		if(JOptionPane.showConfirmDialog(this, "Esta seguro de que quiere cerrar sesion?",
+                "Cerrar Sesion", JOptionPane.YES_NO_OPTION,
+                JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION)
+		{
+			ventanaInicio.setVisible(true);
+			dispose();
+		}
+		
 	}
 
 }
