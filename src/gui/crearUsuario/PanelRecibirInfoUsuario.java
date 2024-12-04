@@ -17,6 +17,7 @@ public class PanelRecibirInfoUsuario extends JPanel {
 	private JPasswordField contraseña;
 	private JPasswordField confirmacionContraseña;
 	private JComboBox<String> tipo;
+	
 	public PanelRecibirInfoUsuario() {
 		setLayout(new GridLayout(5, 2, 30, 30));
 		setBorder(new EmptyBorder(30,30,30,30));
@@ -26,11 +27,11 @@ public class PanelRecibirInfoUsuario extends JPanel {
 		JLabel co = new JLabel("Contraseña:");
 		JLabel co2 = new JLabel("Confirmación contraseña:");
 		JLabel t = new JLabel("Tipo:");
-		l.setFont(new Font("Calibri", Font.PLAIN, 15));
-		c.setFont(new Font("Calibri", Font.PLAIN, 15));
-		co.setFont(new Font("Calibri", Font.PLAIN, 15));
-		co2.setFont(new Font("Calibri", Font.PLAIN, 15));
-		t.setFont(new Font("Calibri", Font.PLAIN, 15));
+		l.setFont(new Font("Calibri", Font.BOLD, 20));
+		c.setFont(new Font("Calibri", Font.BOLD, 20));
+		co.setFont(new Font("Calibri", Font.BOLD, 20));
+		co2.setFont(new Font("Calibri", Font.BOLD, 20));
+		t.setFont(new Font("Calibri", Font.BOLD, 20));
 		
 		login = new JTextField();
 		correo = new JTextField();
