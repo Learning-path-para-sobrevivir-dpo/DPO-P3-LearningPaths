@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import gui.crearUsuario.VentanaCrearUsuario;
+import gui.iniciarSesion.VentanaInicioSesion;
 import modelo.Usuario;
 import persistencia.ManejoDatos;
 
@@ -20,6 +21,7 @@ public class VentanaPrincipal extends JFrame {
 	private PanelBotonesInicio panelBotones;
 	private GUIManejoDatos datos;
 	private VentanaCrearUsuario ventanaCrear;
+	private VentanaInicioSesion ventanaInicar;
 	
 	public static void main(String[] args) {
 		GUIManejoDatos datos = new GUIManejoDatos();
@@ -72,7 +74,12 @@ public class VentanaPrincipal extends JFrame {
 	}
 
 	public void mostrarVentanaIniciarSesion() {
-		// TODO Auto-generated method stub
+		if (ventanaInicar == null || !ventanaInicar.isVisible())
+		{
+			ventanaInicar = new VentanaInicioSesion(this, datos);
+			ventanaInicar.setVisible(true);
+			setVisible(false);
+		}
 		
 	}
 
