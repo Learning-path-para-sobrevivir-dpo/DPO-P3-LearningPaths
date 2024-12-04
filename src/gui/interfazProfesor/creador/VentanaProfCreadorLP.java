@@ -1,4 +1,4 @@
-package gui.interfazProfesor.Creador;
+package gui.interfazProfesor.creador;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
