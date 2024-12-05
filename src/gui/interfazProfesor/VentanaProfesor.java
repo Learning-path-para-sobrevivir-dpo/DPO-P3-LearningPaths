@@ -15,6 +15,7 @@ import gui.PanelHeader;
 import gui.VentanaPrincipal;
 import gui.crearUsuario.VentanaCrearUsuario;
 import gui.interfazProfesor.creador.VentanaProfCreadorLP;
+import gui.interfazProfesor.seguimiento.VentanaSeguimientoProfesor;
 import modelo.Profesor;
 
 
@@ -23,6 +24,7 @@ public class VentanaProfesor extends JFrame{
 	
 	private VentanaPrincipal ventanaInicio;
 	private VentanaProfCreadorLP ventanaCreador;
+	private VentanaSeguimientoProfesor ventanaSeguimiento;
 	
 	private Profesor prof;
 	private GUIManejoDatos datos;
@@ -74,7 +76,12 @@ public class VentanaProfesor extends JFrame{
 
 	public void mostrarVentanaSeguimiento() {
 		// TODO Auto-generated method stub
-		
+		if (ventanaSeguimiento == null || !ventanaSeguimiento.isVisible())
+		{
+			ventanaSeguimiento = new VentanaSeguimientoProfesor(this);
+			ventanaSeguimiento.setVisible(true);
+			setVisible(false);
+		}
 	}
 
 
