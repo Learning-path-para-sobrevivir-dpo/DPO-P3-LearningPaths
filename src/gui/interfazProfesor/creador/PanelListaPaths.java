@@ -1,9 +1,11 @@
-package gui.interfazProfesor.creador;
+package gui.interfazProfesor.Creador;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -20,13 +22,18 @@ public class PanelListaPaths extends JPanel implements ListSelectionListener{
     private DefaultListModel<LearningPath> dataModel;
     private JList<LearningPath> listaPaths;
 	
-    private VentanaProfCreadorLP ventanaProf;
+    private VentanaLPCreados ventanaLPCreados;
 
-	public PanelListaPaths(VentanaProfCreadorLP ventanaProf) {
+	public PanelListaPaths(VentanaLPCreados ventanaLPCreados) {
 		super();
-        this.ventanaProf = ventanaProf;
-        setBorder( new TitledBorder( "Learning Paths Creados:" ) );
-        setLayout( new BorderLayout( ) );
+        this.ventanaLPCreados = ventanaLPCreados;
+
+        Font font = new Font("SansSerif", Font.BOLD, 18); 
+        TitledBorder border = BorderFactory.createTitledBorder("Learning Paths Creados:");
+        border.setTitleFont(font);
+
+        setBorder(border);
+        setLayout(new BorderLayout());
         
         dataModel = new DefaultListModel<>( );
         listaPaths = new JList<>( dataModel );
