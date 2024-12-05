@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import gui.interfazProfesor.creador.VentanaProfCreadorLP;
+import gui.interfazProfesor.Creador.VentanaProfCreadorLP;
 
 @SuppressWarnings("serial")
 public class PanelBotonesOpcionesProf extends JPanel implements ActionListener {

@@ -14,7 +14,7 @@ import gui.GUIManejoDatos;
 import gui.PanelHeader;
 import gui.VentanaPrincipal;
 import gui.crearUsuario.VentanaCrearUsuario;
-import gui.interfazProfesor.creador.VentanaProfCreadorLP;
+import gui.interfazProfesor.Creador.VentanaProfCreadorLP;
 import gui.interfazProfesor.seguimiento.VentanaSeguimientoProfesor;
 import modelo.Profesor;
 
