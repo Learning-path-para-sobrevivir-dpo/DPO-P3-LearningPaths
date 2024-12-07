@@ -46,6 +46,9 @@ public class PanelBotonesCreador extends JPanel implements ActionListener {
 		bVerLPCreados.setActionCommand(VERPATHS);
 		
 		bCrearLP = new JButton("Crear Learning Path");
+		bCrearLP.addActionListener(this);
+		bCrearLP.setActionCommand(CREARPATH);
+		
 		bVerReviews = new JButton("Ver reseñas");
 		bEditarLP = new JButton("Editar Learning Path");
 		bClonarAct = new JButton("Clonar actividad");
@@ -81,6 +84,10 @@ public class PanelBotonesCreador extends JPanel implements ActionListener {
 		else if (comando.equals(VERPATHS)) {
 			
 			ventanaCreador.mostrarVentanaLPCreados();
+		}
+		else if (comando.equals(CREARPATH)) {
+			
+			ventanaCreador.mostrarVentanaCrearLP();
 		}
 		
 	}

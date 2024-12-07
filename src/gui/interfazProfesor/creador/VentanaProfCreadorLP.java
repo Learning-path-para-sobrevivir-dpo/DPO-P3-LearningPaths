@@ -30,6 +30,7 @@ public class VentanaProfCreadorLP extends JFrame {
 	private GUIManejoDatos datos;
 	private PanelBotonesCreador pBotones;
 	private VentanaLPCreados ventanaLPCreados;
+	private VentanaCrearLP ventanaCrearLP;
 	
 	public VentanaProfCreadorLP(VentanaProfesor ventanaProf, Profesor prof, GUIManejoDatos datos)
 			throws HeadlessException {
@@ -69,6 +70,16 @@ public class VentanaProfCreadorLP extends JFrame {
 		{
 			ventanaLPCreados = new VentanaLPCreados(this, prof);
 			ventanaLPCreados.setVisible(true);
+			setVisible(false);
+		}
+	}
+	
+	public void mostrarVentanaCrearLP() {
+		// TODO Auto-generated method stub
+		if (ventanaCrearLP == null || !ventanaCrearLP.isVisible())
+		{
+			ventanaCrearLP = new VentanaCrearLP(this);
+			ventanaCrearLP.setVisible(true);
 			setVisible(false);
 		}
 	}
