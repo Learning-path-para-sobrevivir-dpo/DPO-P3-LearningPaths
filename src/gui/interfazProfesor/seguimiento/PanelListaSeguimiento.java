@@ -15,6 +15,7 @@ import javax.swing.event.ListSelectionListener;
 
 import modelo.LearningPath;
 import modelo.Progreso;
+import modelo.actividades.Actividad;
 
 @SuppressWarnings("serial")
 public class PanelListaSeguimiento extends JPanel implements ListSelectionListener{
@@ -24,6 +25,9 @@ public class PanelListaSeguimiento extends JPanel implements ListSelectionListen
 	
 	private JList<LearningPath> listaLearningPaths;
 	private DefaultListModel<LearningPath> modeloLp;
+	
+	private JList<Actividad> listaActividades;
+	private DefaultListModel<Actividad> modeloActividad;
 	
 	private VentanaSeguimientoProfesor ventanaSeguimientoProfesor;
 	private JScrollPane scroll;
@@ -43,6 +47,11 @@ public class PanelListaSeguimiento extends JPanel implements ListSelectionListen
 		listaLearningPaths.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listaLearningPaths.addListSelectionListener(this);
 		
+		modeloActividad = new DefaultListModel<Actividad>();
+		listaActividades = new JList<Actividad>(modeloActividad);
+		listaActividades.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listaActividades.addListSelectionListener(this);
+		
 		scroll = new JScrollPane();
 		scroll.setBounds(20, 120,500, 500);
 		scroll.setViewportView(listaProgresos);
@@ -60,11 +69,11 @@ public class PanelListaSeguimiento extends JPanel implements ListSelectionListen
 		modeloLp.clear();
 		modeloLp.addAll(lps);
 	}
-
-	@Override
-	public void valueChanged(ListSelectionEvent e) {
+	
+	public void actualizarActividades(List<Actividad> acts) {
 		// TODO Auto-generated method stub
-		
+		modeloActividad.clear();
+		modeloActividad.addAll(acts);
 	}
 
 	public void mostrarProgresos() {
@@ -75,6 +84,17 @@ public class PanelListaSeguimiento extends JPanel implements ListSelectionListen
 	public void mostrarLps() {
 		// TODO Auto-generated method stub
 		scroll.setViewportView(listaLearningPaths);
+	}
+
+	public void mostrarActividades() {
+		// TODO Auto-generated method stub
+		scroll.setViewportView(listaActividades);
+	}
+	
+	@Override
+	public void valueChanged(ListSelectionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

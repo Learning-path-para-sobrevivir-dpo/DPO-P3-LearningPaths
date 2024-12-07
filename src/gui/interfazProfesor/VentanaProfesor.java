@@ -147,6 +147,7 @@ public class VentanaProfesor extends JFrame{
 			{
 				if (actCompletada.getEstado().equals("Sin completar") || actCompletada.getEstado().equals("No Exitosa") )
 				{
+					actCompletada.setEstudiante(p.getEstudiante());
 					actividades.add(actCompletada);
 				}
 			}

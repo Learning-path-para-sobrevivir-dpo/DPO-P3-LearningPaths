@@ -300,17 +300,27 @@ public abstract class Actividad implements Cloneable {
 		}
 	}
 	
-	@Override
-	public Object clone() throws CloneNotSupportedException
+	public void setEstudiante(String nombreEstudiante)
 	{
-		return super.clone();
+		this.estudiante = nombreEstudiante;
 	}
 	
 	@Override
 	public String toString()
 	{
+		if (estudiante.equals(""))
+		{
+			return titulo;
+		}
 		return titulo + " - " + estudiante;
 	}
+	
+	@Override
+	public Object clone() throws CloneNotSupportedException
+	{
+		return super.clone();
+	}
+
 	
 	/**
 	 * Método para completar una actividad, dado que se cumplan los requisitos

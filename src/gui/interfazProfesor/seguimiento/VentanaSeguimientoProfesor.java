@@ -12,6 +12,7 @@ import gui.PanelHeader;
 import gui.interfazProfesor.VentanaProfesor;
 import modelo.LearningPath;
 import modelo.Progreso;
+import modelo.actividades.Actividad;
 
 @SuppressWarnings("serial")
 public class VentanaSeguimientoProfesor extends JFrame {
@@ -69,7 +70,9 @@ public class VentanaSeguimientoProfesor extends JFrame {
 
 	public void verActividadesPendientes() {
 		// TODO Auto-generated method stub
-		
+		List<Actividad> acts = ventanaProf.getActividadesPendientesCalificar();
+		panelLista.actualizarActividades(acts);
+		panelLista.mostrarActividades();
 	}
 	
 	
