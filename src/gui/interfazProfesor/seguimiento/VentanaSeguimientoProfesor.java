@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 
 import gui.PanelHeader;
 import gui.interfazProfesor.VentanaProfesor;
+import modelo.LearningPath;
 import modelo.Progreso;
 
 @SuppressWarnings("serial")
@@ -59,9 +60,11 @@ public class VentanaSeguimientoProfesor extends JFrame {
 		panelLista.mostrarProgresos();
 	}
 
-	public void verEstudiantesLP() {
+	public void verLPs() {
 		// TODO Auto-generated method stub
-		
+		List<LearningPath> lps = ventanaProf.getLearningPathsCreados();
+		panelLista.actualizarLPs(lps);
+		panelLista.mostrarLps();
 	}
 
 	public void verActividadesPendientes() {

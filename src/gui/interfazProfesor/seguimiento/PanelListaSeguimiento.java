@@ -71,5 +71,10 @@ public class PanelListaSeguimiento extends JPanel implements ListSelectionListen
 		// TODO Auto-generated method stub
 		scroll.setViewportView(listaProgresos);
 	}
+
+	public void mostrarLps() {
+		// TODO Auto-generated method stub
+		scroll.setViewportView(listaLearningPaths);
+	}
 	
 }

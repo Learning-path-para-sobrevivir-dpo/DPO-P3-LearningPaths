@@ -286,8 +286,11 @@ public class LearningPath {
     	this.setRating(promedio);
     }
 
-
-
+    @Override
+    public String toString( )
+    {
+    	return titulo;
+    }
 
 
 }

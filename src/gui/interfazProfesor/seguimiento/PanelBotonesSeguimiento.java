@@ -69,7 +69,7 @@ public class PanelBotonesSeguimiento extends JPanel implements ActionListener {
 		}
 		else if (comando.equals(VERESTLP))
 		{
-			ventanaSeg.verEstudiantesLP();
+			ventanaSeg.verLPs();
 		}
 		else if (comando.equals(VERACTPENDIENTES))
 		{
