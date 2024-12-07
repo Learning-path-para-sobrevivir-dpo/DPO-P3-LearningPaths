@@ -22,6 +22,7 @@ import gui.interfazProfesor.seguimiento.VentanaSeguimientoProfesor;
 import modelo.LearningPath;
 import modelo.Profesor;
 
+@SuppressWarnings("serial")
 public class VentanaProfCreadorLP extends JFrame {
 	
 	private VentanaProfesor ventanaProf;

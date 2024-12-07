@@ -39,7 +39,7 @@ public class PanelBotonesCreador extends JPanel implements ActionListener {
 		this.ventanaCreador = ventanaCreador;
 
 		setLayout(new GridLayout(4,1,30,30));
-		setBorder(new EmptyBorder(50,100,50,100));
+		setBorder(new EmptyBorder(50,50,50,50));
 		
 		bVerLPCreados = new JButton("Ver todos mis Learning Paths");
 		bVerLPCreados.addActionListener(this);
