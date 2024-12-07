@@ -2,6 +2,7 @@ package gui.interfazProfesor.seguimiento;
 
 import java.awt.BorderLayout;
 import java.awt.HeadlessException;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -9,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 
 import gui.PanelHeader;
 import gui.interfazProfesor.VentanaProfesor;
+import modelo.Progreso;
 
 @SuppressWarnings("serial")
 public class VentanaSeguimientoProfesor extends JFrame {
@@ -52,7 +54,9 @@ public class VentanaSeguimientoProfesor extends JFrame {
 
 	public void verEstudiantesTodos() {
 		// TODO Auto-generated method stub
-		
+		List<Progreso> progresos = ventanaProf.getProgresosEstudiantes();
+		panelLista.actualizarProgresos(progresos);
+		panelLista.mostrarProgresos();
 	}
 
 	public void verEstudiantesLP() {

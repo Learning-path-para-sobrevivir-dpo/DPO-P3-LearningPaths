@@ -3,6 +3,10 @@ package gui.interfazProfesor;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,7 +20,9 @@ import gui.VentanaPrincipal;
 import gui.crearUsuario.VentanaCrearUsuario;
 import gui.interfazProfesor.Creador.VentanaProfCreadorLP;
 import gui.interfazProfesor.seguimiento.VentanaSeguimientoProfesor;
+import modelo.LearningPath;
 import modelo.Profesor;
+import modelo.Progreso;
 
 
 @SuppressWarnings("serial")
@@ -96,6 +102,36 @@ public class VentanaProfesor extends JFrame{
 			dispose();
 		}
 		
+	}
+	
+	public List<LearningPath> getLearningPathsCreados()
+	{
+		Map<String, LearningPath> lpCreados = prof.getLearningPathsCreados();
+		List<LearningPath> lps = new ArrayList<LearningPath>();
+		for(String nomPath: lpCreados.keySet())
+		{
+			LearningPath path = lpCreados.get(nomPath);
+			lps.add(path);
+		}
+		return lps;
+	}
+	
+	public List<Progreso> getProgresosEstudiantes()
+	{
+		List<LearningPath> paths = this.getLearningPathsCreados();
+		List<Progreso> progresos = new ArrayList<Progreso>();
+		Map<String, Progreso> progresosLp;
+		Progreso progreso;
+		for (LearningPath path: paths)
+		{
+			progresosLp = path.getProgresosEstudiantiles();
+			for (String nomProg: progresosLp.keySet())
+			{
+				progreso = progresosLp.get(nomProg);
+				progresos.add(progreso);
+			}
+		}
+		return progresos;
 	}
 
 }
