@@ -23,6 +23,7 @@ public abstract class Actividad implements Cloneable {
 	public String tipoActividad;
 	private String estado;
 	private boolean completada;
+	private String estudiante;
 	
 	//Un HashSet con todos los IDs que ya se han utilizado para actividades
 	private static Set<String> ids = new HashSet<String>( );
@@ -51,6 +52,7 @@ public abstract class Actividad implements Cloneable {
 		this.completada = false;       
 		this.id = this.generarID();
         this.idEstudiante = "";
+        this.estudiante = "";
 	}
 	
 	public Actividad(String titulo, String descripcion, int nivelDificultad, int duracionMin, boolean obligatorio,
@@ -74,6 +76,7 @@ public abstract class Actividad implements Cloneable {
 		this.id = id;
 		Actividad.registrarIDActividad(this);
         this.idEstudiante = idEstudiante;
+        this.estudiante = "";
 	}
 	
 	
@@ -301,6 +304,12 @@ public abstract class Actividad implements Cloneable {
 	public Object clone() throws CloneNotSupportedException
 	{
 		return super.clone();
+	}
+	
+	@Override
+	public String toString()
+	{
+		return titulo + " - " + estudiante;
 	}
 	
 	/**

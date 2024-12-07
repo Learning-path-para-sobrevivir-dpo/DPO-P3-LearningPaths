@@ -23,6 +23,7 @@ import gui.interfazProfesor.seguimiento.VentanaSeguimientoProfesor;
 import modelo.LearningPath;
 import modelo.Profesor;
 import modelo.Progreso;
+import modelo.actividades.Actividad;
 
 
 @SuppressWarnings("serial")
@@ -133,5 +134,24 @@ public class VentanaProfesor extends JFrame{
 		}
 		return progresos;
 	}
-
+	
+	public List<Actividad> getActividadesPendientesCalificar()
+	{
+		List<Progreso> progresos = this.getProgresosEstudiantes();
+		List<Actividad> actividades = new ArrayList<Actividad>();
+		List<Actividad> completadas;
+		for (Progreso p: progresos)
+		{
+			completadas = p.getActCompletadas();
+			for (Actividad actCompletada: completadas)
+			{
+				if (actCompletada.getEstado().equals("Sin completar") || actCompletada.getEstado().equals("No Exitosa") )
+				{
+					actividades.add(actCompletada);
+				}
+			}
+		}
+		
+		return actividades;
+	}
 }
