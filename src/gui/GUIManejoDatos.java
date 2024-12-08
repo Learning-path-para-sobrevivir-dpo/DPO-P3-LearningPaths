@@ -3,9 +3,11 @@ package gui;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import modelo.Usuario;
+import modelo.actividades.Actividad;
 import persistencia.ManejoDatos;
 
 public class GUIManejoDatos {
@@ -49,4 +51,14 @@ public class GUIManejoDatos {
 		Usuario u = datos.getUsuario(login, contrasenia);
 		return u;
 	}
+
+	public List<Actividad> getActividadesSistema() {
+		List<Actividad> acts = new ArrayList<Actividad>();
+		Map<String, Actividad>actsSistema = datos.getActividades();
+		for (Actividad act: actsSistema.values()) {
+			acts.add(act);
+		}
+		return acts;
+	}
+	
 }

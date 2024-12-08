@@ -158,6 +158,13 @@ public class LearningPath {
 		return duracion;
 	}
 	
+    @Override
+    public String toString( )
+    {
+     // TODO completar para que retorne el nombre del restaurante
+        return titulo;
+    }
+	
 	private void getPosActividades()
 	{
 		Map<Integer,Actividad> acts = this.actividades;
@@ -285,13 +292,5 @@ public class LearningPath {
     	promedio = suma/listRatings.size();
     	this.setRating(promedio);
     }
-
-    @Override
-    public String toString( )
-    {
-    	return titulo;
-    }
-
-
 }
 

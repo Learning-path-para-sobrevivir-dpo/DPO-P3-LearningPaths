@@ -207,7 +207,7 @@ public abstract class Actividad implements Cloneable {
 	public String getIdEstudiante() {
 		return idEstudiante;
 	}
-
+	
 	/**
 	 * Añade una actividad previa sugerida para la actividad
 	 * @param actividadPrevia: actividad previa sugerida

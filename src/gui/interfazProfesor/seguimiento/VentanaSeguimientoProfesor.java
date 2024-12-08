@@ -20,6 +20,9 @@ public class VentanaSeguimientoProfesor extends JFrame {
 	private PanelHeader header;
 	private PanelBotonesSeguimiento panelBotones;
 	private PanelListaSeguimiento panelLista;
+	
+	private Progreso estudianteSeleccionado;
+	private Actividad actividadSeleccionada;
 
 	public VentanaSeguimientoProfesor(VentanaProfesor ventanaProf) throws HeadlessException {
 		this.ventanaProf = ventanaProf;
@@ -73,6 +76,21 @@ public class VentanaSeguimientoProfesor extends JFrame {
 		List<Actividad> acts = ventanaProf.getActividadesPendientesCalificar();
 		panelLista.actualizarActividades(acts);
 		panelLista.mostrarActividades();
+	}
+
+	public void setEstudianteSeleccionado(Progreso estudianteSeleccionado) {
+		// TODO Auto-generated method stub
+		this.estudianteSeleccionado = estudianteSeleccionado;
+	}
+
+	public void mostrarProgresoEstudiante() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setActividadSeleccionada(Actividad actSeleccionada) {
+		// TODO Auto-generated method stub
+		this.actividadSeleccionada = actSeleccionada;
 	}
 	
 	
