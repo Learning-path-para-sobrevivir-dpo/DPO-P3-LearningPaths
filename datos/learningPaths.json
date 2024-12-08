@@ -16,7 +16,22 @@
         "objetivo": "aprender sobre gatos",
         "progresosEstudiantiles": {},
         "duracion": 0,
-        "fechaCreacion": "2024-11-20"
+        "fechaCreacion": "2024-12-08"
+    },
+    {
+        "descripcion": "Curso sobre la cultura francesa",
+        "fechaModificacion": "2024-12-08",
+        "nivelDificultad": 2,
+        "rating": 0,
+        "titulo": "Cultura francesa",
+        "estudiantes": [],
+        "actividades": {},
+        "version": 1,
+        "autor": "Sara García",
+        "objetivo": "aprender sobre cultura francesa",
+        "progresosEstudiantiles": {},
+        "duracion": 0,
+        "fechaCreacion": "2024-12-08"
     },
     {
         "descripcion": "Curso que te enseña todo sobre Estructuras de Datos en Java",
@@ -31,7 +46,7 @@
         "objetivo": "Conocer todo sobre Estructuras de Datos en Java",
         "progresosEstudiantiles": {},
         "duracion": 0,
-        "fechaCreacion": "2024-11-20"
+        "fechaCreacion": "2024-12-08"
     },
     {
         "descripcion": "Curso creativo de arte",
@@ -54,6 +69,36 @@
             "Juliana Hernandez"
         ]},
         "duracion": 0,
-        "fechaCreacion": "2024-11-20"
+        "fechaCreacion": "2024-12-08"
+    },
+    {
+        "descripcion": "curso de comida ",
+        "fechaModificacion": "2024-12-08",
+        "nivelDificultad": 1,
+        "rating": 0,
+        "titulo": "learning path sobre comida",
+        "estudiantes": [],
+        "actividades": {},
+        "version": 1,
+        "autor": "Sara García",
+        "objetivo": "aprender de comida ",
+        "progresosEstudiantiles": {},
+        "duracion": 0,
+        "fechaCreacion": "2024-12-08"
+    },
+    {
+        "descripcion": "lp1",
+        "fechaModificacion": "2024-12-08",
+        "nivelDificultad": 1,
+        "rating": 0,
+        "titulo": "lp1",
+        "estudiantes": [],
+        "actividades": {},
+        "version": 1,
+        "autor": "Sara García",
+        "objetivo": "lp1",
+        "progresosEstudiantiles": {},
+        "duracion": 0,
+        "fechaCreacion": "2024-12-08"
     }
 ]

@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 
 import gui.PanelHeader;
 import gui.interfazProfesor.VentanaProfesor;
+import gui.interfazProfesor.seguimiento.verActividad.VentanaActividadPendienteCalificar;
 import modelo.LearningPath;
 import modelo.Progreso;
 import modelo.actividades.Actividad;
@@ -25,6 +26,8 @@ public class VentanaSeguimientoProfesor extends JFrame {
 	private Progreso estudianteSeleccionado;
 	private Actividad actividadSeleccionada;
 	private LearningPath lpSeleccionado;
+	
+	private VentanaActividadPendienteCalificar ventanaActividad;
 
 	public VentanaSeguimientoProfesor(VentanaProfesor ventanaProf) throws HeadlessException {
 		this.ventanaProf = ventanaProf;
@@ -106,7 +109,7 @@ public class VentanaSeguimientoProfesor extends JFrame {
 		this.estudianteSeleccionado = estudianteSeleccionado;
 	}
 
-	public void mostrarProgresoEstudiante() {
+	public void mostrarVentanaProgresoEstudiante() {
 		// TODO Auto-generated method stub
 		if (estudianteSeleccionado == null)
 			JOptionPane.showMessageDialog(this, "Por favor, seleccione un estudiante");
@@ -121,6 +124,14 @@ public class VentanaSeguimientoProfesor extends JFrame {
 		// TODO Auto-generated method stub
 		if (actividadSeleccionada == null)
 			JOptionPane.showMessageDialog(this, "Por favor, seleccione una actividad");
+		else
+		{
+			if (ventanaActividad == null || !ventanaActividad.isVisible())
+			{
+				ventanaActividad = new VentanaActividadPendienteCalificar(this, actividadSeleccionada);
+				ventanaActividad.setVisible(true);
+			}
+		}
 	}
 	
 	public void setLpSeleccionado(LearningPath lpSeleccionado)

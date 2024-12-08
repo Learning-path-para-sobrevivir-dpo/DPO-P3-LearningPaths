@@ -9,18 +9,6 @@
         "contraseña": "Contrasenia"
     },
     {
-        "tipo": "estudiante",
-        "learningPaths": ["Arte y Sociedad"],
-        "tipoEspecifico": "Estudiante",
-        "progresosLearningPaths": [[
-            "Arte y Sociedad",
-            "Juliana Hernandez"
-        ]],
-        "correo": "j.hernandez@gmail.com",
-        "login": "Juliana Hernandez",
-        "contraseña": "Juli091103"
-    },
-    {
         "actividadesCreadas": [],
         "tipo": "profesor",
         "tipoEspecifico": "Profesor",
@@ -33,6 +21,18 @@
         "contraseña": "Mart123"
     },
     {
+        "tipo": "estudiante",
+        "learningPaths": ["Arte y Sociedad"],
+        "tipoEspecifico": "Estudiante",
+        "progresosLearningPaths": [[
+            "Arte y Sociedad",
+            "Juliana Hernandez"
+        ]],
+        "correo": "j.hernandez@gmail.com",
+        "login": "Juliana Hernandez",
+        "contraseña": "Juli091103"
+    },
+    {
         "actividadesCreadas": [
             "27290200",
             "45020453",
@@ -42,7 +42,12 @@
         ],
         "tipo": "profesor",
         "tipoEspecifico": "Profesor",
-        "learningPathsCreados": ["Todo sobre gatos"],
+        "learningPathsCreados": [
+            "Todo sobre gatos",
+            "Cultura francesa",
+            "learning path sobre comida",
+            "lp1"
+        ],
         "correo": "sarag123@gmail.com",
         "login": "Sara García",
         "contraseña": "sg1"

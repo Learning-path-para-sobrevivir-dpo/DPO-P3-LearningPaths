@@ -148,7 +148,7 @@ public class PanelListaSeguimiento extends JPanel implements ListSelectionListen
 		// TODO Auto-generated method stub
 		if (currentScrollView.equals(TODOSESTUDIANTES) || currentScrollView.equals(LPS))
 		{
-			ventanaSeguimientoProfesor.mostrarProgresoEstudiante();
+			ventanaSeguimientoProfesor.mostrarVentanaProgresoEstudiante();
 		}
 		else if (currentScrollView.equals(ACTIVIDADES))
 		{

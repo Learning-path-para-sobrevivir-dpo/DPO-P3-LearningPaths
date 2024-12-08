@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import modelo.LearningPath;
 import modelo.Usuario;
 import modelo.actividades.Actividad;
 import persistencia.ManejoDatos;
@@ -61,4 +62,11 @@ public class GUIManejoDatos {
 		return acts;
 	}
 	
+	public void addLearningPath(LearningPath path) {
+		datos.addLearningPath(path);
+	}
+	
+	public void actualizarUsuario(Usuario usuario) {
+		datos.actualizarUsuario(usuario);
+	}
 }
