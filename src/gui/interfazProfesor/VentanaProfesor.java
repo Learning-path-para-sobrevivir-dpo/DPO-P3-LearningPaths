@@ -117,20 +117,26 @@ public class VentanaProfesor extends JFrame{
 		return lps;
 	}
 	
+	public List<Progreso> getEstudiantesPorLP(LearningPath path)
+	{
+		List<Progreso> progresos = new ArrayList<Progreso>();
+		Map<String, Progreso>progresosLp = path.getProgresosEstudiantiles();
+		Progreso progreso;
+		for (String nomProg: progresosLp.keySet())
+		{
+			progreso = progresosLp.get(nomProg);
+			progresos.add(progreso);
+		}
+		return progresos;
+	}
+	
 	public List<Progreso> getProgresosEstudiantes()
 	{
 		List<LearningPath> paths = this.getLearningPathsCreados();
 		List<Progreso> progresos = new ArrayList<Progreso>();
-		Map<String, Progreso> progresosLp;
-		Progreso progreso;
 		for (LearningPath path: paths)
 		{
-			progresosLp = path.getProgresosEstudiantiles();
-			for (String nomProg: progresosLp.keySet())
-			{
-				progreso = progresosLp.get(nomProg);
-				progresos.add(progreso);
-			}
+			progresos.addAll(this.getEstudiantesPorLP(path));
 		}
 		return progresos;
 	}

@@ -5,6 +5,7 @@ import java.awt.HeadlessException;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -23,6 +24,7 @@ public class VentanaSeguimientoProfesor extends JFrame {
 	
 	private Progreso estudianteSeleccionado;
 	private Actividad actividadSeleccionada;
+	private LearningPath lpSeleccionado;
 
 	public VentanaSeguimientoProfesor(VentanaProfesor ventanaProf) throws HeadlessException {
 		this.ventanaProf = ventanaProf;
@@ -60,6 +62,8 @@ public class VentanaSeguimientoProfesor extends JFrame {
 	public void verEstudiantesTodos() {
 		// TODO Auto-generated method stub
 		List<Progreso> progresos = ventanaProf.getProgresosEstudiantes();
+		if (progresos.isEmpty())
+			JOptionPane.showMessageDialog(this, "No tiene estudiantes inscritos");
 		panelLista.actualizarProgresos(progresos);
 		panelLista.mostrarProgresos();
 	}
@@ -67,13 +71,32 @@ public class VentanaSeguimientoProfesor extends JFrame {
 	public void verLPs() {
 		// TODO Auto-generated method stub
 		List<LearningPath> lps = ventanaProf.getLearningPathsCreados();
+		if (lps.isEmpty())
+			JOptionPane.showMessageDialog(this, "No tiene Learning Paths creados hasta el momento");
 		panelLista.actualizarLPs(lps);
 		panelLista.mostrarLps();
+	}
+	
+	public void verEstudiantesLPs() 
+	{
+		if (this.lpSeleccionado != null)
+		{
+			List<Progreso> progresos = ventanaProf.getEstudiantesPorLP(lpSeleccionado);
+			if (progresos.isEmpty())
+			{
+				JOptionPane.showMessageDialog(this, "No tiene estudiantes inscritos a este Learning Path");
+			}
+			panelLista.actualizarProgresos(progresos);
+		}
+		else
+			JOptionPane.showMessageDialog(this, "Por favor, seleccione un Learning Path");
 	}
 
 	public void verActividadesPendientes() {
 		// TODO Auto-generated method stub
 		List<Actividad> acts = ventanaProf.getActividadesPendientesCalificar();
+		if (acts.isEmpty())
+			JOptionPane.showMessageDialog(this, "No tiene actividades pendientes por calificar");
 		panelLista.actualizarActividades(acts);
 		panelLista.mostrarActividades();
 	}
@@ -85,13 +108,24 @@ public class VentanaSeguimientoProfesor extends JFrame {
 
 	public void mostrarProgresoEstudiante() {
 		// TODO Auto-generated method stub
-		
+		if (estudianteSeleccionado == null)
+			JOptionPane.showMessageDialog(this, "Por favor, seleccione un estudiante");
 	}
 
 	public void setActividadSeleccionada(Actividad actSeleccionada) {
 		// TODO Auto-generated method stub
 		this.actividadSeleccionada = actSeleccionada;
 	}
+
+	public void mostrarActividadPendiente() {
+		// TODO Auto-generated method stub
+		if (actividadSeleccionada == null)
+			JOptionPane.showMessageDialog(this, "Por favor, seleccione una actividad");
+	}
 	
+	public void setLpSeleccionado(LearningPath lpSeleccionado)
+	{
+		this.lpSeleccionado = lpSeleccionado;
+	}
 	
 }

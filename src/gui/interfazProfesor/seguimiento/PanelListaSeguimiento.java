@@ -37,6 +37,7 @@ public class PanelListaSeguimiento extends JPanel implements ListSelectionListen
 	
 	private VentanaSeguimientoProfesor ventanaSeguimientoProfesor;
 	private PanelBotonesListaSeleccion panelBotones;
+	private PanelListaLPs panelLps;
 	private JScrollPane scroll;
 	
 	public PanelListaSeguimiento(VentanaSeguimientoProfesor ventanaSeguimientoProfesor) {
@@ -59,12 +60,16 @@ public class PanelListaSeguimiento extends JPanel implements ListSelectionListen
 		listaActividades.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listaActividades.addListSelectionListener(this);
 		
+		panelLps = new PanelListaLPs(listaLearningPaths, this);
+		panelLps.setVisible(false);
+		
 		scroll = new JScrollPane();
 		scroll.setBounds(20, 120,500, 500);
 		scroll.setViewportView(listaProgresos);
 		
 		panelBotones = new PanelBotonesListaSeleccion(this);
 		
+		add(panelLps, BorderLayout.NORTH);
 		add(scroll, BorderLayout.CENTER);
 		add(panelBotones, BorderLayout.SOUTH);
 	}
@@ -90,33 +95,47 @@ public class PanelListaSeguimiento extends JPanel implements ListSelectionListen
 		// TODO Auto-generated method stub
 		scroll.setViewportView(listaProgresos);
 		currentScrollView = TODOSESTUDIANTES;
-		panelBotones.cambiarTextoBoton("Ver progreso del estudiante");
+		panelBotones.cambiarTextoBoton("Ver progreso del estudiante seleccionado");
 		panelBotones.setVisible(true);
+		panelLps.setVisible(false);
 	}
 
 	public void mostrarLps() {
 		// TODO Auto-generated method stub
-		scroll.setViewportView(listaLearningPaths);
+		modeloProgreso.clear();
+		scroll.setViewportView(listaProgresos);
 		currentScrollView = LPS;
-		panelBotones.cambiarTextoBoton("Ver estudiantes del Learning Path");
+		panelBotones.cambiarTextoBoton("Ver progreso del estudiante seleccionado");
 		panelBotones.setVisible(true);
+		panelLps.setVisible(true);
+	}
+	
+	public void mostrarProgresosLP() {
+		// TODO Auto-generated method stub
+		ventanaSeguimientoProfesor.verEstudiantesLPs();
 	}
 
 	public void mostrarActividades() {
 		// TODO Auto-generated method stub
 		scroll.setViewportView(listaActividades);
 		currentScrollView = ACTIVIDADES;
-		panelBotones.cambiarTextoBoton("Ver actividades pendientes");
+		panelBotones.cambiarTextoBoton("Ver actividad pendiente");
 		panelBotones.setVisible(true);
+		panelLps.setVisible(false);
 	}
 	
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
 		// TODO Auto-generated method stub
-		if (currentScrollView.equals(TODOSESTUDIANTES))
+		if (currentScrollView.equals(TODOSESTUDIANTES) || currentScrollView.equals(LPS))
 		{
 			Progreso estudianteSeleccionado = listaProgresos.getSelectedValue();
 			ventanaSeguimientoProfesor.setEstudianteSeleccionado(estudianteSeleccionado);
+		}
+		if (currentScrollView.equals(LPS))
+		{
+			LearningPath path = listaLearningPaths.getSelectedValue();
+			ventanaSeguimientoProfesor.setLpSeleccionado(path);
 		}
 		else if (currentScrollView.equals(ACTIVIDADES))
 		{
@@ -127,9 +146,13 @@ public class PanelListaSeguimiento extends JPanel implements ListSelectionListen
 
 	public void mostrarVentanaSeleccion() {
 		// TODO Auto-generated method stub
-		if (currentScrollView.equals(TODOSESTUDIANTES))
+		if (currentScrollView.equals(TODOSESTUDIANTES) || currentScrollView.equals(LPS))
 		{
 			ventanaSeguimientoProfesor.mostrarProgresoEstudiante();
+		}
+		else if (currentScrollView.equals(ACTIVIDADES))
+		{
+			ventanaSeguimientoProfesor.mostrarActividadPendiente();
 		}
 	}
 	
