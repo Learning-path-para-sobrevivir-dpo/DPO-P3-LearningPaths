@@ -70,20 +70,17 @@ public class PanelListaPathsVer extends JPanel implements ListSelectionListener{
     
     public void valueChanged( ListSelectionEvent e )
     {
-        // Revisa cuál es el restaurante seleccionado actualmente
+        // Revisa cuál es el lp seleccionado actualmente
         LearningPath seleccionado = listaPaths.getSelectedValue( );
 
-        // Le envía la ventana principal el restaurante seleccionado para que se actualice el resto de la interfaz
+        // Le envía la ventana principal el lp seleccionado para que se actualice el resto de la interfaz
         this.ventanaCreados.cambiarPathSelected( seleccionado );
     }
 
-    /**
-     * Cambia el restaurante seleccionado en la lista
-     * @param restaurante
-     */
-    public void seleccionarRestaurante( Actividad act )
+
+    public void seleccionarLearningPath( LearningPath path )
     {
-        listaPaths.setSelectedValue( act, true );
+        listaPaths.setSelectedValue( path, true );
     }
 
 }

@@ -10,6 +10,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
@@ -107,7 +108,35 @@ public class PanelEditarLP extends JPanel implements ActionListener{
 
 	}
 
+	
+    public int getDificultad( )
+    {
+        String difi = ( String )cbbDificultad.getSelectedItem( );
+        return Integer.parseInt( difi );
+    }
 
+    /**
+     * Indica el nombre digitado para el LP
+     * @return
+     */
+    public String getNombre( )
+    {
+    	String nom = txtNombre.getText();
+        return nom;
+    }
+    
+    public String getObjetivo( )
+    {
+    	String obj = txtObjetivo.getText();
+        return obj;
+    }
+    
+    public String getDescripcion( )
+    {
+    	String desc = txtDescripcion.getText();
+        return desc;
+    }
+    
     @Override
     public void actionPerformed( ActionEvent e )
     {
@@ -115,6 +144,8 @@ public class PanelEditarLP extends JPanel implements ActionListener{
         if( comando.equals( GUARDAR ) )
         {
         	ventanaEditar.guardarCambios();
+			JOptionPane.showMessageDialog(this, "Cambios realizados exitosamente!");
+			ventanaEditar.cerrarVentana();
         }
         else if( comando.equals( CERRAR ) )
         {

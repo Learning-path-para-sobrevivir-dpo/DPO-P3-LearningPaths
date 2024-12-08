@@ -9,6 +9,7 @@ import javax.swing.SwingConstants;
 
 import modelo.actividades.Actividad;
 
+@SuppressWarnings("serial")
 public class PanelDetallesActSistema extends JPanel{
 	
     private JLabel lTitulo;
