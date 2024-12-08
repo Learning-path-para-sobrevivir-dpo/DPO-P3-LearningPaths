@@ -1,6 +1,6 @@
 [
     {
-        "estado": "Sin completar",
+        "estado": "No Exitosa",
         "contenido": "describe el arte ",
         "nivelDificultad": 1,
         "titulo": "El arte en tu vida",
@@ -10,7 +10,7 @@
         "objetivo": "Arte",
         "reviews": [],
         "tiempoCompletarSugerido": 40,
-        "enviada": true,
+        "enviada": false,
         "duracionMin": 30,
         "idEstudiante": "83259024",
         "id": "31997514",

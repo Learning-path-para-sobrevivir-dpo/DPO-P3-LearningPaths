@@ -58,6 +58,12 @@ public class VentanaActividadPendienteCalificar extends JFrame {
 			ventanaCalificar.setVisible(true);
 		}
 	}
+
+	public void calificarActividad() {
+		// TODO Auto-generated method stub
+		ventanaSeguimiento.calificarActividad(actividad);
+		cerrar();
+	}
 	
 	
 }

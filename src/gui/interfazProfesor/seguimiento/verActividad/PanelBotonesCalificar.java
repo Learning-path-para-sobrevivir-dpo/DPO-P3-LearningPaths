@@ -41,7 +41,15 @@ public class PanelBotonesCalificar extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-
+		String comando = e.getActionCommand( );
+		if (comando.equals(CANCELAR))
+		{
+			ventanaCalificar.cerrar();
+		}
+		else if (comando.equals(CALIFICAR))
+		{
+			ventanaCalificar.calificarActividad();
+		}
 	}
 
 }

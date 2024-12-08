@@ -2,7 +2,9 @@ package gui.interfazProfesor.seguimiento;
 
 import java.awt.BorderLayout;
 import java.awt.HeadlessException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -26,6 +28,7 @@ public class VentanaSeguimientoProfesor extends JFrame {
 	private Progreso estudianteSeleccionado;
 	private Actividad actividadSeleccionada;
 	private LearningPath lpSeleccionado;
+	private Map<Actividad, Progreso> actividadesPendientes;
 	
 	private VentanaActividadPendienteCalificar ventanaActividad;
 
@@ -97,7 +100,9 @@ public class VentanaSeguimientoProfesor extends JFrame {
 
 	public void verActividadesPendientes() {
 		// TODO Auto-generated method stub
-		List<Actividad> acts = ventanaProf.getActividadesPendientesCalificar();
+		actividadesPendientes = ventanaProf.getActividadesPendientesCalificar();
+		List<Actividad> acts = new ArrayList<Actividad>();
+		acts.addAll(actividadesPendientes.keySet());
 		if (acts.isEmpty())
 			JOptionPane.showMessageDialog(this, "No tiene actividades pendientes por calificar");
 		panelLista.actualizarActividades(acts);
@@ -137,6 +142,18 @@ public class VentanaSeguimientoProfesor extends JFrame {
 	public void setLpSeleccionado(LearningPath lpSeleccionado)
 	{
 		this.lpSeleccionado = lpSeleccionado;
+	}
+
+	public void calificarActividad(Actividad actividad) {
+		// TODO Auto-generated method stub
+		Progreso p = actividadesPendientes.get(actividad);
+		ventanaProf.calificarActividad(actividad, p);
+		verActividadesPendientes();
+	}
+
+	public void problemaCalificando() {
+		// TODO Auto-generated method stub
+		JOptionPane.showMessageDialog(this, "Hubo un problema calificando la actividad. Intentelo de nuevo");
 	}
 	
 }
