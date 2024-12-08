@@ -49,4 +49,9 @@ public class GUIManejoDatos {
 		Usuario u = datos.getUsuario(login, contrasenia);
 		return u;
 	}
+	
+	public ManejoDatos getDatos()
+	{
+		return this.datos;
+	}
 }
