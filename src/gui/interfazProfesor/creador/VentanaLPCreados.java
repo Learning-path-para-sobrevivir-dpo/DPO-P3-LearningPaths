@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.swing.JFrame;
 
+import gui.GUIManejoDatos;
 import gui.PanelHeader;
 import modelo.LearningPath;
 import modelo.Profesor;
@@ -19,12 +20,15 @@ public class VentanaLPCreados extends JFrame{
 	private PanelListaPaths listaPaths; 
 	private Profesor prof;
 	private PanelEditarLP pEditar;
+	private VentanaAddActividad ventanaAddAct;
+	private GUIManejoDatos datos;
 
 
-	public VentanaLPCreados(VentanaProfCreadorLP ventanaCreador, Profesor prof) throws HeadlessException {
+	public VentanaLPCreados(VentanaProfCreadorLP ventanaCreador, Profesor prof, GUIManejoDatos datos) throws HeadlessException {
 		super();
 		this.ventanaCreador = ventanaCreador;
 		this.prof = prof;
+		this.datos = datos;
 		
 		setLayout(new BorderLayout());
 				
@@ -36,6 +40,8 @@ public class VentanaLPCreados extends JFrame{
         
         pEditar = new PanelEditarLP(this);
         add(pEditar, BorderLayout.SOUTH);
+        
+        actualizarPathsCreador();
         
 		setVisible(true);
 		
@@ -72,6 +78,16 @@ public class VentanaLPCreados extends JFrame{
 	
 	public void guardarCambios() {
 		
+	}
+	
+	public void mostrarVentanaAddAct() {
+		// TODO Auto-generated method stub
+		if (ventanaAddAct == null || !ventanaAddAct.isVisible())
+		{
+			ventanaAddAct = new VentanaAddActividad(this, datos);
+			ventanaAddAct.setVisible(true);
+			setVisible(false);
+		}
 	}
 	
     public void cerrarVentana( )

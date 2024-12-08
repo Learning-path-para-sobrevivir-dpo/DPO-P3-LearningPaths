@@ -26,6 +26,8 @@ public class PanelEditarLP extends JPanel implements ActionListener{
     private JComboBox<String> cbbDificultad;
     
     private JButton addAct;
+    private static final String ADDACT = "add actividad";
+    
     private JButton delAct;
     
     private JButton bGuardar;
@@ -75,8 +77,13 @@ public class PanelEditarLP extends JPanel implements ActionListener{
         elemModify.add(cbbDificultad);
         
         addAct = new JButton("Añadir Actividad");
-        delAct = new JButton("Eliminar Actividad");
+        addAct.addActionListener(this);
+        addAct.setVisible(true);
+        addAct.setActionCommand(ADDACT);
+        addAct.setFont(new Font("Calibri", Font.PLAIN, 16));
         botonesActs.add(addAct);
+		
+        delAct = new JButton("Eliminar Actividad");        
         botonesActs.add(delAct);
         
         bCerrar = new JButton("Cerrar");
@@ -112,6 +119,10 @@ public class PanelEditarLP extends JPanel implements ActionListener{
         else if( comando.equals( CERRAR ) )
         {
             ventanaCreados.cerrarVentana( );
+        }
+        else if( comando.equals( ADDACT ) )
+        {
+            ventanaCreados.mostrarVentanaAddAct( );
         }
     }
 
