@@ -34,6 +34,21 @@
         "fechaCreacion": "2024-12-08"
     },
     {
+        "descripcion": "lp1",
+        "fechaModificacion": "2024-12-08",
+        "nivelDificultad": 1,
+        "rating": 0,
+        "titulo": "Curso de matemáticas",
+        "estudiantes": [],
+        "actividades": {},
+        "version": 1,
+        "autor": "Sara García",
+        "objetivo": "lp1",
+        "progresosEstudiantiles": {},
+        "duracion": 0,
+        "fechaCreacion": "2024-12-08"
+    },
+    {
         "descripcion": "Curso que te enseña todo sobre Estructuras de Datos en Java",
         "fechaModificacion": "22/10/2024",
         "nivelDificultad": 1,
@@ -87,31 +102,16 @@
         "fechaCreacion": "2024-12-08"
     },
     {
-        "descripcion": "lp1",
-        "fechaModificacion": "2024-12-08",
-        "nivelDificultad": 1,
-        "rating": 0,
-        "titulo": "lp1",
-        "estudiantes": [],
-        "actividades": {},
-        "version": 1,
-        "autor": "Sara García",
-        "objetivo": "lp1",
-        "progresosEstudiantiles": {},
-        "duracion": 0,
-        "fechaCreacion": "2024-12-08"
-    },
-    {
         "descripcion": "cre",
         "fechaModificacion": "2024-12-08",
-        "nivelDificultad": 1,
+        "nivelDificultad": 3,
         "rating": 0,
         "titulo": "crear",
         "estudiantes": [],
         "actividades": {},
         "version": 1,
         "autor": "Sara García",
-        "objetivo": "",
+        "objetivo": "crearlll",
         "progresosEstudiantiles": {},
         "duracion": 0,
         "fechaCreacion": "2024-12-08"
