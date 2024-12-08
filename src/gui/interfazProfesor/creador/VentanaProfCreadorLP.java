@@ -82,7 +82,7 @@ public class VentanaProfCreadorLP extends JFrame {
 		// TODO Auto-generated method stub
 		if (ventanaCrearLP == null || !ventanaCrearLP.isVisible())
 		{
-			ventanaCrearLP = new VentanaCrearLP(this);
+			ventanaCrearLP = new VentanaCrearLP(this, prof, datos);
 			ventanaCrearLP.setVisible(true);
 			setVisible(false);
 		}

@@ -5,7 +5,10 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import gui.GUIManejoDatos;
 import gui.PanelHeader;
+import modelo.LearningPath;
+import modelo.Profesor;
 
 
 
@@ -16,11 +19,15 @@ public class VentanaCrearLP extends JFrame{
 	
 	private PanelBotonesCrearLP pBotones;
 	private PanelDetallesCrearLP pDetalles;
+	private Profesor prof;
+	private GUIManejoDatos datos;
+
 	
-	
-	public VentanaCrearLP(VentanaProfCreadorLP ventanaCreador) {
+	public VentanaCrearLP(VentanaProfCreadorLP ventanaCreador, Profesor prof, GUIManejoDatos datos) {
 		super();
 		this.ventanaCreador = ventanaCreador;
+		this.prof = prof;
+		this.datos = datos;
 
 		setLayout(new BorderLayout());
 		
@@ -48,6 +55,13 @@ public class VentanaCrearLP extends JFrame{
 
 	   public void agregarLearningPath( )
 	    {
+		   String titulo = pDetalles.getNombre();
+		   String objetivo = pDetalles.getObjetivo();
+		   String descripcion = pDetalles.getDescripcion();
+		   int nivelDificultad = pDetalles.getDificultad();
+		   LearningPath pathCreado = prof.crearLearningPath(titulo, descripcion, objetivo, nivelDificultad);
+		   datos.addLearningPath(pathCreado);
+		   datos.actualizarUsuario(prof);
 
 	    }
 
