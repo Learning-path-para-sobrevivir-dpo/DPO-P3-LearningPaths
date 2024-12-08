@@ -100,5 +100,20 @@
         "progresosEstudiantiles": {},
         "duracion": 0,
         "fechaCreacion": "2024-12-08"
+    },
+    {
+        "descripcion": "cre",
+        "fechaModificacion": "2024-12-08",
+        "nivelDificultad": 1,
+        "rating": 0,
+        "titulo": "crear",
+        "estudiantes": [],
+        "actividades": {},
+        "version": 1,
+        "autor": "Sara García",
+        "objetivo": "",
+        "progresosEstudiantiles": {},
+        "duracion": 0,
+        "fechaCreacion": "2024-12-08"
     }
 ]
