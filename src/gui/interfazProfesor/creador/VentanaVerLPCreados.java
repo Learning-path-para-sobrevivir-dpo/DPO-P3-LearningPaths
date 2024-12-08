@@ -34,7 +34,7 @@ public class VentanaVerLPCreados extends JFrame{
         listaPaths = new PanelListaPathsVer( this );
         add( listaPaths, BorderLayout.CENTER);
         
-        pInfoPath = new PanelInfoPath();
+        pInfoPath = new PanelInfoPath(this);
         add(pInfoPath, BorderLayout.SOUTH);
         
         actualizarPathsCreador();
@@ -76,6 +76,13 @@ public class VentanaVerLPCreados extends JFrame{
 		pInfoPath.actualizarPath(seleccionado );
 		
 	}
+
+
+    public void cerrarVentana( )
+    {
+    	ventanaCreador.setVisible(true);
+        dispose( );
+    }
 
 	
 }
