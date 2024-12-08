@@ -292,10 +292,5 @@ public class LearningPath {
     	promedio = suma/listRatings.size();
     	this.setRating(promedio);
     }
-
-
-
-
-
 }
 

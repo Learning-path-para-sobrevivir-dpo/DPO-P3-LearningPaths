@@ -23,6 +23,7 @@ public abstract class Actividad implements Cloneable {
 	public String tipoActividad;
 	private String estado;
 	private boolean completada;
+	private String estudiante;
 	
 	//Un HashSet con todos los IDs que ya se han utilizado para actividades
 	private static Set<String> ids = new HashSet<String>( );
@@ -51,6 +52,7 @@ public abstract class Actividad implements Cloneable {
 		this.completada = false;       
 		this.id = this.generarID();
         this.idEstudiante = "";
+        this.estudiante = "";
 	}
 	
 	public Actividad(String titulo, String descripcion, int nivelDificultad, int duracionMin, boolean obligatorio,
@@ -74,6 +76,7 @@ public abstract class Actividad implements Cloneable {
 		this.id = id;
 		Actividad.registrarIDActividad(this);
         this.idEstudiante = idEstudiante;
+        this.estudiante = "";
 	}
 	
 	
@@ -205,12 +208,6 @@ public abstract class Actividad implements Cloneable {
 		return idEstudiante;
 	}
 	
-    public String toString( )
-    {
-     // TODO completar para que retorne el nombre del restaurante
-        return titulo;
-    }
-
 	/**
 	 * Añade una actividad previa sugerida para la actividad
 	 * @param actividadPrevia: actividad previa sugerida
@@ -303,11 +300,27 @@ public abstract class Actividad implements Cloneable {
 		}
 	}
 	
+	public void setEstudiante(String nombreEstudiante)
+	{
+		this.estudiante = nombreEstudiante;
+	}
+	
+	@Override
+	public String toString()
+	{
+		if (estudiante.equals(""))
+		{
+			return titulo;
+		}
+		return titulo + " - " + estudiante;
+	}
+	
 	@Override
 	public Object clone() throws CloneNotSupportedException
 	{
 		return super.clone();
 	}
+
 	
 	/**
 	 * Método para completar una actividad, dado que se cumplan los requisitos

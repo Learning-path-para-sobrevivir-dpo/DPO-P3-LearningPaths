@@ -1,5 +1,6 @@
 package gui.interfazProfesor.seguimiento;
 
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,24 +28,28 @@ public class PanelBotonesSeguimiento extends JPanel implements ActionListener {
 	
 	public PanelBotonesSeguimiento(VentanaSeguimientoProfesor ventanaSeg) {
 		this.ventanaSeg = ventanaSeg;
-		setLayout(new GridLayout(3,1,30,30));
-		setBorder(new EmptyBorder(50,100,50,100));
+		setLayout(new GridLayout(4,1,30,30));
+		setBorder(new EmptyBorder(50,100,50,50));
 		
 		butVerTodosEstudiantes = new JButton("Ver todos mis estudiantes");
 		butVerTodosEstudiantes.addActionListener(this);
 		butVerTodosEstudiantes.setActionCommand(VERTODOS);
+		butVerTodosEstudiantes.setFont(new Font("Calibri", Font.BOLD, 15));
 		
 		butVerEstudiantesLP = new JButton("Ver los estudiantes inscritos \n a un Learning Path");
 		butVerEstudiantesLP.addActionListener(this);
 		butVerEstudiantesLP.setActionCommand(VERESTLP);
+		butVerEstudiantesLP.setFont(new Font("Calibri", Font.BOLD, 15));
 		
 		butVerActPendientesCalificar = new JButton("Ver actividades pendientes por calificar");
 		butVerActPendientesCalificar.addActionListener(this);
 		butVerActPendientesCalificar.setActionCommand(VERACTPENDIENTES);
+		butVerActPendientesCalificar.setFont(new Font("Calibri", Font.BOLD, 15));
 		
 		butRegresar = new JButton("Regresar al menu de opciones");
 		butRegresar.addActionListener(this);
 		butRegresar.setActionCommand(REGRESAR);
+		butRegresar.setFont(new Font("Calibri", Font.BOLD, 15));
 		
 		add(butVerTodosEstudiantes);
 		add(butVerEstudiantesLP);
@@ -60,15 +65,15 @@ public class PanelBotonesSeguimiento extends JPanel implements ActionListener {
 		String comando = e.getActionCommand( );
 		if (comando.equals(VERTODOS))
 		{
-			
+			ventanaSeg.verEstudiantesTodos();
 		}
 		else if (comando.equals(VERESTLP))
 		{
-			
+			ventanaSeg.verLPs();
 		}
 		else if (comando.equals(VERACTPENDIENTES))
 		{
-			
+			ventanaSeg.verActividadesPendientes();
 		}
 		else if (comando.equals(REGRESAR))
 		{

@@ -3,13 +3,12 @@
   "progresoObligatorio": 0,
   "actPendientes": [
     "83259024",
-    "83353938",
     "89436968",
     "26440388"
   ],
-  "actObligatoriasCompletadas": [],
+  "actObligatoriasCompletadas": ["83259024"],
   "progresoTotal": 0,
-  "actCompletadas": [],
+  "actCompletadas": ["83259024"],
   "actividadEnProgreso": null,
   "idActividadesOriginales": {
     "31997514": "83259024",
