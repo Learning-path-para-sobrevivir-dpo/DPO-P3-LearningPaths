@@ -14,9 +14,10 @@ import modelo.actividades.Actividad;
 public class VentanaActividadPendienteCalificar extends JFrame {
 
 	private VentanaSeguimientoProfesor ventanaSeguimiento;
-	private PanelBotonesCalificar panelBotones;
+	private PanelBotonesActividadPendiente panelBotones;
 	private PanelDetallesActividad panelActividad;
 	private PanelHeader header;
+	private VentanaCalificarActividad ventanaCalificar;
 	
 	private Actividad actividad;
 	
@@ -30,7 +31,7 @@ public class VentanaActividadPendienteCalificar extends JFrame {
 		JScrollPane scroll = new JScrollPane(panelActividad);
 		scroll.createVerticalScrollBar();
 		
-		panelBotones = new PanelBotonesCalificar(this);
+		panelBotones = new PanelBotonesActividadPendiente(this);
 		
 		add(header, BorderLayout.NORTH);
 		add(scroll, BorderLayout.CENTER);
@@ -41,7 +42,6 @@ public class VentanaActividadPendienteCalificar extends JFrame {
         setDefaultCloseOperation( DISPOSE_ON_CLOSE );
         setSize( 650, 500 );
         setTitle( "Ver Actividad Pendiente por Calificar" );
-        setDefaultCloseOperation( EXIT_ON_CLOSE );
         setLocationRelativeTo( null );
 	}
 
@@ -50,9 +50,13 @@ public class VentanaActividadPendienteCalificar extends JFrame {
 		dispose();
 	}
 
-	public void calificarActividad() {
+	public void mostrarVentanaCalificarActividad() {
 		// TODO Auto-generated method stub
-		
+		if (ventanaCalificar == null || !ventanaCalificar.isVisible())
+		{
+			ventanaCalificar = new VentanaCalificarActividad(this, actividad);
+			ventanaCalificar.setVisible(true);
+		}
 	}
 	
 	
