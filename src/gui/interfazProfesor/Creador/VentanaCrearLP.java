@@ -46,10 +46,17 @@ public class VentanaCrearLP extends JFrame{
 		
 	}
 
-	   public void agregarLearningPath( )
-	    {
+	   public void agregarLearningPath() {
+		  String nombre = pDetalles.getNombre(); 
+		  String descripcion = pDetalles.getDescripcion(); 
+		  String objetivo = pDetalles.getObjetivo();
+		  int dificultad = pDetalles.getDificultad();
+		  
+		  LearningPath path = prof.crearLearningPath(nombre, descripcion, objetivo, dificultad);
+		  datos.actualizarUsuario(prof);
+		  datos.addLearningPath(path);
 
-	    }
+	   }
 
 	    /**
 	     * Cierra la ventana sin crear un nuevo restaurante
