@@ -204,6 +204,12 @@ public abstract class Actividad implements Cloneable {
 	public String getIdEstudiante() {
 		return idEstudiante;
 	}
+	
+    public String toString( )
+    {
+     // TODO completar para que retorne el nombre del restaurante
+        return titulo;
+    }
 
 	/**
 	 * Añade una actividad previa sugerida para la actividad
