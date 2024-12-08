@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.HeadlessException;
 
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 
 import gui.PanelHeader;
 import gui.interfazProfesor.seguimiento.VentanaSeguimientoProfesor;
@@ -25,18 +26,28 @@ public class VentanaActividadPendienteCalificar extends JFrame {
 		setLayout(new BorderLayout());
 		
 		header = new PanelHeader("Por calificar: ");
+		panelActividad = new PanelDetallesActividad(actividad);
+		JScrollPane scroll = new JScrollPane(panelActividad);
+		scroll.createVerticalScrollBar();
+		
+		panelBotones = new PanelBotonesCalificar(this);
 		
 		add(header, BorderLayout.NORTH);
-		add(panelActividad, BorderLayout.CENTER);
+		add(scroll, BorderLayout.CENTER);
 		add(panelBotones, BorderLayout.SOUTH);
 		
 		pack( );
         setLocationRelativeTo( null );
         setDefaultCloseOperation( DISPOSE_ON_CLOSE );
-        setSize( 600, 500 );
+        setSize( 650, 500 );
         setTitle( "Ver Actividad Pendiente por Calificar" );
         setDefaultCloseOperation( EXIT_ON_CLOSE );
         setLocationRelativeTo( null );
+	}
+
+	public void cerrar() {
+		// TODO Auto-generated method stub
+		dispose();
 	}
 	
 	

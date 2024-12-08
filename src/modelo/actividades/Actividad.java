@@ -48,8 +48,7 @@ public abstract class Actividad implements Cloneable {
 		this.numRatings = 0;
 		this.setTipoActividad(tipo);
 		this.estado = "Sin completar";
-		this.completada = false;
-		this.completada = false;       
+		this.completada = false;    
 		this.id = this.generarID();
         this.idEstudiante = "";
         this.estudiante = "";
@@ -71,8 +70,7 @@ public abstract class Actividad implements Cloneable {
 		this.numRatings = 0;
 		this.setTipoActividad(tipo);
 		this.estado = "Sin completar";
-		this.completada = false;
-		this.completada = false;       
+		this.completada = false;      
 		this.id = id;
 		Actividad.registrarIDActividad(this);
         this.idEstudiante = idEstudiante;
@@ -129,6 +127,24 @@ public abstract class Actividad implements Cloneable {
 
 	public int getNivelDificultad() {
 		return nivelDificultad;
+	}
+	
+	public String getNivelDificultadString()
+	{
+		String dificultad = null;
+		if (nivelDificultad == FACIL)
+		{
+			dificultad = "Facil";
+		}
+		else if (nivelDificultad == INTERMEDIO)
+		{
+			dificultad = "Intermedio";
+		}
+		else if (nivelDificultad == DIFICIL)
+		{
+			dificultad = "Dificil";
+		}
+		return dificultad;
 	}
 
 	public void setNivelDificultad(int nivelDificultad) {
@@ -303,6 +319,11 @@ public abstract class Actividad implements Cloneable {
 	public void setEstudiante(String nombreEstudiante)
 	{
 		this.estudiante = nombreEstudiante;
+	}
+	
+	public String getEstudiante()
+	{
+		return this.estudiante;
 	}
 	
 	@Override
