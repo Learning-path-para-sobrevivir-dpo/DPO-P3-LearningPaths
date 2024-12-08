@@ -52,6 +52,9 @@ public class PanelBotonesCrearLP extends JPanel implements ActionListener{
         if( comando.equals( CREAR ) )
         {
             ventanaCrear.agregarLearningPath( );
+			JOptionPane.showMessageDialog(this, "Learning Path creado exitosamente!");
+			ventanaCrear.cerrarVentana();
+
         }
         else if( comando.equals( CERRAR ) )
         {
