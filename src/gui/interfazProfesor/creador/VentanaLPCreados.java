@@ -18,6 +18,7 @@ public class VentanaLPCreados extends JFrame{
 	
 	private PanelListaPaths listaPaths; 
 	private Profesor prof;
+	private PanelEditarLP pEditar;
 
 
 	public VentanaLPCreados(VentanaProfCreadorLP ventanaCreador, Profesor prof) throws HeadlessException {
@@ -33,6 +34,8 @@ public class VentanaLPCreados extends JFrame{
         listaPaths = new PanelListaPaths( this );
         add( listaPaths, BorderLayout.CENTER);
         
+        pEditar = new PanelEditarLP(this);
+        add(pEditar, BorderLayout.SOUTH);
         
 		setVisible(true);
 		
@@ -67,7 +70,16 @@ public class VentanaLPCreados extends JFrame{
 		listaPaths.actualizarLearningPaths(listPaths);
 	}
 	
+	public void guardarCambios() {
+		
+	}
 	
+    public void cerrarVentana( )
+    {
+    	ventanaCreador.setVisible(true);
+        dispose( );
+    }
+
 	
 	
 }

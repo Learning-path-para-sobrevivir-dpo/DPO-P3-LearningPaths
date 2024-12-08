@@ -14,7 +14,6 @@ public class PanelBotonesCreador extends JPanel implements ActionListener {
 	private static final String VERPATHS = "ver paths creados";
 	private static final String CREARPATH = "crear path";
 	private static final String VERREVIEWS = "ver reviews";
-	private static final String EDITARPATH = "editar path";
 	private static final String CLONARACT = "clonar actividad";
 	private static final String CREARACT = "crear actividad";
 	private static final String EDITARACT = "editar actividad";
@@ -26,7 +25,6 @@ public class PanelBotonesCreador extends JPanel implements ActionListener {
 	private JButton bVerLPCreados;
 	private JButton bCrearLP;
 	private JButton bVerReviews;
-	private JButton bEditarLP;
 	private JButton bClonarAct;
 	private JButton bCrearAct;
 	private JButton bEditarAct;
@@ -38,7 +36,7 @@ public class PanelBotonesCreador extends JPanel implements ActionListener {
 		super();
 		this.ventanaCreador = ventanaCreador;
 
-		setLayout(new GridLayout(4,1,30,30));
+		setLayout(new GridLayout(4,2,30,30));
 		setBorder(new EmptyBorder(50,100,50,100));
 		
 		bVerLPCreados = new JButton("Ver todos mis Learning Paths");
@@ -50,7 +48,6 @@ public class PanelBotonesCreador extends JPanel implements ActionListener {
 		bCrearLP.setActionCommand(CREARPATH);
 		
 		bVerReviews = new JButton("Ver reseñas");
-		bEditarLP = new JButton("Editar Learning Path");
 		bClonarAct = new JButton("Clonar actividad");
 		bCrearAct = new JButton("Crear actividad");
 		bEditarAct = new JButton("Editar Actividad");
@@ -64,7 +61,6 @@ public class PanelBotonesCreador extends JPanel implements ActionListener {
 		add(bCrearLP);
 		add(bCrearAct);
 		add(bClonarAct);
-		add(bEditarLP);
 		add(bEditarAct);
 		add(bVerReviews);
 		add(bAddReview);

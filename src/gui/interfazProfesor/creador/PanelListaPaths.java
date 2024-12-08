@@ -17,6 +17,7 @@ import javax.swing.event.ListSelectionListener;
 
 import modelo.LearningPath;
 
+@SuppressWarnings("serial")
 public class PanelListaPaths extends JPanel implements ListSelectionListener{
 
     private DefaultListModel<LearningPath> dataModel;
@@ -33,6 +34,7 @@ public class PanelListaPaths extends JPanel implements ListSelectionListener{
         border.setTitleFont(font);
 
         setBorder(border);
+        
         setLayout(new BorderLayout());
         
         dataModel = new DefaultListModel<>( );

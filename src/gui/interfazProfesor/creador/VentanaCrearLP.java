@@ -46,7 +46,7 @@ public class VentanaCrearLP extends JFrame{
 		
 	}
 
-	   public void agregarRestaurante( )
+	   public void agregarLearningPath( )
 	    {
 
 	    }

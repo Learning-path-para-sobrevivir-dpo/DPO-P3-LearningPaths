@@ -1,6 +1,7 @@
 package gui.interfazProfesor.Creador;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.util.ArrayList;
@@ -50,6 +51,8 @@ public class VentanaProfCreadorLP extends JFrame {
 		
 		add(pBotones, BorderLayout.WEST);
 		
+		pBotones.setPreferredSize(new Dimension(900, 600));
+
 		setVisible(true);
 		
 		pack( );

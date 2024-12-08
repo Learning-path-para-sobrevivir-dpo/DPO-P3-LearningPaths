@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 public class PanelBotonesCrearLP extends JPanel implements ActionListener{
 
 	private static final String CREAR = "nuevo";
-    private static final String CERRAR = "ver";
+    private static final String CERRAR = "cerrar";
 
     private JButton bCrear;
     private JButton bCerrar;
@@ -51,7 +51,7 @@ public class PanelBotonesCrearLP extends JPanel implements ActionListener{
         String comando = e.getActionCommand( );
         if( comando.equals( CREAR ) )
         {
-            ventanaCrear.agregarRestaurante( );
+            ventanaCrear.agregarLearningPath( );
         }
         else if( comando.equals( CERRAR ) )
         {
