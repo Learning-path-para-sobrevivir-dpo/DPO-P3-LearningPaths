@@ -50,7 +50,7 @@ public class PanelBotonesCalificar extends JPanel implements ActionListener {
 		}
 		else if (comando.equals(CALIFICAR))
 		{
-			
+			ventanaCalificar.calificarActividad();
 		}
 	}
 

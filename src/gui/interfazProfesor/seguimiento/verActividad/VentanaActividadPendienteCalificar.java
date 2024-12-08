@@ -49,6 +49,11 @@ public class VentanaActividadPendienteCalificar extends JFrame {
 		// TODO Auto-generated method stub
 		dispose();
 	}
+
+	public void calificarActividad() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

@@ -8,7 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import modelo.actividades.Actividad;
+import modelo.actividades.Examen;
 import modelo.actividades.Prueba;
+import modelo.actividades.Quiz;
 import modelo.actividades.RecursoEducativo;
 import modelo.actividades.Tarea;
 
@@ -19,7 +21,7 @@ public class PanelDetallesActividad extends JPanel {
 
 	public PanelDetallesActividad(Actividad actividad) {
 		this.actividad = actividad;
-		setLayout(new GridLayout(9, 2, 10, 10));
+		setLayout(new GridLayout(11, 2, 10, 10));
 		setBorder(new EmptyBorder(30, 40, 30, 40));
 		setAutoscrolls(true);
 		
@@ -121,7 +123,65 @@ public class PanelDetallesActividad extends JPanel {
 		}
 		else if (this.actividad instanceof Prueba)
 		{
+			Prueba p = (Prueba) actividad;
+			JLabel labTipoPrueba = new JLabel("Tipo de prueba");
+			JLabel tipo = new JLabel(p.getTipoPrueba());
 			
+			add(labTipoPrueba);
+			add(tipo);
+			
+			JLabel labRespondida = new JLabel("Respondida: ");
+			JLabel respondida = new JLabel();
+			
+			if (p.isRespondida())
+			{
+				respondida.setText("Si");
+				add(labRespondida);
+				add(respondida);
+				
+				JLabel labCalificacion = new JLabel("Calificacion: ");
+				JLabel calificacion = new JLabel();
+				
+				if (p.getEstado().equals("Sin completar"))
+				{
+					calificacion.setText("Pendiente por calificar");
+				}
+				else
+				{
+					calificacion.setText(Float.toString(p.getCalificacion()));
+				}
+				
+				add(labCalificacion);
+				add(calificacion);
+			}
+			else
+			{
+				respondida.setText("No");
+				add(labRespondida);
+				add(respondida);
+			}
+			
+			
+			if (p instanceof Quiz)
+			{
+				Quiz q = (Quiz) p;
+				JLabel labCalMinima = new JLabel("Calificacion minima:");
+				JLabel calMinima = new JLabel(Float.toString(q.getCalificacionMinima()));
+				add(labCalMinima);
+				add(calMinima);
+			}
+			if (p instanceof Examen)
+			{
+				Examen e = (Examen) p;
+				JLabel labCalificado = new JLabel("Se calificó:");
+				JLabel calificado = new JLabel();
+				if (e.isCalificado())
+					calificado.setText("Si");
+				else
+					calificado.setText("No");
+				add(labCalificado);
+				add(calificado);
+			}
 		}
 	}
 	
