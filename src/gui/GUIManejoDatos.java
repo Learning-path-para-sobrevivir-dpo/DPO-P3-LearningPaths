@@ -69,4 +69,9 @@ public class GUIManejoDatos {
 	public void actualizarUsuario(Usuario usuario) {
 		datos.actualizarUsuario(usuario);
 	}
+	
+	public void actualizarLearningPath(LearningPath path) {
+		datos.actualizarLearningPath(path);
+	}
 }
+

@@ -36,7 +36,7 @@ public class VentanaEditarLP extends JFrame{
 		PanelHeader header = new PanelHeader("Editar Learning Paths");
 		add(header, BorderLayout.NORTH);
 		
-        listaPaths = new PanelListaPaths(  );
+        listaPaths = new PanelListaPaths( this);
         add( listaPaths, BorderLayout.CENTER);
         
         pEditar = new PanelEditarLP(this);
@@ -77,8 +77,28 @@ public class VentanaEditarLP extends JFrame{
 		listaPaths.actualizarLearningPaths(listPaths);
 	}
 	
+	
 	public void guardarCambios() {
 		
+		LearningPath path = listaPaths.getPathSelected();
+		String nombre = pEditar.getNombre(); 
+		String descripcion = pEditar.getDescripcion(); 
+		String objetivo = pEditar.getObjetivo();
+		int dificultad = pEditar.getDificultad();
+		  
+		if (!nombre.equals("")) {
+			path.setTitulo(nombre);
+			  
+		 }
+		if(!descripcion.equals("")) {
+			path.setDescripcion(descripcion);
+		}if(!objetivo.equals("")) {
+			path.setObjetivo(objetivo);
+		}
+			
+		path.setNivelDificultad(dificultad);
+		
+		datos.actualizarLearningPath(path);
 	}
 	
 	public void mostrarVentanaAddAct() {

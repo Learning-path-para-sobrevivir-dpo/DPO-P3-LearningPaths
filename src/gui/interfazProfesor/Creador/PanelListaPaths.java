@@ -16,15 +16,18 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import modelo.LearningPath;
+import modelo.actividades.Actividad;
 
 @SuppressWarnings("serial")
 public class PanelListaPaths extends JPanel implements ListSelectionListener{
 
     private DefaultListModel<LearningPath> dataModel;
     private JList<LearningPath> listaPaths;
-	
-	public PanelListaPaths() {
+	private VentanaEditarLP ventanaEditar;
+    
+	public PanelListaPaths(VentanaEditarLP ventanaEditar) {
 		super();
+		this.ventanaEditar = ventanaEditar;
 
         Font font = new Font("SansSerif", Font.BOLD, 18); 
         TitledBorder border = BorderFactory.createTitledBorder("Learning Paths Creados:");
@@ -65,10 +68,26 @@ public class PanelListaPaths extends JPanel implements ListSelectionListener{
         dataModel.addAll( nuevosPaths );
     }
     
-	@Override
-	public void valueChanged(ListSelectionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+    public void valueChanged( ListSelectionEvent e )
+    {
+        // Revisa cuál es el lp seleccionado actualmente
+        LearningPath seleccionado = listaPaths.getSelectedValue( );
+
+
+    }
+    
+    public LearningPath getPathSelected() {
+    	return listaPaths.getSelectedValue();
+    	}
+
+    /**
+     * Cambia el restaurante seleccionado en la lista
+     * @param restaurante
+     */
+    public void seleccionarLearningPath( LearningPath path )
+    {
+        listaPaths.setSelectedValue( path, true );
+    }
+
 
 }
