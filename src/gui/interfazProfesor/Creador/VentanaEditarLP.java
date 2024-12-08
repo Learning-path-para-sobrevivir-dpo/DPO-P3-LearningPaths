@@ -12,6 +12,7 @@ import gui.GUIManejoDatos;
 import gui.PanelHeader;
 import modelo.LearningPath;
 import modelo.Profesor;
+import modelo.actividades.Actividad;
 
 @SuppressWarnings("serial")
 public class VentanaEditarLP extends JFrame{
@@ -23,6 +24,7 @@ public class VentanaEditarLP extends JFrame{
 	private PanelEditarLP pEditar;
 	private VentanaAddActividad ventanaAddAct;
 	private GUIManejoDatos datos;
+	private PanelListActsLP listaActs;
 
 
 	public VentanaEditarLP(VentanaProfCreadorLP ventanaCreador, Profesor prof, GUIManejoDatos datos) throws HeadlessException {
@@ -42,6 +44,9 @@ public class VentanaEditarLP extends JFrame{
         pEditar = new PanelEditarLP(this);
         add(pEditar, BorderLayout.SOUTH);
         
+        listaActs = new PanelListActsLP(this);
+        add(listaActs, BorderLayout.EAST);
+        
         actualizarPathsCreador();
         
 		setVisible(true);
@@ -54,6 +59,34 @@ public class VentanaEditarLP extends JFrame{
         setDefaultCloseOperation( EXIT_ON_CLOSE );
         setLocationRelativeTo( null );
 	    
+	}
+	
+	@SuppressWarnings("unused")
+	public void actualizarActsPath(LearningPath path) {
+		
+		List<Actividad> listActs = new ArrayList<Actividad>();
+		
+		Map<Integer,Actividad> actsPath = path.getActividades();
+		
+		for (Actividad act: actsPath.values())
+		{
+
+			listActs.add(act);
+		}
+			
+		if (actsPath.isEmpty()) {
+			
+			listActs = new ArrayList<Actividad>();
+			
+		}
+		
+		if (path == null) {
+			
+			listActs = new ArrayList<Actividad>();
+			
+		}
+		
+		listaActs.actualizarActs(listActs);
 	}
 	
 	
@@ -105,7 +138,7 @@ public class VentanaEditarLP extends JFrame{
 		// TODO Auto-generated method stub
 		if (ventanaAddAct == null || !ventanaAddAct.isVisible())
 		{
-			ventanaAddAct = new VentanaAddActividad(this, datos);
+			ventanaAddAct = new VentanaAddActividad(this, prof, datos, listaPaths.getPathSelected());
 			ventanaAddAct.setVisible(true);
 			setVisible(false);
 		}
@@ -116,6 +149,15 @@ public class VentanaEditarLP extends JFrame{
     	ventanaCreador.setVisible(true);
         dispose( );
     }
+
+	public void eliminarAct(int pos) {
+		// TODO Auto-generated method stub
+		LearningPath pathSelected = listaPaths.getPathSelected();
+		
+		pathSelected.eliminarActividadPorPos(pos);
+		datos.actualizarLearningPath(pathSelected);
+
+	}
 
 	
 	

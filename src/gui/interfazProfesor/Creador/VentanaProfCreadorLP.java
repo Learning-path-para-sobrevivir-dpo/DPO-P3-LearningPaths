@@ -23,6 +23,7 @@ import gui.interfazProfesor.seguimiento.VentanaSeguimientoProfesor;
 import modelo.LearningPath;
 import modelo.Profesor;
 
+@SuppressWarnings("serial")
 public class VentanaProfCreadorLP extends JFrame {
 	
 	private VentanaProfesor ventanaProf;
@@ -33,6 +34,7 @@ public class VentanaProfCreadorLP extends JFrame {
 	private VentanaVerLPCreados ventanaVerLPCreados;
 	private VentanaEditarLP ventanaEditarLP;
 	private VentanaCrearLP ventanaCrearLP;
+	private VentanaCrearActividad ventanaCrearAct;
 	
 	public VentanaProfCreadorLP(VentanaProfesor ventanaProf, Profesor prof, GUIManejoDatos datos)
 			throws HeadlessException {
@@ -103,6 +105,18 @@ public class VentanaProfCreadorLP extends JFrame {
 		// TODO Auto-generated method stub
 		ventanaProf.setVisible(true);
 		dispose();
+	}
+
+
+	public void mostrarVentanaCrearAct() {
+		// TODO Auto-generated method stub
+		if (ventanaCrearAct == null || !ventanaCrearAct.isVisible())
+		{
+			ventanaCrearAct = new VentanaCrearActividad(this, prof, datos);
+			ventanaCrearAct.setVisible(true);
+			setVisible(false);
+		}
+		
 	}
 	
 

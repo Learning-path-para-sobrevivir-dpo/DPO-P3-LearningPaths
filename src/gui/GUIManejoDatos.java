@@ -9,6 +9,7 @@ import java.util.Set;
 import modelo.LearningPath;
 import modelo.Usuario;
 import modelo.actividades.Actividad;
+import modelo.actividades.Tarea;
 import persistencia.ManejoDatos;
 
 public class GUIManejoDatos {
@@ -72,6 +73,11 @@ public class GUIManejoDatos {
 	
 	public void actualizarLearningPath(LearningPath path) {
 		datos.actualizarLearningPath(path);
+	}
+
+	public void addActividad(Actividad act) {
+		// TODO Auto-generated method stub
+		datos.addActividad(act);
 	}
 }
 

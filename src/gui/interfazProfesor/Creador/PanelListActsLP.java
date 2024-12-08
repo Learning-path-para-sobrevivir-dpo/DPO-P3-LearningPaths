@@ -15,23 +15,23 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import gui.GUIManejoDatos;
-import modelo.LearningPath;
 import modelo.actividades.Actividad;
 
-public class PanelListActsSistema extends JPanel implements ListSelectionListener{
+@SuppressWarnings("serial")
+public class PanelListActsLP extends JPanel implements ListSelectionListener{
+
 
     private DefaultListModel<Actividad> dataModel;
     private JList<Actividad> listaActs;
 	
-    private VentanaAddActividad ventanaAddAct;
+    private VentanaEditarLP ventanaEditar;
 	
-	public PanelListActsSistema(VentanaAddActividad ventanaAddAct) {
+	public PanelListActsLP(VentanaEditarLP ventanaEditar) {
 		super();
-		this.ventanaAddAct = ventanaAddAct;
+		this.ventanaEditar = ventanaEditar;
 		
         Font font = new Font("SansSerif", Font.BOLD, 18); 
-        TitledBorder border = BorderFactory.createTitledBorder("Actividades en el Sistema:");
+        TitledBorder border = BorderFactory.createTitledBorder("Actividades en el Learning Path:");
         border.setTitleFont(font);
 
         setBorder(border);
@@ -52,7 +52,7 @@ public class PanelListActsSistema extends JPanel implements ListSelectionListene
         
 	}
 	
-    public void mostrarActs (List<Actividad> acts)
+    public void actualizarActs (List<Actividad> acts)
     {
         List<Actividad> mostrarActs = new ArrayList<Actividad>();
         for( Actividad a : acts )
@@ -66,25 +66,20 @@ public class PanelListActsSistema extends JPanel implements ListSelectionListene
     @Override
     public void valueChanged( ListSelectionEvent e )
     {
-        // Revisa cuál es el restaurante seleccionado actualmente
         Actividad seleccionado = listaActs.getSelectedValue( );
 
-        // Le envía la ventana principal el restaurante seleccionado para que se actualice el resto de la interfaz
-        this.ventanaAddAct.cambiarActSelected( seleccionado );
     }
-    
+
     public Actividad getActSelected() {
+    	
     	return listaActs.getSelectedValue();
     }
 
-    /**
-     * Cambia el restaurante seleccionado en la lista
-     * @param restaurante
-     */
     public void seleccionarRestaurante( Actividad act )
     {
         listaActs.setSelectedValue( act, true );
     }
-
+	
+	
 
 }

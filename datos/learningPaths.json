@@ -2,7 +2,7 @@
     {
         "descripcion": "curso sobre gatos",
         "fechaModificacion": "2024-11-18",
-        "nivelDificultad": 3,
+        "nivelDificultad": 1,
         "rating": 0,
         "titulo": "Todo sobre gatos",
         "estudiantes": [],
@@ -25,12 +25,12 @@
         "rating": 0,
         "titulo": "Cultura francesa",
         "estudiantes": [],
-        "actividades": {},
+        "actividades": {"1": "6151825"},
         "version": 1,
         "autor": "Sara García",
         "objetivo": "aprender sobre cultura francesa",
         "progresosEstudiantiles": {},
-        "duracion": 0,
+        "duracion": 20,
         "fechaCreacion": "2024-12-08"
     },
     {
@@ -104,11 +104,11 @@
     {
         "descripcion": "cre",
         "fechaModificacion": "2024-12-08",
-        "nivelDificultad": 3,
+        "nivelDificultad": 1,
         "rating": 0,
         "titulo": "crear",
         "estudiantes": [],
-        "actividades": {},
+        "actividades": {"1": "32733940"},
         "version": 1,
         "autor": "Sara García",
         "objetivo": "crearlll",

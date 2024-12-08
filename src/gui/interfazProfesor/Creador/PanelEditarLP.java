@@ -30,6 +30,7 @@ public class PanelEditarLP extends JPanel implements ActionListener{
     private static final String ADDACT = "add actividad";
     
     private JButton delAct;
+    private static final String DELACT = "del actividad";
     
     private JButton bGuardar;
     private static final String GUARDAR = "guardar";
@@ -84,7 +85,11 @@ public class PanelEditarLP extends JPanel implements ActionListener{
         addAct.setFont(new Font("Calibri", Font.PLAIN, 16));
         botonesActs.add(addAct);
 		
-        delAct = new JButton("Eliminar Actividad");        
+        delAct = new JButton("Eliminar Actividad");     
+        delAct.addActionListener(this);
+        delAct.setVisible(true);
+        delAct.setActionCommand(DELACT);
+        delAct.setFont(new Font("Calibri", Font.PLAIN, 16));
         botonesActs.add(delAct);
         
         bCerrar = new JButton("Cerrar");
@@ -154,6 +159,12 @@ public class PanelEditarLP extends JPanel implements ActionListener{
         else if( comando.equals( ADDACT ) )
         {
         	ventanaEditar.mostrarVentanaAddAct( );
+        }
+        else if( comando.equals( DELACT ) )
+        {
+			int pos = Integer.parseInt(JOptionPane.showInputDialog(this, "Ingrese la posicion de la actividad a eliminar:"));
+        	ventanaEditar.eliminarAct(pos );
+
         }
     }
 

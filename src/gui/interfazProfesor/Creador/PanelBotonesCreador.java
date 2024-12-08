@@ -56,7 +56,11 @@ public class PanelBotonesCreador extends JPanel implements ActionListener {
 
 		bVerReviews = new JButton("Ver reseñas");
 		bClonarAct = new JButton("Clonar actividad");
+		
 		bCrearAct = new JButton("Crear actividad");
+		bCrearAct.addActionListener(this);
+		bCrearAct.setActionCommand(CREARACT);
+		
 		bEditarAct = new JButton("Editar Actividad");
 		bAddReview = new JButton("Añadir reseña a Actividad");
 
@@ -96,6 +100,10 @@ public class PanelBotonesCreador extends JPanel implements ActionListener {
 		else if (comando.equals(VERPATHS)) {
 			
 			ventanaCreador.mostrarVentanaVerPaths();
+		}
+		else if (comando.equals(CREARACT)) {
+			
+			ventanaCreador.mostrarVentanaCrearAct();
 		}
 		
 	}
