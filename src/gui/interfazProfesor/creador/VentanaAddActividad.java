@@ -14,17 +14,22 @@ import modelo.actividades.Actividad;
 
 public class VentanaAddActividad extends JFrame{
 	
-	private VentanaLPCreados ventanaCreados;
+	private VentanaEditarLP ventanaEditar;
 	private PanelListActsSistema actsSistema;
 	private GUIManejoDatos datos;
+    private PanelDetallesActSistema pDetalles;
 
-	public VentanaAddActividad(VentanaLPCreados ventanaCreados, GUIManejoDatos datos) throws HeadlessException {
+
+	public VentanaAddActividad(VentanaEditarLP ventanaEditar, GUIManejoDatos datos) throws HeadlessException {
 		super();
-		this.ventanaCreados = ventanaCreados;
+		this.ventanaEditar = ventanaEditar;
 		this.datos = datos;
 		
         actsSistema = new PanelListActsSistema(this);
         add( actsSistema, BorderLayout.CENTER);
+        
+        pDetalles = new PanelDetallesActSistema( );
+        add( pDetalles, BorderLayout.SOUTH );
         
         mostrarActsSistema();
         
@@ -49,6 +54,16 @@ public class VentanaAddActividad extends JFrame{
 		
 		actsSistema.mostrarActs(listActs);
 	}
+
+
+	public void cambiarActSelected(Actividad seleccionado) {
+		// TODO Auto-generated method stub
+
+		pDetalles.actualizarActividad( seleccionado );
+	    
+	}
+	
+	
 	
 	
 	

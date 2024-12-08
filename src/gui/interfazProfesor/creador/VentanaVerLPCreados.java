@@ -8,38 +8,34 @@ import java.util.Map;
 
 import javax.swing.JFrame;
 
-import gui.GUIManejoDatos;
 import gui.PanelHeader;
 import modelo.LearningPath;
 import modelo.Profesor;
 
-public class VentanaLPCreados extends JFrame{
+@SuppressWarnings("serial")
+public class VentanaVerLPCreados extends JFrame{
 
 	private VentanaProfCreadorLP ventanaCreador;
-	
-	private PanelListaPaths listaPaths; 
 	private Profesor prof;
-	private PanelEditarLP pEditar;
-	private VentanaAddActividad ventanaAddAct;
-	private GUIManejoDatos datos;
+	private PanelInfoPath pInfoPath;
 
-
-	public VentanaLPCreados(VentanaProfCreadorLP ventanaCreador, Profesor prof, GUIManejoDatos datos) throws HeadlessException {
+	private PanelListaPathsVer listaPaths;
+	
+	public VentanaVerLPCreados(VentanaProfCreadorLP ventanaCreador, Profesor prof) throws HeadlessException {
 		super();
 		this.ventanaCreador = ventanaCreador;
 		this.prof = prof;
-		this.datos = datos;
 		
 		setLayout(new BorderLayout());
 				
-		PanelHeader header = new PanelHeader("Learning Paths Creados");
+		PanelHeader header = new PanelHeader("Editar Learning Paths");
 		add(header, BorderLayout.NORTH);
 		
-        listaPaths = new PanelListaPaths( this );
+        listaPaths = new PanelListaPathsVer( this );
         add( listaPaths, BorderLayout.CENTER);
         
-        pEditar = new PanelEditarLP(this);
-        add(pEditar, BorderLayout.SOUTH);
+        pInfoPath = new PanelInfoPath();
+        add(pInfoPath, BorderLayout.SOUTH);
         
         actualizarPathsCreador();
         
@@ -54,7 +50,6 @@ public class VentanaLPCreados extends JFrame{
         setLocationRelativeTo( null );
 	    
 	}
-	
 	
 	
 	public void actualizarPathsCreador() {
@@ -76,27 +71,11 @@ public class VentanaLPCreados extends JFrame{
 		listaPaths.actualizarLearningPaths(listPaths);
 	}
 	
-	public void guardarCambios() {
+
+	public void cambiarPathSelected(LearningPath seleccionado) {
+		pInfoPath.actualizarPath(seleccionado );
 		
 	}
-	
-	public void mostrarVentanaAddAct() {
-		// TODO Auto-generated method stub
-		if (ventanaAddAct == null || !ventanaAddAct.isVisible())
-		{
-			ventanaAddAct = new VentanaAddActividad(this, datos);
-			ventanaAddAct.setVisible(true);
-			setVisible(false);
-		}
-	}
-	
-    public void cerrarVentana( )
-    {
-    	ventanaCreador.setVisible(true);
-        dispose( );
-    }
 
-	
 	
 }
-

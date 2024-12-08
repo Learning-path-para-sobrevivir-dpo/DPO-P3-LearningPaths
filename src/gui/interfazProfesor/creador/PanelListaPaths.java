@@ -23,11 +23,8 @@ public class PanelListaPaths extends JPanel implements ListSelectionListener{
     private DefaultListModel<LearningPath> dataModel;
     private JList<LearningPath> listaPaths;
 	
-    private VentanaLPCreados ventanaLPCreados;
-
-	public PanelListaPaths(VentanaLPCreados ventanaLPCreados) {
+	public PanelListaPaths() {
 		super();
-        this.ventanaLPCreados = ventanaLPCreados;
 
         Font font = new Font("SansSerif", Font.BOLD, 18); 
         TitledBorder border = BorderFactory.createTitledBorder("Learning Paths Creados:");

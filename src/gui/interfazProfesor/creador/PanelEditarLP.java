@@ -17,7 +17,7 @@ import javax.swing.border.TitledBorder;
 @SuppressWarnings("serial")
 public class PanelEditarLP extends JPanel implements ActionListener{
 
-	private VentanaLPCreados ventanaCreados;
+	private VentanaEditarLP ventanaEditar;
 	
     
 	private JTextField txtNombre;
@@ -37,9 +37,9 @@ public class PanelEditarLP extends JPanel implements ActionListener{
     private static final String CERRAR = "cerrar";
 
     
-	public PanelEditarLP(VentanaLPCreados ventanaCreados) {
+	public PanelEditarLP(VentanaEditarLP ventanaEditar) {
 		super();
-		this.ventanaCreados = ventanaCreados;
+		this.ventanaEditar = ventanaEditar;
 		
         Font font = new Font("SansSerif", Font.BOLD, 18); 
         TitledBorder border = BorderFactory.createTitledBorder("Para modificar el Learning Path seleccionado:");
@@ -114,15 +114,15 @@ public class PanelEditarLP extends JPanel implements ActionListener{
         String comando = e.getActionCommand( );
         if( comando.equals( GUARDAR ) )
         {
-            ventanaCreados.guardarCambios();
+        	ventanaEditar.guardarCambios();
         }
         else if( comando.equals( CERRAR ) )
         {
-            ventanaCreados.cerrarVentana( );
+        	ventanaEditar.cerrarVentana( );
         }
         else if( comando.equals( ADDACT ) )
         {
-            ventanaCreados.mostrarVentanaAddAct( );
+        	ventanaEditar.mostrarVentanaAddAct( );
         }
     }
 

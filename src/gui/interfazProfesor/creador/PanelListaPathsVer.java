@@ -15,23 +15,22 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import gui.GUIManejoDatos;
 import modelo.LearningPath;
 import modelo.actividades.Actividad;
 
-public class PanelListActsSistema extends JPanel implements ListSelectionListener{
+@SuppressWarnings("serial")
+public class PanelListaPathsVer extends JPanel implements ListSelectionListener{
 
-    private DefaultListModel<Actividad> dataModel;
-    private JList<Actividad> listaActs;
+	private VentanaVerLPCreados ventanaCreados;
+    private DefaultListModel<LearningPath> dataModel;
+    private JList<LearningPath> listaPaths;
 	
-    private VentanaAddActividad ventanaAddAct;
-	
-	public PanelListActsSistema(VentanaAddActividad ventanaAddAct) {
+	public PanelListaPathsVer(VentanaVerLPCreados ventanaCreados) {
 		super();
-		this.ventanaAddAct = ventanaAddAct;
-		
+		this.ventanaCreados = ventanaCreados;
+
         Font font = new Font("SansSerif", Font.BOLD, 18); 
-        TitledBorder border = BorderFactory.createTitledBorder("Actividades en el Sistema:");
+        TitledBorder border = BorderFactory.createTitledBorder("Learning Paths Creados:");
         border.setTitleFont(font);
 
         setBorder(border);
@@ -39,38 +38,43 @@ public class PanelListActsSistema extends JPanel implements ListSelectionListene
         setLayout(new BorderLayout());
         
         dataModel = new DefaultListModel<>( );
-        listaActs = new JList<>( dataModel );
-        listaActs.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
-        listaActs.addListSelectionListener( this );
+        listaPaths = new JList<>( dataModel );
+        listaPaths.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
+        listaPaths.addListSelectionListener( this );
 
         // Crear un panel con barras de desplazamiento para la lista
-        JScrollPane scroll = new JScrollPane( listaActs );
+        JScrollPane scroll = new JScrollPane( listaPaths );
         scroll.setHorizontalScrollBarPolicy( JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
         scroll.setVerticalScrollBarPolicy( JScrollPane.VERTICAL_SCROLLBAR_ALWAYS );
 
         add( scroll );
         
 	}
-	
-    public void mostrarActs (List<Actividad> acts)
-    {
-        List<Actividad> mostrarActs = new ArrayList<Actividad>();
-        for( Actividad a : acts )
-        {
-            if( !dataModel.contains( a ) )
-                mostrarActs.add( a );
-        }
-        dataModel.addAll(mostrarActs);
-    }
 
-    @Override
+    /**
+     * Actualiza la lista de learning paths que se muestran en la lista.
+     * 
+     * Para esto, lo que se modifica es el model (y no el JList)
+     * @param learning paths
+     */
+    public void actualizarLearningPaths ( List<LearningPath> paths )
+    {
+        List<LearningPath> nuevosPaths = new ArrayList<LearningPath>( );
+        for( LearningPath q : paths )
+        {
+            if( !dataModel.contains( q ) )
+                nuevosPaths.add( q );
+        }
+        dataModel.addAll( nuevosPaths );
+    }
+    
     public void valueChanged( ListSelectionEvent e )
     {
         // Revisa cuál es el restaurante seleccionado actualmente
-        Actividad seleccionado = listaActs.getSelectedValue( );
+        LearningPath seleccionado = listaPaths.getSelectedValue( );
 
         // Le envía la ventana principal el restaurante seleccionado para que se actualice el resto de la interfaz
-        this.ventanaAddAct.cambiarActSelected( seleccionado );
+        this.ventanaCreados.cambiarPathSelected( seleccionado );
     }
 
     /**
@@ -79,8 +83,7 @@ public class PanelListActsSistema extends JPanel implements ListSelectionListene
      */
     public void seleccionarRestaurante( Actividad act )
     {
-        listaActs.setSelectedValue( act, true );
+        listaPaths.setSelectedValue( act, true );
     }
-
 
 }

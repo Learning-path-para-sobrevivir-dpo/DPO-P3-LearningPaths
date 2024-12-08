@@ -30,7 +30,8 @@ public class VentanaProfCreadorLP extends JFrame {
 	private Profesor prof;
 	private GUIManejoDatos datos;
 	private PanelBotonesCreador pBotones;
-	private VentanaLPCreados ventanaLPCreados;
+	private VentanaVerLPCreados ventanaVerLPCreados;
+	private VentanaEditarLP ventanaEditarLP;
 	private VentanaCrearLP ventanaCrearLP;
 	
 	public VentanaProfCreadorLP(VentanaProfesor ventanaProf, Profesor prof, GUIManejoDatos datos)
@@ -67,12 +68,12 @@ public class VentanaProfCreadorLP extends JFrame {
 	}
 	
 
-	public void mostrarVentanaLPCreados() {
+	public void mostrarVentanaEditarLP() {
 		// TODO Auto-generated method stub
-		if (ventanaLPCreados == null || !ventanaLPCreados.isVisible())
+		if (ventanaEditarLP == null || !ventanaEditarLP.isVisible())
 		{
-			ventanaLPCreados = new VentanaLPCreados(this, prof, datos);
-			ventanaLPCreados.setVisible(true);
+			ventanaEditarLP = new VentanaEditarLP(this, prof, datos);
+			ventanaEditarLP.setVisible(true);
 			setVisible(false);
 		}
 	}
@@ -85,6 +86,17 @@ public class VentanaProfCreadorLP extends JFrame {
 			ventanaCrearLP.setVisible(true);
 			setVisible(false);
 		}
+	}
+	
+	public void mostrarVentanaVerPaths() {
+		// TODO Auto-generated method stub
+		if (ventanaVerLPCreados == null || !ventanaVerLPCreados.isVisible())
+		{
+			ventanaVerLPCreados = new VentanaVerLPCreados(this,prof);
+			ventanaVerLPCreados.setVisible(true);
+			setVisible(false);
+		}
+		
 	}
 	
 	public void regresar() {

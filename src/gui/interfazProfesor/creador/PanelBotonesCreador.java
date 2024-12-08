@@ -13,6 +13,7 @@ public class PanelBotonesCreador extends JPanel implements ActionListener {
 	
 	private static final String VERPATHS = "ver paths creados";
 	private static final String CREARPATH = "crear path";
+	private static final String EDITARLP = "editar path";
 	private static final String VERREVIEWS = "ver reviews";
 	private static final String CLONARACT = "clonar actividad";
 	private static final String CREARACT = "crear actividad";
@@ -28,6 +29,7 @@ public class PanelBotonesCreador extends JPanel implements ActionListener {
 	private JButton bClonarAct;
 	private JButton bCrearAct;
 	private JButton bEditarAct;
+	private JButton bEditarLP;
 	private JButton bAddReview;
 	private JButton butRegresar;
 	
@@ -36,7 +38,7 @@ public class PanelBotonesCreador extends JPanel implements ActionListener {
 		super();
 		this.ventanaCreador = ventanaCreador;
 
-		setLayout(new GridLayout(4,2,30,30));
+		setLayout(new GridLayout(3,3,30,30));
 		setBorder(new EmptyBorder(50,100,50,100));
 		
 		bVerLPCreados = new JButton("Ver todos mis Learning Paths");
@@ -47,6 +49,11 @@ public class PanelBotonesCreador extends JPanel implements ActionListener {
 		bCrearLP.addActionListener(this);
 		bCrearLP.setActionCommand(CREARPATH);
 		
+		
+		bEditarLP = new JButton("Editar LearningPath");
+		bEditarLP.addActionListener(this);
+		bEditarLP.setActionCommand(EDITARLP);
+
 		bVerReviews = new JButton("Ver reseñas");
 		bClonarAct = new JButton("Clonar actividad");
 		bCrearAct = new JButton("Crear actividad");
@@ -59,6 +66,7 @@ public class PanelBotonesCreador extends JPanel implements ActionListener {
 		
 		add(bVerLPCreados);
 		add(bCrearLP);
+		add(bEditarLP);
 		add(bCrearAct);
 		add(bClonarAct);
 		add(bEditarAct);
@@ -77,13 +85,17 @@ public class PanelBotonesCreador extends JPanel implements ActionListener {
 		{
 			ventanaCreador.regresar();
 		}
-		else if (comando.equals(VERPATHS)) {
+		else if (comando.equals(EDITARLP)) {
 			
-			ventanaCreador.mostrarVentanaLPCreados();
+			ventanaCreador.mostrarVentanaEditarLP();
 		}
 		else if (comando.equals(CREARPATH)) {
 			
 			ventanaCreador.mostrarVentanaCrearLP();
+		}
+		else if (comando.equals(VERPATHS)) {
+			
+			ventanaCreador.mostrarVentanaVerPaths();
 		}
 		
 	}
