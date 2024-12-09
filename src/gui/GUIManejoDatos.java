@@ -53,7 +53,11 @@ public class GUIManejoDatos {
 		Usuario u = datos.getUsuario(login, contrasenia);
 		return u;
 	}
-
+	
+	public ManejoDatos getDatos()
+	{
+		return this.datos;
+  
 	public List<Actividad> getActividadesSistema() {
 		List<Actividad> acts = new ArrayList<Actividad>();
 		Map<String, Actividad>actsSistema = datos.getActividades();
