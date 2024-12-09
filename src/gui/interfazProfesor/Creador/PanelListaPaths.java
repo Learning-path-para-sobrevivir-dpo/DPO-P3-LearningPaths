@@ -73,6 +73,7 @@ public class PanelListaPaths extends JPanel implements ListSelectionListener{
         // Revisa cuál es el lp seleccionado actualmente
         LearningPath seleccionado = listaPaths.getSelectedValue( );
 
+        ventanaEditar.actualizarActsPath(seleccionado);
 
     }
     

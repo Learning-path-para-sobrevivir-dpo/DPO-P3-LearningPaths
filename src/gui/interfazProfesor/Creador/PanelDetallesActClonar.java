@@ -15,9 +15,8 @@ import javax.swing.SwingConstants;
 import modelo.actividades.Actividad;
 
 @SuppressWarnings("serial")
-public class PanelDetallesActSistema extends JPanel implements ActionListener{
+public class PanelDetallesActClonar  extends JPanel implements ActionListener{
 	
-	private VentanaAddActividad ventanaAdd;
 	private VentanaClonarAct ventanaClonar;
     private JLabel lTitulo;
     private JLabel lDescripcion;
@@ -28,14 +27,17 @@ public class PanelDetallesActSistema extends JPanel implements ActionListener{
     private JLabel lTipo;
     
     private JButton addAct;
-    private static final String ADDACT = "add actividad";
+    private static final String CLONAR = "clonar actividad";
     
-    
-	public PanelDetallesActSistema(VentanaAddActividad ventanaAdd) {
+    private JButton bCerrar;
+    private static final String CERRAR = "cerrar";
+       
+       
+	public PanelDetallesActClonar(VentanaClonarAct ventanaClonar) {
 		super();
-		this.ventanaAdd = ventanaAdd;
+		this.ventanaClonar = ventanaClonar;
 		
-    	this.setLayout(new GridLayout(8,1));
+    	this.setLayout(new GridLayout(9,1));
 		
     	lTitulo = new JLabel("Titulo: ");
     	lTitulo.setHorizontalTextPosition(SwingConstants.LEFT);
@@ -59,11 +61,17 @@ public class PanelDetallesActSistema extends JPanel implements ActionListener{
     	lTipo = new JLabel("Tipo de Actividad: ");
     	lTipo.setHorizontalTextPosition(SwingConstants.LEFT);
     	
-        addAct = new JButton("Añadir Actividad");
+        addAct = new JButton("Clonar Actividad");
         addAct.addActionListener(this);
         addAct.setVisible(true);
-        addAct.setActionCommand(ADDACT);
+        addAct.setActionCommand(CLONAR);
         addAct.setFont(new Font("Calibri", Font.PLAIN, 16));
+        
+        bCerrar = new JButton("Cerrar");
+        bCerrar.addActionListener(this);
+        bCerrar.setVisible(true);
+        bCerrar.setActionCommand(CERRAR);
+        bCerrar.setFont(new Font("Calibri", Font.PLAIN, 16));
         
     	this.add(lTitulo);
     	this.add(lDescripcion);
@@ -73,6 +81,8 @@ public class PanelDetallesActSistema extends JPanel implements ActionListener{
     	this.add(lTiempoSug);
     	this.add(lTipo);
     	this.add(addAct);
+    	this.add(bCerrar);
+
 	}
 	
 	
@@ -104,12 +114,13 @@ public class PanelDetallesActSistema extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
         String comando = e.getActionCommand( );
-        if( comando.equals( ADDACT ) )
+        if( comando.equals( CLONAR ) )
         {
-			String nomPath = JOptionPane.showInputDialog(this, "Ingrese el nombre del Learning Path al que desea agregar la actividad:");
-
-        	ventanaAdd.addActividad(nomPath );
-        	ventanaAdd.cerrarVentana();
+			ventanaClonar.clonarActividad();
+			ventanaClonar.cerrarVentana();
+        }else if( comando.equals( CERRAR ) )
+        {
+			ventanaClonar.cerrarVentana();
         }
 		
 	}

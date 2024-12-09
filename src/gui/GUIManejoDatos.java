@@ -11,6 +11,7 @@ import modelo.LearningPath;
 import modelo.Progreso;
 import modelo.Usuario;
 import modelo.actividades.Actividad;
+import modelo.actividades.Tarea;
 import persistencia.ManejoDatos;
 
 public class GUIManejoDatos {
@@ -54,7 +55,12 @@ public class GUIManejoDatos {
 		Usuario u = datos.getUsuario(login, contrasenia);
 		return u;
 	}
-
+	
+	public ManejoDatos getDatos()
+	{
+		return this.datos;
+  
+	}	
 	public List<Actividad> getActividadesSistema() {
 		List<Actividad> acts = new ArrayList<Actividad>();
 		Map<String, Actividad>actsSistema = datos.getActividades();
@@ -89,6 +95,11 @@ public class GUIManejoDatos {
 	public void actualizarActividad(Actividad actividad)
 	{
 		datos.actualizarActividad(actividad);
+	}
+
+	public void addActividad(Actividad act) {
+		// TODO Auto-generated method stub
+		datos.addActividad(act);
 	}
 }
 
