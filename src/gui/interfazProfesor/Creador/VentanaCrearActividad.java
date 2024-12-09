@@ -13,6 +13,11 @@ import javax.swing.JPanel;
 import gui.GUIManejoDatos;
 import gui.PanelHeader;
 import modelo.Profesor;
+import modelo.actividades.Encuesta;
+import modelo.actividades.Examen;
+import modelo.actividades.QuizOpcionMultiple;
+import modelo.actividades.QuizVerdaderoFalso;
+import modelo.actividades.RecursoEducativo;
 import modelo.actividades.Tarea;
 
 @SuppressWarnings("serial")
@@ -104,7 +109,78 @@ public class VentanaCrearActividad extends JFrame implements ActionListener {
         setLocationRelativeTo( null );
 	    
 	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String comando = e.getActionCommand( );
+		
+		if (comando.equals(TAREA))
+		{
+			panelTarea();
+		} else if (comando.equals(RECED)){
+			panelRec();
+		} else if (comando.equals(QUIZMUL)){
+			panelQuizMul();
+		}else if (comando.equals(QUIZVF)){
+			panelQuizVF();	
+		}else if (comando.equals(EXAMEN)){
+			panelExamen();	
+		}else if (comando.equals(ENCU)){
+			panelEncuesta();	
+		}
+	}
 	
+	private void panelEncuesta() {
+	    this.remove(pCrear);
+
+	    // Crea y agrega el nuevo panel
+	    pCrear = new PanelCrearEncuesta(this);
+	    add(pCrear, BorderLayout.CENTER);
+
+	    // Revalida y repinta el JFrame para reflejar los cambios
+	    revalidate();
+	    repaint();			
+	}
+
+	private void panelExamen() {
+	    this.remove(pCrear);
+
+	    // Crea y agrega el nuevo panel
+	    pCrear = new PanelCrearExamen(this);
+	    add(pCrear, BorderLayout.CENTER);
+
+	    // Revalida y repinta el JFrame para reflejar los cambios
+	    revalidate();
+	    repaint();			
+	}
+
+	private void panelQuizVF() {
+	    // Elimina el panel existente si ya hay uno
+	    this.remove(pCrear);
+
+	    // Crea y agrega el nuevo panel
+	    pCrear = new PanelCrearQuizVF(this);
+	    add(pCrear, BorderLayout.CENTER);
+
+	    // Revalida y repinta el JFrame para reflejar los cambios
+	    revalidate();
+	    repaint();	
+		
+	}
+
+	private void panelQuizMul() {
+	    // Elimina el panel existente si ya hay uno
+	    this.remove(pCrear);
+
+	    // Crea y agrega el nuevo panel
+	    pCrear = new PanelCrearQuizMul(this);
+	    add(pCrear, BorderLayout.CENTER);
+
+	    // Revalida y repinta el JFrame para reflejar los cambios
+	    revalidate();
+	    repaint();		
+	}
+
 	public void panelTarea() {
 	    // Elimina el panel existente si ya hay uno
 	    this.remove(pCrear);
@@ -117,16 +193,20 @@ public class VentanaCrearActividad extends JFrame implements ActionListener {
 	    revalidate();
 	    repaint();
 	}
+	
+	public void panelRec() {
+	    // Elimina el panel existente si ya hay uno
+	    this.remove(pCrear);
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		String comando = e.getActionCommand( );
-		
-		if (comando.equals(TAREA))
-		{
-			panelTarea();
-		}		
+	    // Crea y agrega el nuevo panel
+	    pCrear = new PanelCrearRecursoEducativo(this);
+	    add(pCrear, BorderLayout.CENTER);
+
+	    // Revalida y repinta el JFrame para reflejar los cambios
+	    revalidate();
+	    repaint();
 	}
+
 	
 	public void crearTarea() {
 	    if (pCrear instanceof PanelCrearTarea) {
@@ -151,6 +231,138 @@ public class VentanaCrearActividad extends JFrame implements ActionListener {
 	        cerrarVentana();
 	    } else {
 	        System.err.println("Error: El panel actual no es PanelCrearTarea.");
+	    }
+	}
+
+	
+	public void crearRecursoEducativo() {
+	    if (pCrear instanceof PanelCrearRecursoEducativo) {
+	    	PanelCrearRecursoEducativo panelRec = (PanelCrearRecursoEducativo) pCrear;
+
+	        String nombre = panelRec.getNombre();
+	        String descripcion = panelRec.getDescripcion();
+	        int dificultad = panelRec.getDificultad();
+	        int duracion = Integer.parseInt(panelRec.getDuracion());
+	        boolean obligatorio = panelRec.getObligatorio();
+	        int tiempoSugerido = Integer.parseInt(panelRec.getTiempo());
+	        String contenido = panelRec.getContenido();
+	        String tipo = "Recurso Educativo";
+	        String tipoRecurso = panelRec.getTipoRecurso();
+	        String enlace = panelRec.getEnlace();
+
+
+	        // Llama al método del Profesor para crear la tarea
+	    	RecursoEducativo recCreado = prof.crearRecursoEducativo(nombre, descripcion, dificultad, duracion, obligatorio, tiempoSugerido, tipo, tipoRecurso, contenido, enlace);
+
+			datos.addActividad(recCreado);
+			datos.actualizarUsuario(prof);
+	        
+	        cerrarVentana();
+	    } else {
+	        System.err.println("Error: El panel actual no es el esperado.");
+	    }
+	}
+	
+	
+	public void crearQuizMul() {
+	    if (pCrear instanceof PanelCrearQuizMul) {
+	    	PanelCrearQuizMul panelAct = (PanelCrearQuizMul) pCrear;
+
+	        String nombre = panelAct.getNombre();
+	        String descripcion = panelAct.getDescripcion();
+	        int dificultad = panelAct.getDificultad();
+	        int duracion = Integer.parseInt(panelAct.getDuracion());
+	        boolean obligatorio = panelAct.getObligatorio();
+	        int tiempoSugerido = Integer.parseInt(panelAct.getTiempo());
+	        String tipo = "Prueba";
+	        String tipoPrueba = "Quiz Opcion Multiple";
+	        float califMin = Float.parseFloat(panelAct.getCalifMin());
+
+
+	        // Llama al método del Profesor para crear la tarea
+			QuizOpcionMultiple quiz = prof.crearQuizMultiple(nombre, descripcion, dificultad, duracion, obligatorio, tiempoSugerido, tipo, tipoPrueba, califMin);
+
+			datos.addActividad(quiz);
+			datos.actualizarUsuario(prof);
+	        
+	        cerrarVentana();
+	    } else {
+	        System.err.println("Error: El panel actual no es el esperado.");
+	    }
+	}
+	
+	public void crearQuizVF() {
+	    if (pCrear instanceof PanelCrearQuizVF) {
+	    	PanelCrearQuizVF panelAct = (PanelCrearQuizVF) pCrear;
+
+	        String nombre = panelAct.getNombre();
+	        String descripcion = panelAct.getDescripcion();
+	        int dificultad = panelAct.getDificultad();
+	        int duracion = Integer.parseInt(panelAct.getDuracion());
+	        boolean obligatorio = panelAct.getObligatorio();
+	        int tiempoSugerido = Integer.parseInt(panelAct.getTiempo());
+	        String tipo = "Prueba";
+	        String tipoPrueba = "Quiz Verdadero Falso";
+	        float califMin = Float.parseFloat(panelAct.getCalifMin());
+
+
+	        // Llama al método del Profesor para crear la tarea
+			QuizVerdaderoFalso quiz = prof.crearQuizVoF(nombre, descripcion, dificultad, duracion, obligatorio, tiempoSugerido, tipo, tipoPrueba, califMin);
+
+			datos.addActividad(quiz);
+			datos.actualizarUsuario(prof);
+	        
+	        cerrarVentana();
+	    } else {
+	        System.err.println("Error: El panel actual no es el esperado.");
+	    }
+	}
+	
+	public void crearExamen() {
+	    if (pCrear instanceof PanelCrearExamen) {
+	    	PanelCrearExamen panelAct = (PanelCrearExamen) pCrear;
+
+	        String nombre = panelAct.getNombre();
+	        String descripcion = panelAct.getDescripcion();
+	        int dificultad = panelAct.getDificultad();
+	        int duracion = Integer.parseInt(panelAct.getDuracion());
+	        boolean obligatorio = panelAct.getObligatorio();
+	        int tiempoSugerido = Integer.parseInt(panelAct.getTiempo());
+	        String tipo = "Prueba";
+	        String tipoPrueba = "Examen";
+
+			Examen exam = prof.crearExamen(nombre, descripcion, dificultad, duracion, obligatorio, tiempoSugerido, tipo, tipoPrueba);
+
+			datos.addActividad(exam);
+			datos.actualizarUsuario(prof);
+	        
+	        cerrarVentana();
+	    } else {
+	        System.err.println("Error: El panel actual no es el esperado.");
+	    }
+	}
+
+	public void crearEncuesta() {
+	    if (pCrear instanceof PanelCrearExamen) {
+	    	PanelCrearExamen panelAct = (PanelCrearExamen) pCrear;
+
+	        String nombre = panelAct.getNombre();
+	        String descripcion = panelAct.getDescripcion();
+	        int dificultad = panelAct.getDificultad();
+	        int duracion = Integer.parseInt(panelAct.getDuracion());
+	        boolean obligatorio = panelAct.getObligatorio();
+	        int tiempoSugerido = Integer.parseInt(panelAct.getTiempo());
+	        String tipo = "Prueba";
+	        String tipoPrueba = "Encuesta";
+
+	    	Encuesta encuesta = prof.crearEncuesta(nombre, descripcion, dificultad, duracion, obligatorio, tiempoSugerido, tipo, tipoPrueba);
+
+			datos.addActividad(encuesta);
+			datos.actualizarUsuario(prof);
+	        
+	        cerrarVentana();
+	    } else {
+	        System.err.println("Error: El panel actual no es el esperado.");
 	    }
 	}
 

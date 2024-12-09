@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -15,8 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-@SuppressWarnings("serial")
-public class PanelCrearTarea  extends JPanel implements ActionListener {
+public class PanelCrearEncuesta extends JPanel implements ActionListener {
 	
     private VentanaCrearActividad ventanaAct;
 	
@@ -25,10 +23,7 @@ public class PanelCrearTarea  extends JPanel implements ActionListener {
     private JComboBox<String> cbbDificultad;
     private JTextField txtDuracion;
     private JComboBox<String> cbbObligatorio;
-    private JTextField txtTiempo;
-    private JTextField txtContenido;
-    private JTextField txtMedioEntrega;
-    
+    private JTextField txtTiempo;    
 
 	private static final String CREAR = "nuevo";
     private static final String CERRAR = "cerrar";
@@ -36,11 +31,11 @@ public class PanelCrearTarea  extends JPanel implements ActionListener {
     private JButton bCrear;
     private JButton bCerrar;
 	
-	public PanelCrearTarea(VentanaCrearActividad ventanaAct) {
+	public PanelCrearEncuesta(VentanaCrearActividad ventanaAct) {
 		super();
 		this.ventanaAct = ventanaAct;
 		
-		setLayout(new GridLayout(9,2));
+		setLayout(new GridLayout(10,2));
 
         Font font = new Font("SansSerif", Font.BOLD, 18); 
         TitledBorder border = BorderFactory.createTitledBorder("Se necesita la siguiente información:");
@@ -66,11 +61,6 @@ public class PanelCrearTarea  extends JPanel implements ActionListener {
         JLabel lblTiempo = new JLabel("    Tiempo sugerido");
         txtTiempo= new JTextField();
         
-        JLabel lblContenido = new JLabel("    Contenido");
-        txtContenido= new JTextField();
-        
-        JLabel lblMedioEntrega = new JLabel("    Medio Entrega");
-        txtMedioEntrega= new JTextField();
         
         add(lblNombre);
         add(txtNombre);
@@ -84,12 +74,9 @@ public class PanelCrearTarea  extends JPanel implements ActionListener {
         add(cbbObligatorio);
         add(lblTiempo);
         add(txtTiempo);
-        add(lblContenido);
-        add(txtContenido);
-        add(lblMedioEntrega);
-        add(txtMedioEntrega);
-        
-        bCrear = new JButton("Crear Tarea");
+ 
+
+        bCrear = new JButton("Crear Encuesta");
         bCrear.addActionListener(this);
         bCrear.setVisible(true);
         bCrear.setActionCommand(CREAR);
@@ -114,8 +101,8 @@ public class PanelCrearTarea  extends JPanel implements ActionListener {
         String comando = e.getActionCommand( );
         if( comando.equals( CREAR ) )
         {
-            ventanaAct.crearTarea( );
-			JOptionPane.showMessageDialog(this, "Tarea creada exitosamente!");
+            ventanaAct.crearExamen( );
+			JOptionPane.showMessageDialog(this, "Encuesta creada exitosamente!");
 			ventanaAct.cerrarVentana();
 
         }
@@ -160,15 +147,8 @@ public class PanelCrearTarea  extends JPanel implements ActionListener {
         return x; 
 	}
 
-	public String getContenido() {
-    	String x = txtContenido.getText();
-        return x;  
-	}
+	
 
-	public String getMedioEntrega() {
-    	String x = txtMedioEntrega.getText();
-        return x;  
-	}
 
 
 }
