@@ -18,9 +18,13 @@ import modelo.actividades.Tarea;
 public class VentanaCalificarActividad extends JFrame {
 	
 	private VentanaActividadPendienteCalificar ventanaPendiente;
+	private VentanaMostrarPreguntasExamen ventanaPreguntas;
+	
 	private PanelHeader header;
 	private PanelCalificarTarea panelTarea;
+	private PanelCalificarExamen panelExamen;
 	private PanelBotonesCalificar panelBotones;
+	private boolean calificado;
 	private Actividad actividad;
 	
 	public VentanaCalificarActividad(VentanaActividadPendienteCalificar ventanaPendiente, Actividad actividad)
@@ -35,10 +39,13 @@ public class VentanaCalificarActividad extends JFrame {
 		{
 			panelTarea = new PanelCalificarTarea();
 			add(panelTarea, BorderLayout.CENTER);
+			calificado = true;
 		}
 		else if (actividad instanceof Examen)
 		{
-			
+			calificado = false;
+			panelExamen = new PanelCalificarExamen(this, (Examen) actividad);
+			add(panelExamen, BorderLayout.CENTER);
 		}
 		
 		add(header, BorderLayout.NORTH);
@@ -48,6 +55,11 @@ public class VentanaCalificarActividad extends JFrame {
         setLocationRelativeTo( null );
         setVisible( true );
 	}
+	
+	public void setCalificado(boolean calificado)
+	{
+		this.calificado = calificado;
+	}
 
 	public void cerrar() {
 		// TODO Auto-generated method stub
@@ -56,17 +68,33 @@ public class VentanaCalificarActividad extends JFrame {
 
 	public void calificarActividad() {
 		// TODO Auto-generated method stub
-		if(JOptionPane.showConfirmDialog(this, "Esta seguro de que quiere calificar esta actividad",
-                "Confirmacion para calificar", JOptionPane.YES_NO_OPTION,
-                JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION)
+		if (calificado)
 		{
-			if (actividad instanceof Tarea)
+			if(JOptionPane.showConfirmDialog(this, "Esta seguro de que quiere calificar esta actividad",
+	                "Confirmacion para calificar", JOptionPane.YES_NO_OPTION,
+	                JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION)
 			{
-				String marcada = panelTarea.getMarcar();
-				actividad.setEstado(marcada);
+				if (actividad instanceof Tarea)
+				{
+					String marcada = panelTarea.getMarcar();
+					actividad.setEstado(marcada);
+				}
+				else if (actividad instanceof Examen)
+				{
+					
+				}
+				ventanaPendiente.calificarActividad();
+				dispose();
 			}
-			ventanaPendiente.calificarActividad();
-			dispose();
+		}
+		
+	}
+
+	public void mostrarVentanaPreguntasExamen() {
+		// TODO Auto-generated method stub
+		if (ventanaPreguntas == null || !ventanaPreguntas.isVisible())
+		{
+			ventanaPreguntas = new VentanaMostrarPreguntasExamen(this, (Examen) actividad);
 		}
 	}
 	
