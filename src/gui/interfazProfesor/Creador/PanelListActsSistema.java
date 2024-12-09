@@ -27,10 +27,37 @@ public class PanelListActsSistema extends JPanel implements ListSelectionListene
 	
     private VentanaAddActividad ventanaAddAct;
 	private VentanaClonarAct ventanaClonar;
+	private VentanaEditarAct ventanaEditarAct;
     
 	public PanelListActsSistema(VentanaAddActividad ventanaAddAct) {
 		super();
 		this.ventanaAddAct = ventanaAddAct;
+		
+        Font font = new Font("SansSerif", Font.BOLD, 18); 
+        TitledBorder border = BorderFactory.createTitledBorder("Actividades en el Sistema:");
+        border.setTitleFont(font);
+
+        setBorder(border);
+        
+        setLayout(new BorderLayout());
+        
+        dataModel = new DefaultListModel<>( );
+        listaActs = new JList<>( dataModel );
+        listaActs.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
+        listaActs.addListSelectionListener( this );
+
+        // Crear un panel con barras de desplazamiento para la lista
+        JScrollPane scroll = new JScrollPane( listaActs );
+        scroll.setHorizontalScrollBarPolicy( JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
+        scroll.setVerticalScrollBarPolicy( JScrollPane.VERTICAL_SCROLLBAR_ALWAYS );
+
+        add( scroll );
+        
+	}
+	
+	public PanelListActsSistema(VentanaEditarAct ventanaEditarAct) {
+		super();
+		this.ventanaEditarAct = ventanaEditarAct;
 		
         Font font = new Font("SansSerif", Font.BOLD, 18); 
         TitledBorder border = BorderFactory.createTitledBorder("Actividades en el Sistema:");
@@ -97,10 +124,12 @@ public class PanelListActsSistema extends JPanel implements ListSelectionListene
         // Revisa cuál es el restaurante seleccionado actualmente
         Actividad seleccionado = listaActs.getSelectedValue( );
 
-        if (ventanaAddAct == null) {
+        if ((ventanaAddAct == null) && (ventanaEditarAct == null)) {
         	ventanaClonar.cambiarActSelected(seleccionado);
-        }else {
+        }else if((ventanaClonar == null) && (ventanaEditarAct == null)){
         	ventanaAddAct.cambiarActSelected(seleccionado);
+        }else {
+        	ventanaEditarAct.cambiarActSelected(seleccionado);
         }
     }
     
