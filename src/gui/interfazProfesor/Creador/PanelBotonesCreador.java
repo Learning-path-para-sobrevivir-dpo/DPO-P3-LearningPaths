@@ -18,7 +18,6 @@ public class PanelBotonesCreador extends JPanel implements ActionListener {
 	private static final String CLONARACT = "clonar actividad";
 	private static final String CREARACT = "crear actividad";
 	private static final String EDITARACT = "editar actividad";
-	private static final String ADDREVIEW = "añadir review";
 	private static final String REGRESAR = "regresar";
 	
 	private VentanaProfCreadorLP ventanaCreador;
@@ -30,7 +29,6 @@ public class PanelBotonesCreador extends JPanel implements ActionListener {
 	private JButton bCrearAct;
 	private JButton bEditarAct;
 	private JButton bEditarLP;
-	private JButton bAddReview;
 	private JButton butRegresar;
 	
 	
@@ -55,6 +53,8 @@ public class PanelBotonesCreador extends JPanel implements ActionListener {
 		bEditarLP.setActionCommand(EDITARLP);
 
 		bVerReviews = new JButton("Ver reseñas");
+		bVerReviews.addActionListener(this);
+		bVerReviews.setActionCommand(VERREVIEWS);
 		
 		bClonarAct = new JButton("Clonar actividad");
 		bClonarAct.addActionListener(this);
@@ -68,8 +68,6 @@ public class PanelBotonesCreador extends JPanel implements ActionListener {
 		bEditarAct.addActionListener(this);
 		bEditarAct.setActionCommand(EDITARACT);
 		
-		bAddReview = new JButton("Añadir reseña a Actividad");
-
 		butRegresar = new JButton("Regresar al menu de opciones");
 		butRegresar.addActionListener(this);
 		butRegresar.setActionCommand(REGRESAR);
@@ -81,7 +79,6 @@ public class PanelBotonesCreador extends JPanel implements ActionListener {
 		add(bClonarAct);
 		add(bEditarAct);
 		add(bVerReviews);
-		add(bAddReview);
 		add(butRegresar);
 	}
 
@@ -119,6 +116,11 @@ public class PanelBotonesCreador extends JPanel implements ActionListener {
 			
 			ventanaCreador.mostrarVentanaEditarAct();
 		}
+		else if (comando.equals(VERREVIEWS)) {
+			
+			ventanaCreador.mostrarVentanaVerReviews();
+		}
+
 		
 	}
 	

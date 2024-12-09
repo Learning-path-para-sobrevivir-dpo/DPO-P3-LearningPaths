@@ -76,7 +76,10 @@
         "tipoActividad": "Prueba",
         "completada": false,
         "objetivo": "quiz colores",
-        "reviews": [],
+        "reviews": [
+            "Me gustó muchi",
+            "No me gustó"
+        ],
         "tiempoCompletarSugerido": 20,
         "tipoPrueba": "Quiz Verdadero Falso",
         "duracionMin": 20,

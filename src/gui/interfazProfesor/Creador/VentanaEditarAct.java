@@ -22,7 +22,6 @@ public class VentanaEditarAct extends JFrame{
 	private PanelListActsSistema listaActs; 
 	private Profesor prof;
 	private PanelEditarAct pEditar;
-	private VentanaAddActividad ventanaAddAct;
 	private GUIManejoDatos datos;
 
 	public VentanaEditarAct(VentanaProfCreadorLP ventanaCreador, Profesor prof, GUIManejoDatos datos) throws HeadlessException {
