@@ -25,12 +25,15 @@
         "rating": 0,
         "titulo": "Cultura francesa",
         "estudiantes": [],
-        "actividades": {"1": "6151825"},
+        "actividades": {
+            "1": "6151825",
+            "2": "12547493"
+        },
         "version": 1,
         "autor": "Sara García",
         "objetivo": "aprender sobre cultura francesa",
         "progresosEstudiantiles": {},
-        "duracion": 20,
+        "duracion": 140,
         "fechaCreacion": "2024-12-08"
     },
     {

@@ -71,8 +71,8 @@
         "estado": "Sin completar",
         "calificacionMinima": 2,
         "nivelDificultad": 1,
-        "titulo": "Quiz colores",
-        "obligatorio": false,
+        "titulo": "QUIZ CAMBIADO",
+        "obligatorio": true,
         "tipoActividad": "Prueba",
         "completada": false,
         "objetivo": "quiz colores",
@@ -121,9 +121,9 @@
     {
         "estado": "Sin completar",
         "contenido": "Hablar con amigos en francés",
-        "nivelDificultad": 2,
+        "nivelDificultad": 3,
         "titulo": "Tarea Francés",
-        "obligatorio": false,
+        "obligatorio": true,
         "tipoActividad": "Tarea",
         "completada": false,
         "objetivo": "tarea hablar francés",
@@ -188,6 +188,23 @@
             "Cuantas patas tiene un gato?"
         ],
         "id": "69504730"
+    },
+    {
+        "calificado": false,
+        "estado": "Sin completar",
+        "nivelDificultad": 2,
+        "titulo": "Examen final de Francés",
+        "obligatorio": true,
+        "tipoActividad": "Prueba",
+        "completada": false,
+        "objetivo": "Examen de francés avanzado",
+        "reviews": [],
+        "tiempoCompletarSugerido": 120,
+        "tipoPrueba": "Examen",
+        "duracionMin": 120,
+        "idEstudiante": "",
+        "preguntas": [],
+        "id": "12547493"
     },
     {
         "estado": "Sin completar",
