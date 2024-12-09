@@ -1,23 +1,17 @@
 package gui.interfazProfesor;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 import gui.GUIManejoDatos;
 import gui.PanelHeader;
 import gui.VentanaPrincipal;
-import gui.crearUsuario.VentanaCrearUsuario;
 import gui.interfazProfesor.Creador.VentanaProfCreadorLP;
 import gui.interfazProfesor.seguimiento.VentanaSeguimientoProfesor;
 import modelo.LearningPath;
@@ -141,10 +135,10 @@ public class VentanaProfesor extends JFrame{
 		return progresos;
 	}
 	
-	public List<Actividad> getActividadesPendientesCalificar()
+	public Map<Actividad, Progreso> getActividadesPendientesCalificar()
 	{
 		List<Progreso> progresos = this.getProgresosEstudiantes();
-		List<Actividad> actividades = new ArrayList<Actividad>();
+		Map<Actividad, Progreso> actividades = new HashMap<Actividad, Progreso>();
 		List<Actividad> completadas;
 		for (Progreso p: progresos)
 		{
@@ -154,11 +148,34 @@ public class VentanaProfesor extends JFrame{
 				if (actCompletada.getEstado().equals("Sin completar") || actCompletada.getEstado().equals("No Exitosa") )
 				{
 					actCompletada.setEstudiante(p.getEstudiante());
-					actividades.add(actCompletada);
+					actividades.put(actCompletada, p);
 				}
 			}
 		}
 		
 		return actividades;
+	}
+
+	public void calificarActividad(Actividad actividad, Progreso progreso) {
+		// TODO Auto-generated method stub
+		if (progreso != null)
+		{
+			if (progreso.getActividadesPath().containsValue(actividad))
+			{
+				if (actividad.getEstado().equals("No Exitosa"))
+				{
+					progreso.descompletarActividad(actividad);
+				}
+				
+				datos.actualizarProgreso(progreso);
+				datos.actualizarActividad(actividad);
+			}
+			else
+			{
+				ventanaSeguimiento.problemaCalificando();
+			}
+		}
+		else
+			ventanaSeguimiento.problemaCalificando();
 	}
 }

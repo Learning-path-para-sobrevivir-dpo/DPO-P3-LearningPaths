@@ -2,7 +2,9 @@ package gui.interfazProfesor.seguimiento;
 
 import java.awt.BorderLayout;
 import java.awt.HeadlessException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -11,7 +13,8 @@ import javax.swing.border.EmptyBorder;
 
 import gui.PanelHeader;
 import gui.interfazProfesor.VentanaProfesor;
-import gui.interfazProfesor.seguimiento.verActividad.VentanaActividadPendienteCalificar;
+import gui.interfazProfesor.seguimiento.verActividad.VentanaActividad;
+import gui.interfazProfesor.seguimiento.verProgreso.VentanaProgresoEstudiante;
 import modelo.LearningPath;
 import modelo.Progreso;
 import modelo.actividades.Actividad;
@@ -26,8 +29,10 @@ public class VentanaSeguimientoProfesor extends JFrame {
 	private Progreso estudianteSeleccionado;
 	private Actividad actividadSeleccionada;
 	private LearningPath lpSeleccionado;
+	private Map<Actividad, Progreso> actividadesPendientes;
 	
-	private VentanaActividadPendienteCalificar ventanaActividad;
+	private VentanaActividad ventanaActividad;
+	private VentanaProgresoEstudiante ventanaProgreso;
 
 	public VentanaSeguimientoProfesor(VentanaProfesor ventanaProf) throws HeadlessException {
 		this.ventanaProf = ventanaProf;
@@ -97,7 +102,9 @@ public class VentanaSeguimientoProfesor extends JFrame {
 
 	public void verActividadesPendientes() {
 		// TODO Auto-generated method stub
-		List<Actividad> acts = ventanaProf.getActividadesPendientesCalificar();
+		actividadesPendientes = ventanaProf.getActividadesPendientesCalificar();
+		List<Actividad> acts = new ArrayList<Actividad>();
+		acts.addAll(actividadesPendientes.keySet());
 		if (acts.isEmpty())
 			JOptionPane.showMessageDialog(this, "No tiene actividades pendientes por calificar");
 		panelLista.actualizarActividades(acts);
@@ -113,6 +120,15 @@ public class VentanaSeguimientoProfesor extends JFrame {
 		// TODO Auto-generated method stub
 		if (estudianteSeleccionado == null)
 			JOptionPane.showMessageDialog(this, "Por favor, seleccione un estudiante");
+		else
+		{
+			if (ventanaProgreso == null || !ventanaProgreso.isVisible())
+			{
+				ventanaProgreso = new VentanaProgresoEstudiante(this, estudianteSeleccionado);
+				ventanaProgreso.setVisible(true);
+				setVisible(false);
+			}
+		}
 	}
 
 	public void setActividadSeleccionada(Actividad actSeleccionada) {
@@ -128,7 +144,7 @@ public class VentanaSeguimientoProfesor extends JFrame {
 		{
 			if (ventanaActividad == null || !ventanaActividad.isVisible())
 			{
-				ventanaActividad = new VentanaActividadPendienteCalificar(this, actividadSeleccionada);
+				ventanaActividad = new VentanaActividad(this, actividadSeleccionada, "Por calificar:");
 				ventanaActividad.setVisible(true);
 			}
 		}
@@ -137,6 +153,18 @@ public class VentanaSeguimientoProfesor extends JFrame {
 	public void setLpSeleccionado(LearningPath lpSeleccionado)
 	{
 		this.lpSeleccionado = lpSeleccionado;
+	}
+
+	public void calificarActividad(Actividad actividad) {
+		// TODO Auto-generated method stub
+		Progreso p = actividadesPendientes.get(actividad);
+		ventanaProf.calificarActividad(actividad, p);
+		verActividadesPendientes();
+	}
+
+	public void problemaCalificando() {
+		// TODO Auto-generated method stub
+		JOptionPane.showMessageDialog(this, "Hubo un problema calificando la actividad. Intentelo de nuevo");
 	}
 	
 }

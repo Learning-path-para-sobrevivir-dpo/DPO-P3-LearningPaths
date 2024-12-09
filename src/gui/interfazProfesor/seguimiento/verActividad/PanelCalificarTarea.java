@@ -22,7 +22,7 @@ public class PanelCalificarTarea extends JPanel {
 		marcar = new JComboBox<String>(new String[] {"Exitosa", "No Exitosa"});
 		JPanel miniPanel = new JPanel();
 		miniPanel.add(marcar);
-		miniPanel.setBorder(new EmptyBorder(20,30,20,30));
+		miniPanel.setBorder(new EmptyBorder(10,30,10,30));
 		
 		add(info);
 		add(miniPanel);

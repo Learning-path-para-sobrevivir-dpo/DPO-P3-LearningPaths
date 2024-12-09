@@ -14,20 +14,21 @@ public class PanelBotonesActividadPendiente extends JPanel implements ActionList
 	private static final String CALIFICAR = "calificar";
 	private static final String CERRAR = "cerrar";
 	
-	private VentanaActividadPendienteCalificar ventanaCalificar;
+	private VentanaActividad ventanaCalificar;
 	private JButton butCalificar;
 	private JButton butCerrar;
 	
 	
 	
-	public PanelBotonesActividadPendiente(VentanaActividadPendienteCalificar ventanaCalificar) {
+	public PanelBotonesActividadPendiente(VentanaActividad ventanaCalificar) {
 		this.ventanaCalificar = ventanaCalificar;
 		setLayout(new FlowLayout());
 		
-		butCalificar = new JButton("Calificar Actividad");
+		butCalificar = new JButton("(Re)Calificar Actividad");
 		butCalificar.addActionListener(this);
 		butCalificar.setActionCommand(CALIFICAR);
 		butCalificar.setFont(new Font("Calibri", Font.BOLD, 15));
+		butCalificar.setVisible(true);
 		
 		butCerrar = new JButton("Cerrar");
 		butCerrar.addActionListener(this);
@@ -37,8 +38,11 @@ public class PanelBotonesActividadPendiente extends JPanel implements ActionList
 		add(butCerrar);
 		add(butCalificar);
 	}
-
-
+	
+	public void deshabilitarCalificar()
+	{
+		butCalificar.setVisible(false);
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

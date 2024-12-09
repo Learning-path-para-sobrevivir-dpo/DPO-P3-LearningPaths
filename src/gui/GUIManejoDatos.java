@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import excepciones.LearningPathIncorrectoProgresoException;
 import modelo.LearningPath;
+import modelo.Progreso;
 import modelo.Usuario;
 import modelo.actividades.Actividad;
 import modelo.actividades.Tarea;
@@ -80,14 +82,24 @@ public class GUIManejoDatos {
 		datos.actualizarLearningPath(path);
 	}
 
+	public void actualizarProgreso(Progreso progreso) {
+		// TODO Auto-generated method stub
+		try {
+			datos.actualizarProgreso(progreso);
+		} catch (LearningPathIncorrectoProgresoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void actualizarActividad(Actividad actividad)
+	{
+		datos.actualizarActividad(actividad);
+	}
+
 	public void addActividad(Actividad act) {
 		// TODO Auto-generated method stub
 		datos.addActividad(act);
-	}
-
-	public void actualizarActividad(Actividad act) {
-		// TODO Auto-generated method stub
-		datos.actualizarActividad(act);
 	}
 }
 
