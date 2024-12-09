@@ -40,18 +40,19 @@ public class VentanaCalificarActividad extends JFrame {
 			panelTarea = new PanelCalificarTarea();
 			add(panelTarea, BorderLayout.CENTER);
 			calificado = true;
+			setSize( 400, 300 );
 		}
 		else if (actividad instanceof Examen)
 		{
 			calificado = false;
 			panelExamen = new PanelCalificarExamen(this, (Examen) actividad);
 			add(panelExamen, BorderLayout.CENTER);
+			setSize( 450, 400 );
 		}
 		
 		add(header, BorderLayout.NORTH);
 		add(panelBotones, BorderLayout.SOUTH);
 		setTitle( "Calificar" );
-        setSize( 400, 300 );
         setLocationRelativeTo( null );
         setVisible( true );
 	}
@@ -81,21 +82,35 @@ public class VentanaCalificarActividad extends JFrame {
 				}
 				else if (actividad instanceof Examen)
 				{
-					
+					String marcada = panelExamen.getMarcar();
+					actividad.setEstado(marcada);
 				}
 				ventanaPendiente.calificarActividad();
 				dispose();
 			}
 		}
+		else
+			JOptionPane.showMessageDialog(this, "Tiene que calificar primero el examen");
 		
 	}
 
 	public void mostrarVentanaPreguntasExamen() {
 		// TODO Auto-generated method stub
-		if (ventanaPreguntas == null || !ventanaPreguntas.isVisible())
+		Examen e = (Examen) actividad;
+		if (e.getPreguntas().isEmpty())
 		{
-			ventanaPreguntas = new VentanaMostrarPreguntasExamen(this, (Examen) actividad);
+			JOptionPane.showMessageDialog(ventanaPreguntas, "No hay preguntas para mostrar");
+			setCalificado(true);
 		}
+		else
+		{
+			if (ventanaPreguntas == null || !ventanaPreguntas.isVisible())
+			{
+				ventanaPreguntas = new VentanaMostrarPreguntasExamen(this, e);
+				ventanaPreguntas.setVisible(true);
+			}
+		}
+		
 	}
 	
 	

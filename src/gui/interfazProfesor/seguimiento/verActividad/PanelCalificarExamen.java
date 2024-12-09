@@ -33,6 +33,7 @@ public class PanelCalificarExamen extends JPanel implements ActionListener {
 		
 		JLabel titulo = new JLabel("Haz click al boton para calificar las preguntas:");
 		titulo.setFont(new Font("Calibri", Font.BOLD, 20));
+		titulo.setHorizontalAlignment(JLabel.CENTER);
 		
 		butCalificarPreguntas = new JButton("Calificar Examen");
 		butCalificarPreguntas.addActionListener(this);
@@ -40,7 +41,7 @@ public class PanelCalificarExamen extends JPanel implements ActionListener {
 		butCalificarPreguntas.setFont(new Font("Calibri", Font.BOLD, 15));
 		
 		JPanel miniPanel = new JPanel();
-		miniPanel.setBorder(new EmptyBorder(10,30,10,30));
+		miniPanel.setBorder(new EmptyBorder(0,30,0,30));
 		miniPanel.add(butCalificarPreguntas);
 		
 		marcar = new JComboBox<String>(new String[] {"Exitosa", "No Exitosa"});
