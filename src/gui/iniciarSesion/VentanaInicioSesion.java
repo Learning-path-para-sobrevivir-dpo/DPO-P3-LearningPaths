@@ -45,7 +45,7 @@ public class VentanaInicioSesion extends JFrame {
 		add(detallesUsuario, BorderLayout.CENTER);
 		add(panelBotones, BorderLayout.SOUTH);
 		
-		setTitle( "Crear Usuario" );
+		setTitle( "Iniciar Sesion" );
         setDefaultCloseOperation( EXIT_ON_CLOSE );
         setSize( 400, 300 );
         setLocationRelativeTo( null );

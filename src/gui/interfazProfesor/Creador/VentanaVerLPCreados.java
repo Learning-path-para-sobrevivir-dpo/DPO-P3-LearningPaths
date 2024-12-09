@@ -12,27 +12,32 @@ import gui.PanelHeader;
 import modelo.LearningPath;
 import modelo.Profesor;
 
-public class VentanaLPCreados extends JFrame{
+@SuppressWarnings("serial")
+public class VentanaVerLPCreados extends JFrame{
 
 	private VentanaProfCreadorLP ventanaCreador;
-	
-	private PanelListaPaths listaPaths; 
 	private Profesor prof;
+	private PanelInfoPath pInfoPath;
 
-
-	public VentanaLPCreados(VentanaProfCreadorLP ventanaCreador, Profesor prof) throws HeadlessException {
+	private PanelListaPathsVer listaPaths;
+	
+	public VentanaVerLPCreados(VentanaProfCreadorLP ventanaCreador, Profesor prof) throws HeadlessException {
 		super();
 		this.ventanaCreador = ventanaCreador;
 		this.prof = prof;
 		
 		setLayout(new BorderLayout());
 				
-		PanelHeader header = new PanelHeader("Learning Paths Creados");
+		PanelHeader header = new PanelHeader("Editar Learning Paths");
 		add(header, BorderLayout.NORTH);
 		
-        listaPaths = new PanelListaPaths( this );
+        listaPaths = new PanelListaPathsVer( this );
         add( listaPaths, BorderLayout.CENTER);
         
+        pInfoPath = new PanelInfoPath(this);
+        add(pInfoPath, BorderLayout.SOUTH);
+        
+        actualizarPathsCreador();
         
 		setVisible(true);
 		
@@ -45,7 +50,6 @@ public class VentanaLPCreados extends JFrame{
         setLocationRelativeTo( null );
 	    
 	}
-	
 	
 	
 	public void actualizarPathsCreador() {
@@ -67,8 +71,18 @@ public class VentanaLPCreados extends JFrame{
 		listaPaths.actualizarLearningPaths(listPaths);
 	}
 	
-	
-	
+
+	public void cambiarPathSelected(LearningPath seleccionado) {
+		pInfoPath.actualizarPath(seleccionado );
+		
+	}
+
+
+    public void cerrarVentana( )
+    {
+    	ventanaCreador.setVisible(true);
+        dispose( );
+    }
+
 	
 }
-

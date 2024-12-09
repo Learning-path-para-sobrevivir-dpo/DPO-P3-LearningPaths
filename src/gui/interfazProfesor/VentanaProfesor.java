@@ -3,6 +3,10 @@ package gui.interfazProfesor;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,7 +20,10 @@ import gui.VentanaPrincipal;
 import gui.crearUsuario.VentanaCrearUsuario;
 import gui.interfazProfesor.Creador.VentanaProfCreadorLP;
 import gui.interfazProfesor.seguimiento.VentanaSeguimientoProfesor;
+import modelo.LearningPath;
 import modelo.Profesor;
+import modelo.Progreso;
+import modelo.actividades.Actividad;
 
 
 @SuppressWarnings("serial")
@@ -97,5 +104,61 @@ public class VentanaProfesor extends JFrame{
 		}
 		
 	}
-
+	
+	public List<LearningPath> getLearningPathsCreados()
+	{
+		Map<String, LearningPath> lpCreados = prof.getLearningPathsCreados();
+		List<LearningPath> lps = new ArrayList<LearningPath>();
+		for(String nomPath: lpCreados.keySet())
+		{
+			LearningPath path = lpCreados.get(nomPath);
+			lps.add(path);
+		}
+		return lps;
+	}
+	
+	public List<Progreso> getEstudiantesPorLP(LearningPath path)
+	{
+		List<Progreso> progresos = new ArrayList<Progreso>();
+		Map<String, Progreso>progresosLp = path.getProgresosEstudiantiles();
+		Progreso progreso;
+		for (String nomProg: progresosLp.keySet())
+		{
+			progreso = progresosLp.get(nomProg);
+			progresos.add(progreso);
+		}
+		return progresos;
+	}
+	
+	public List<Progreso> getProgresosEstudiantes()
+	{
+		List<LearningPath> paths = this.getLearningPathsCreados();
+		List<Progreso> progresos = new ArrayList<Progreso>();
+		for (LearningPath path: paths)
+		{
+			progresos.addAll(this.getEstudiantesPorLP(path));
+		}
+		return progresos;
+	}
+	
+	public List<Actividad> getActividadesPendientesCalificar()
+	{
+		List<Progreso> progresos = this.getProgresosEstudiantes();
+		List<Actividad> actividades = new ArrayList<Actividad>();
+		List<Actividad> completadas;
+		for (Progreso p: progresos)
+		{
+			completadas = p.getActCompletadas();
+			for (Actividad actCompletada: completadas)
+			{
+				if (actCompletada.getEstado().equals("Sin completar") || actCompletada.getEstado().equals("No Exitosa") )
+				{
+					actCompletada.setEstudiante(p.getEstudiante());
+					actividades.add(actCompletada);
+				}
+			}
+		}
+		
+		return actividades;
+	}
 }

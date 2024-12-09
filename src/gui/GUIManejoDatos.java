@@ -3,9 +3,13 @@ package gui;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import modelo.LearningPath;
 import modelo.Usuario;
+import modelo.actividades.Actividad;
+import modelo.actividades.Tarea;
 import persistencia.ManejoDatos;
 
 public class GUIManejoDatos {
@@ -53,5 +57,31 @@ public class GUIManejoDatos {
 	public ManejoDatos getDatos()
 	{
 		return this.datos;
+  
+	public List<Actividad> getActividadesSistema() {
+		List<Actividad> acts = new ArrayList<Actividad>();
+		Map<String, Actividad>actsSistema = datos.getActividades();
+		for (Actividad act: actsSistema.values()) {
+			acts.add(act);
+		}
+		return acts;
+	}
+	
+	public void addLearningPath(LearningPath path) {
+		datos.addLearningPath(path);
+	}
+	
+	public void actualizarUsuario(Usuario usuario) {
+		datos.actualizarUsuario(usuario);
+	}
+	
+	public void actualizarLearningPath(LearningPath path) {
+		datos.actualizarLearningPath(path);
+	}
+
+	public void addActividad(Actividad act) {
+		// TODO Auto-generated method stub
+		datos.addActividad(act);
 	}
 }
+

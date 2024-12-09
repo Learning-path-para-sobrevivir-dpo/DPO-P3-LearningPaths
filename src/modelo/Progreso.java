@@ -476,4 +476,9 @@ public class Progreso {
     	 return i;
      }
 	
+     @Override
+     public String toString( )
+     {
+    	 return estudiante +" - " +learningPath;
+     }
 }

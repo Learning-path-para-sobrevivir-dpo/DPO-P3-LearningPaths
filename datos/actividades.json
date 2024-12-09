@@ -10,7 +10,7 @@
         "objetivo": "Arte",
         "reviews": [],
         "tiempoCompletarSugerido": 40,
-        "enviada": false,
+        "enviada": true,
         "duracionMin": 30,
         "idEstudiante": "83259024",
         "id": "31997514",
@@ -100,6 +100,23 @@
         "idEstudiante": "",
         "id": "32733940",
         "medioEntrega": ""
+    },
+    {
+        "estado": "Sin completar",
+        "contenido": "Hablar con amigos en francés",
+        "nivelDificultad": 2,
+        "titulo": "Tarea Francés",
+        "obligatorio": false,
+        "tipoActividad": "Tarea",
+        "completada": false,
+        "objetivo": "tarea hablar francés",
+        "reviews": [],
+        "tiempoCompletarSugerido": 120,
+        "enviada": false,
+        "duracionMin": 20,
+        "idEstudiante": "",
+        "id": "6151825",
+        "medioEntrega": "BN"
     },
     {
         "tipoRecurso": "Lectura",

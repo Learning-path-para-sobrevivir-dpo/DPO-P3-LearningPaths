@@ -1,6 +1,7 @@
 package gui.interfazProfesor.Creador;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import gui.interfazProfesor.seguimiento.VentanaSeguimientoProfesor;
 import modelo.LearningPath;
 import modelo.Profesor;
 
+@SuppressWarnings("serial")
 public class VentanaProfCreadorLP extends JFrame {
 	
 	private VentanaProfesor ventanaProf;
@@ -29,7 +31,10 @@ public class VentanaProfCreadorLP extends JFrame {
 	private Profesor prof;
 	private GUIManejoDatos datos;
 	private PanelBotonesCreador pBotones;
-	private VentanaLPCreados ventanaLPCreados;
+	private VentanaVerLPCreados ventanaVerLPCreados;
+	private VentanaEditarLP ventanaEditarLP;
+	private VentanaCrearLP ventanaCrearLP;
+	private VentanaCrearActividad ventanaCrearAct;
 	
 	public VentanaProfCreadorLP(VentanaProfesor ventanaProf, Profesor prof, GUIManejoDatos datos)
 			throws HeadlessException {
@@ -49,6 +54,8 @@ public class VentanaProfCreadorLP extends JFrame {
 		
 		add(pBotones, BorderLayout.WEST);
 		
+		pBotones.setPreferredSize(new Dimension(900, 600));
+
 		setVisible(true);
 		
 		pack( );
@@ -63,20 +70,53 @@ public class VentanaProfCreadorLP extends JFrame {
 	}
 	
 
-	public void mostrarVentanaLPCreados() {
+	public void mostrarVentanaEditarLP() {
 		// TODO Auto-generated method stub
-		if (ventanaLPCreados == null || !ventanaLPCreados.isVisible())
+		if (ventanaEditarLP == null || !ventanaEditarLP.isVisible())
 		{
-			ventanaLPCreados = new VentanaLPCreados(this, prof);
-			ventanaLPCreados.setVisible(true);
+			ventanaEditarLP = new VentanaEditarLP(this, prof, datos);
+			ventanaEditarLP.setVisible(true);
 			setVisible(false);
 		}
+	}
+	
+	public void mostrarVentanaCrearLP() {
+		// TODO Auto-generated method stub
+		if (ventanaCrearLP == null || !ventanaCrearLP.isVisible())
+		{
+			ventanaCrearLP = new VentanaCrearLP(this, prof, datos);
+			ventanaCrearLP.setVisible(true);
+			setVisible(false);
+		}
+	}
+	
+	public void mostrarVentanaVerPaths() {
+		// TODO Auto-generated method stub
+		if (ventanaVerLPCreados == null || !ventanaVerLPCreados.isVisible())
+		{
+			ventanaVerLPCreados = new VentanaVerLPCreados(this,prof);
+			ventanaVerLPCreados.setVisible(true);
+			setVisible(false);
+		}
+		
 	}
 	
 	public void regresar() {
 		// TODO Auto-generated method stub
 		ventanaProf.setVisible(true);
 		dispose();
+	}
+
+
+	public void mostrarVentanaCrearAct() {
+		// TODO Auto-generated method stub
+		if (ventanaCrearAct == null || !ventanaCrearAct.isVisible())
+		{
+			ventanaCrearAct = new VentanaCrearActividad(this, prof, datos);
+			ventanaCrearAct.setVisible(true);
+			setVisible(false);
+		}
+		
 	}
 	
 
