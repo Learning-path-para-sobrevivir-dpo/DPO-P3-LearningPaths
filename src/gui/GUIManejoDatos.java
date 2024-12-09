@@ -101,10 +101,5 @@ public class GUIManejoDatos {
 		// TODO Auto-generated method stub
 		datos.addActividad(act);
 	}
-
-	public void actualizarActividad(Actividad act) {
-		// TODO Auto-generated method stub
-		datos.actualizarActividad(act);
-	}
 }
 
