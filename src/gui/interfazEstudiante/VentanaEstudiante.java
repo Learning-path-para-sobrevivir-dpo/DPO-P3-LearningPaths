@@ -8,21 +8,32 @@ import javax.swing.JOptionPane;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.AbstractButton;
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 
 import consola.ImprimirConsola;
+import excepciones.CompletarActividadQueNoEstaEnProgresoException;
+import excepciones.RespuestasInconsistentesPruebaException;
+import excepciones.YaExisteActividadEnProgresoException;
 import gui.GUIManejoDatos;
 import gui.VentanaPrincipal;
 import modelo.*;
@@ -270,9 +281,18 @@ public class VentanaEstudiante extends JFrame {
                     Map<Integer, Actividad> actividades = lpSeleccionado.getActividades();
                     if (!actividades.isEmpty()) {
                         for (Actividad actividad : actividades.values()) {
-                            JLabel actividadLabel = new JLabel("- " + actividad.getTitulo() + ": " + actividad.getObjetivo());
-                            actividadLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);
-                            actividadesPanel.add(actividadLabel);
+                            // Obtener la información formateada de la actividad
+                            String actividadInfo = obtenerTextoActividad(actividad, false, true, true);
+
+                            // Crear un JTextArea para mostrar la información de la actividad
+                            JTextArea actividadTextArea = new JTextArea("- " + actividadInfo);
+                            actividadTextArea.setLineWrap(true);
+                            actividadTextArea.setWrapStyleWord(true);
+                            actividadTextArea.setEditable(false);
+                            actividadTextArea.setBackground(actividadesPanel.getBackground()); // Para que coincida con el panel
+
+                            // Añadir el JTextArea al panel
+                            actividadesPanel.add(actividadTextArea);
                         }
                     } else {
                         JLabel noActividadesLabel = new JLabel("No hay actividades en este Learning Path.");
@@ -298,7 +318,6 @@ public class VentanaEstudiante extends JFrame {
         actividadesFrame.setVisible(true);
     }
 
-    
     private void mostrarVentanaVerProgreso() {
         JFrame progresoFrame = new JFrame("Progreso de Learning Path");
         progresoFrame.setSize(600, 500);
@@ -488,15 +507,597 @@ public class VentanaEstudiante extends JFrame {
 
 
     private void mostrarVentanaIniciarActividad() {
+        // Crear la ventana principal
         JFrame actividadFrame = new JFrame("Iniciar o Continuar Actividad");
-        actividadFrame.setSize(300, 200);
+        actividadFrame.setSize(400, 400);
         actividadFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         actividadFrame.setLocationRelativeTo(this);
 
+        // Panel principal
         JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         actividadFrame.add(panel);
 
+        // Selección de Learning Path
+        JLabel lpLabel = new JLabel("Seleccione un Learning Path:");
+        DefaultListModel<String> lpListModel = new DefaultListModel<>();
+        est.getLearningPaths().forEach((titulo, lp) -> lpListModel.addElement(titulo));
+
+        JList<String> lpList = new JList<>(lpListModel);
+        lpList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        JScrollPane lpScrollPane = new JScrollPane(lpList);
+
+        // Botón para cargar actividades del Learning Path seleccionado
+        JButton cargarActividadesButton = new JButton("Cargar Actividades");
+
+        // Área para mostrar actividades
+        JLabel actividadLabel = new JLabel("Seleccione una Actividad:");
+        JList<String> actividadList = new JList<>();
+        actividadList.setEnabled(false); // Deshabilitado hasta que se carguen actividades
+        JScrollPane actividadScrollPane = new JScrollPane(actividadList);
+
+        // Botón para iniciar la actividad
+        JButton iniciarButton = new JButton("Iniciar Actividad");
+        iniciarButton.setEnabled(false);
+
+        // Texto para mostrar mensajes
+        JTextArea outputArea = new JTextArea(10, 30);
+        outputArea.setEditable(false);
+
+        // Agregar los componentes al panel
+        panel.add(lpLabel);
+        panel.add(lpScrollPane);
+        panel.add(cargarActividadesButton);
+        panel.add(actividadLabel);
+        panel.add(actividadScrollPane);
+        panel.add(iniciarButton);
+        panel.add(new JScrollPane(outputArea));
+
+        // Lógica para cargar actividades del LP seleccionado
+        cargarActividadesButton.addActionListener(e -> {
+            String lpSeleccionado = lpList.getSelectedValue();
+            if (lpSeleccionado != null) {
+                LearningPath lp = est.getLearningPaths().get(lpSeleccionado);
+                DefaultListModel<String> actividadListModel = new DefaultListModel<>();
+                lp.getActividades().forEach((id, actividad) -> actividadListModel.addElement(actividad.getTitulo()));
+                actividadList.setModel(actividadListModel);
+                actividadList.setEnabled(true);
+                iniciarButton.setEnabled(true);
+            }
+        });
+
+        // Lógica para iniciar actividad
+        iniciarButton.addActionListener(e -> {
+            String actividadSeleccionada = actividadList.getSelectedValue();
+            if (actividadSeleccionada != null) {
+                String lpSeleccionado = lpList.getSelectedValue();
+                LearningPath lp = est.getLearningPaths().get(lpSeleccionado);
+                Progreso progreso = est.getProgresosLearningPaths().get(lpSeleccionado);
+                Actividad actividad = lp.getActividades().values().stream()
+                        .filter(a -> a.getTitulo().equals(actividadSeleccionada))
+                        .findFirst()
+                        .orElse(null);
+
+                if (actividad == null) {
+                    outputArea.append("No se seleccionó una actividad válida.\n");
+                    return;
+                }
+
+                // Intentar iniciar la actividad
+                try {
+                    progreso.empezarActividad(actividad);
+                    outputArea.append("Actividad iniciada: " + actividad.getTitulo() + "\n");
+                } catch (YaExisteActividadEnProgresoException ex) {
+                    outputArea.append("Ya hay una actividad en progreso.\n");
+                    return;
+                }
+
+                // Llamar a una función específica para cada tipo de actividad
+                switch (actividad.getTipoActividad()) {
+                    case "Prueba":
+                        mostrarVentanaPrueba((Prueba) actividad, progreso, outputArea);
+                        break;
+                    case "Tarea":
+                        mostrarVentanaTarea((Tarea) actividad, progreso, outputArea);
+                        break;
+                    case "Recurso Educativo":
+                        mostrarVentanaRecurso((RecursoEducativo) actividad, progreso, outputArea);
+                        break;
+                    default:
+                        outputArea.append("Tipo de actividad desconocido.\n");
+                        break;
+                }
+            }
+        });
+
+        // Mostrar la ventana
         actividadFrame.setVisible(true);
     }
+
+    
+    private void mostrarVentanaTarea(Tarea tarea, Progreso progreso, JTextArea outputArea) {
+        JFrame tareaFrame = new JFrame("Tarea: " + tarea.getTitulo());
+        tareaFrame.setSize(400, 300);
+        tareaFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        tareaFrame.setLocationRelativeTo(null);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        tareaFrame.add(panel);
+
+        // Etiqueta con el contenido de la tarea
+        JLabel label = new JLabel("Contenido de la Tarea: " + tarea.getContenido());
+        panel.add(label);
+
+        // Cuadro de texto para que el usuario ingrese el medio de entrega
+        JLabel medioEntregaLabel = new JLabel("Especifique el medio de entrega:");
+        JTextField medioEntregaField = new JTextField(20);  // Cuadro de texto para el medio de entrega
+        panel.add(medioEntregaLabel);
+        panel.add(medioEntregaField);
+
+        // Botón para enviar la tarea
+        JButton enviarButton = new JButton("Enviar Tarea");
+
+        enviarButton.addActionListener(e -> {
+            // Obtener el valor ingresado en el cuadro de texto
+            String medioEntrega = medioEntregaField.getText();
+
+            if (medioEntrega.isEmpty()) {
+                outputArea.append("El medio de entrega no puede estar vacío.\n");
+                return;
+            }
+
+            try {
+                // Establecer el medio de entrega y marcar la tarea como enviada
+                tarea.setMedioEntrega(medioEntrega);
+                tarea.setEnviado(true);
+
+                // Actualizar el progreso de la actividad
+                progreso.completarActividad(tarea);
+                progreso.desempezarActividad();
+
+                // Mostrar mensaje en el área de salida
+                outputArea.append("Tarea enviada: " + tarea.getTitulo() + "\n");
+
+                // Cerrar la ventana de la tarea
+                tareaFrame.dispose();
+            } catch (Exception ex) {
+                outputArea.append("Error al enviar la tarea.\n");
+            }
+        });
+
+        panel.add(enviarButton);
+        tareaFrame.setVisible(true);
+    }
+
+
+    private void mostrarVentanaRecurso(RecursoEducativo recurso, Progreso progreso, JTextArea outputArea) {
+        JFrame recursoFrame = new JFrame("Recurso Educativo: " + recurso.getTitulo());
+        recursoFrame.setSize(400, 300);
+        recursoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        recursoFrame.setLocationRelativeTo(null);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        recursoFrame.add(panel);
+
+        JLabel label = new JLabel("Contenido del Recurso: " + recurso.getContenido());
+        JButton completarButton = new JButton("Marcar como Completado");
+
+        completarButton.addActionListener(e -> {
+            try {
+            	recurso.completarActividad();
+                progreso.completarActividad(recurso);
+          
+                outputArea.append("Recurso completado: " + recurso.getTitulo() + "\n");
+                recursoFrame.dispose();
+                progreso.desempezarActividad();
+            } catch (Exception ex) {
+                outputArea.append("Error al completar el recurso.\n");
+                progreso.desempezarActividad();
+            }
+        });
+
+        panel.add(label);
+        panel.add(completarButton);
+        recursoFrame.setVisible(true);
+    }
+
+    private void mostrarVentanaQuizMultiple(QuizOpcionMultiple quiz, Progreso progreso, JTextArea outputArea) {
+        JFrame quizFrame = new JFrame("Quiz Opción Múltiple: " + quiz.getTitulo());
+        quizFrame.setSize(500, 500);
+        quizFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        quizFrame.setLocationRelativeTo(null);
+
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        quizFrame.add(new JScrollPane(mainPanel));
+
+        JLabel tituloLabel = new JLabel("Quiz: " + quiz.getTitulo());
+        tituloLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        JLabel objetivoLabel = new JLabel("Objetivo: " + quiz.getObjetivo());
+        objetivoLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+
+        mainPanel.add(tituloLabel);
+        mainPanel.add(objetivoLabel);
+
+        // Crear un grupo de botones de radio para cada pregunta
+        List<ButtonGroup> grupos = new ArrayList<>();
+        for (PreguntaMultiple pregunta : quiz.getPreguntas()) {
+            JPanel preguntaPanel = new JPanel();
+            preguntaPanel.setLayout(new BoxLayout(preguntaPanel, BoxLayout.Y_AXIS));
+            preguntaPanel.setBorder(BorderFactory.createTitledBorder("Pregunta " + pregunta.getNumero()));
+
+            JLabel preguntaLabel = new JLabel(pregunta.getEnunciado());
+            preguntaPanel.add(preguntaLabel);
+
+            ButtonGroup group = new ButtonGroup();
+            for (int i = 0; i < pregunta.getOpciones().size(); i++) {
+                JRadioButton opcionButton = new JRadioButton(pregunta.getOpciones().get(i));
+                group.add(opcionButton);
+                preguntaPanel.add(opcionButton);
+            }
+            grupos.add(group);
+            mainPanel.add(preguntaPanel);
+        }
+
+        // Botón para enviar respuestas
+        JButton enviarButton = new JButton("Enviar Respuestas");
+        enviarButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        enviarButton.addActionListener(e -> {
+            List<Integer> respuestas = new ArrayList<>();
+            boolean todasRespondidas = true;
+
+            // Recoger las respuestas seleccionadas
+            for (int i = 0; i < grupos.size(); i++) {
+                ButtonGroup group = grupos.get(i);
+                int respuestaSeleccionada = -1;
+
+                Enumeration<AbstractButton> buttons = group.getElements();
+                int index = 0;
+                while (buttons.hasMoreElements()) {
+                    AbstractButton button = buttons.nextElement();
+                    if (button.isSelected()) {
+                        respuestaSeleccionada = index;
+                        break;
+                    }
+                    index++;
+                }
+
+                if (respuestaSeleccionada == -1) {
+                    todasRespondidas = false;
+                    break;
+                }
+                respuestas.add(respuestaSeleccionada);
+            }
+
+            // Validar si todas las preguntas fueron respondidas
+            if (!todasRespondidas) {
+                JOptionPane.showMessageDialog(quizFrame, "Por favor responde todas las preguntas antes de enviar.", "Error", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Intentar calificar el quiz
+            try {
+                quiz.responderQuiz(respuestas);
+                outputArea.append("Quiz completado.\n");
+                outputArea.append("Calificación: " + quiz.getCalificacion() + "\n");
+                outputArea.append("Estado: " + quiz.getEstado() + "\n");
+                progreso.completarActividad(quiz);
+                progreso.desempezarActividad();
+                quizFrame.dispose();
+            } catch (RespuestasInconsistentesPruebaException ex) {
+                outputArea.append("Número de respuestas incorrecto. Inténtalo de nuevo.\n");
+            } catch (CompletarActividadQueNoEstaEnProgresoException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+        });
+
+        mainPanel.add(enviarButton);
+
+        quizFrame.setVisible(true);
+    }
+    
+    private void mostrarVentanaQuizVF(QuizVerdaderoFalso quiz, Progreso progreso, JTextArea outputArea) {
+        JFrame quizFrame = new JFrame("Quiz Verdadero/Falso: " + quiz.getTitulo());
+        quizFrame.setSize(500, 500);
+        quizFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        quizFrame.setLocationRelativeTo(null);
+
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        quizFrame.add(new JScrollPane(mainPanel));
+
+        JLabel tituloLabel = new JLabel("Quiz: " + quiz.getTitulo());
+        tituloLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        JLabel objetivoLabel = new JLabel("Objetivo: " + quiz.getObjetivo());
+        objetivoLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+
+        mainPanel.add(tituloLabel);
+        mainPanel.add(objetivoLabel);
+
+        // Crear los botones de radio para cada pregunta
+        List<ButtonGroup> grupos = new ArrayList<>();
+        for (PreguntaVerdaderoFalso pregunta : quiz.getPreguntas()) {
+            JPanel preguntaPanel = new JPanel();
+            preguntaPanel.setLayout(new BoxLayout(preguntaPanel, BoxLayout.Y_AXIS));
+            preguntaPanel.setBorder(BorderFactory.createTitledBorder("Pregunta " + pregunta.getNumero()));
+
+            JLabel preguntaLabel = new JLabel(pregunta.getEnunciado());
+            preguntaPanel.add(preguntaLabel);
+
+            ButtonGroup group = new ButtonGroup();
+            JRadioButton verdaderoButton = new JRadioButton("V (Verdadero)");
+            JRadioButton falsoButton = new JRadioButton("F (Falso)");
+
+            group.add(verdaderoButton);
+            group.add(falsoButton);
+
+            preguntaPanel.add(verdaderoButton);
+            preguntaPanel.add(falsoButton);
+
+            grupos.add(group);
+            mainPanel.add(preguntaPanel);
+        }
+
+        // Botón para enviar respuestas
+        JButton enviarButton = new JButton("Enviar Respuestas");
+        enviarButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        enviarButton.addActionListener(e -> {
+            List<Boolean> respuestas = new ArrayList<>();
+            boolean todasRespondidas = true;
+
+            // Recoger las respuestas seleccionadas
+            for (ButtonGroup group : grupos) {
+                ButtonModel seleccion = group.getSelection();
+                if (seleccion == null) {
+                    todasRespondidas = false;
+                    break;
+                }
+                // Determinar si es Verdadero o Falso
+                respuestas.add(seleccion.getActionCommand().equals("V"));
+            }
+
+            // Validar si todas las preguntas fueron respondidas
+            if (!todasRespondidas) {
+                JOptionPane.showMessageDialog(quizFrame, "Por favor responde todas las preguntas antes de enviar.", "Error", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Intentar calificar el quiz
+            try {
+                quiz.responderQuiz(respuestas);
+                outputArea.append("Quiz completado.\n");
+                outputArea.append("Calificación: " + quiz.getCalificacion() + "\n");
+                outputArea.append("Estado: " + quiz.getEstado() + "\n");
+                progreso.completarActividad(quiz);
+                progreso.desempezarActividad();
+                quizFrame.dispose();
+            } catch (RespuestasInconsistentesPruebaException ex) {
+                outputArea.append("Número de respuestas incorrecto. Inténtalo de nuevo.\n");
+            } catch (CompletarActividadQueNoEstaEnProgresoException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+        });
+
+        mainPanel.add(enviarButton);
+
+        quizFrame.setVisible(true);
+    }
+
+    private void mostrarVentanaEncuesta(Encuesta encuesta, Progreso progreso, JTextArea outputArea) {
+        JFrame encuestaFrame = new JFrame("Encuesta: " + encuesta.getTitulo());
+        encuestaFrame.setSize(500, 500);
+        encuestaFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        encuestaFrame.setLocationRelativeTo(null);
+
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        encuestaFrame.add(new JScrollPane(mainPanel)); // Scroll en caso de preguntas extensas
+
+        JLabel tituloLabel = new JLabel("Encuesta: " + encuesta.getTitulo());
+        tituloLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        JLabel objetivoLabel = new JLabel("Descripción: " + encuesta.getObjetivo());
+        objetivoLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+
+        mainPanel.add(tituloLabel);
+        mainPanel.add(objetivoLabel);
+
+        // Crear campos de texto para cada pregunta
+        List<JTextField> camposRespuestas = new ArrayList<>();
+        for (PreguntaAbierta pregunta : encuesta.getPreguntas()) {
+            JPanel preguntaPanel = new JPanel();
+            preguntaPanel.setLayout(new BoxLayout(preguntaPanel, BoxLayout.Y_AXIS));
+            preguntaPanel.setBorder(BorderFactory.createTitledBorder("Pregunta " + pregunta.getNumero()));
+
+            JLabel preguntaLabel = new JLabel(pregunta.getEnunciado());
+            JTextField respuestaField = new JTextField(20);
+            camposRespuestas.add(respuestaField);
+
+            preguntaPanel.add(preguntaLabel);
+            preguntaPanel.add(respuestaField);
+            mainPanel.add(preguntaPanel);
+        }
+
+        // Botón para enviar respuestas
+        JButton enviarButton = new JButton("Enviar Respuestas");
+        enviarButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        enviarButton.addActionListener(e -> {
+            List<String> respuestas = new ArrayList<>();
+            boolean todasRespondidas = true;
+
+            // Recoger y validar las respuestas
+            for (JTextField campo : camposRespuestas) {
+                String respuesta = campo.getText().trim();
+                if (respuesta.isEmpty()) {
+                    todasRespondidas = false;
+                    break;
+                }
+                respuestas.add(respuesta);
+            }
+
+            // Mostrar error si hay preguntas sin responder
+            if (!todasRespondidas) {
+                JOptionPane.showMessageDialog(encuestaFrame, "Por favor responde todas las preguntas antes de enviar.", "Error", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Intentar procesar la encuesta
+            try {
+                encuesta.responderEncuesta(respuestas);
+                outputArea.append("Encuesta completada.\n");
+                outputArea.append("Estado: " + encuesta.getEstado() + "\n");
+                progreso.completarActividad(encuesta);
+                progreso.desempezarActividad();
+                encuestaFrame.dispose();
+            } catch (RespuestasInconsistentesPruebaException ex) {
+                JOptionPane.showMessageDialog(encuestaFrame, "Número de respuestas incorrecto. Inténtalo de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
+                outputArea.append("Error: Respuestas inconsistentes.\n");
+            } catch (CompletarActividadQueNoEstaEnProgresoException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        mainPanel.add(enviarButton);
+        encuestaFrame.setVisible(true);
+    }
+
+    private void mostrarVentanaPrueba(Prueba prueba, Progreso progreso, JTextArea outputArea) {
+        JFrame pruebaFrame = new JFrame("Prueba: " + prueba.getTitulo());
+        pruebaFrame.setSize(400, 300);
+        pruebaFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        pruebaFrame.setLocationRelativeTo(null);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        pruebaFrame.add(panel);
+
+        JLabel label = new JLabel("Tipo de Prueba: " + prueba.getTipoPrueba());
+        JButton completarButton = new JButton("Completar Prueba");
+
+        // Lógica para determinar el tipo de prueba y mostrar la ventana correspondiente
+        if (prueba instanceof QuizOpcionMultiple) {
+            completarButton.addActionListener(e -> {
+                // Llamar a la ventana para el quiz de opción múltiple
+                mostrarVentanaQuizMultiple((QuizOpcionMultiple) prueba, progreso, outputArea);
+                pruebaFrame.dispose();
+            });
+        } else if (prueba instanceof QuizVerdaderoFalso) {
+            completarButton.addActionListener(e -> {
+                // Llamar a la ventana para el quiz verdadero/falso
+                mostrarVentanaQuizVF((QuizVerdaderoFalso) prueba, progreso, outputArea);
+                pruebaFrame.dispose();
+            });
+        } else if (prueba instanceof Encuesta) {
+            completarButton.addActionListener(e -> {
+                // Llamar a la ventana para la encuesta
+                mostrarVentanaEncuesta((Encuesta) prueba, progreso, outputArea);
+                pruebaFrame.dispose();
+            });
+        } else if (prueba instanceof Examen) {
+            completarButton.addActionListener(e -> {
+                // Llamar a la ventana para la encuesta
+                mostrarVentanaExamen((Examen) prueba, progreso, outputArea);
+                pruebaFrame.dispose();
+            });
+        } else {
+            completarButton.addActionListener(e -> {
+                try {
+                    progreso.completarActividad(prueba);
+                    progreso.desempezarActividad();
+                    outputArea.append("Prueba completada: " + prueba.getTitulo() + "\n");
+                    pruebaFrame.dispose();
+                } catch (Exception ex) {
+                    outputArea.append("Error al completar la prueba.\n");
+                }
+            });
+        }
+
+        panel.add(label);
+        panel.add(completarButton);
+        pruebaFrame.setVisible(true);
+    }
+
+    private void mostrarVentanaExamen(Examen examen, Progreso progreso, JTextArea outputArea) {
+        JFrame examenFrame = new JFrame("Examen: " + examen.getTitulo());
+        examenFrame.setSize(500, 500);
+        examenFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        examenFrame.setLocationRelativeTo(null);
+
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        examenFrame.add(new JScrollPane(mainPanel)); // Scroll en caso de muchas preguntas
+
+        JLabel tituloLabel = new JLabel("Examen: " + examen.getTitulo());
+        tituloLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        JLabel objetivoLabel = new JLabel("Descripción: " + examen.getObjetivo());
+        objetivoLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+
+        mainPanel.add(tituloLabel);
+        mainPanel.add(objetivoLabel);
+
+        // Crear campos de texto para cada pregunta
+        List<JTextField> camposRespuestas = new ArrayList<>();
+        for (PreguntaAbierta pregunta : examen.getPreguntas()) {
+            JPanel preguntaPanel = new JPanel();
+            preguntaPanel.setLayout(new BoxLayout(preguntaPanel, BoxLayout.Y_AXIS));
+            preguntaPanel.setBorder(BorderFactory.createTitledBorder("Pregunta " + pregunta.getNumero()));
+
+            JLabel preguntaLabel = new JLabel(pregunta.getEnunciado());
+            JTextField respuestaField = new JTextField(20);
+            camposRespuestas.add(respuestaField);
+
+            preguntaPanel.add(preguntaLabel);
+            preguntaPanel.add(respuestaField);
+            mainPanel.add(preguntaPanel);
+        }
+
+        // Botón para enviar respuestas
+        JButton enviarButton = new JButton("Enviar Respuestas");
+        enviarButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        enviarButton.addActionListener(e -> {
+            List<String> respuestas = new ArrayList<>();
+            boolean todasRespondidas = true;
+
+            // Recoger y validar las respuestas
+            for (JTextField campo : camposRespuestas) {
+                String respuesta = campo.getText().trim();
+                if (respuesta.isEmpty()) {
+                    todasRespondidas = false;
+                    break;
+                }
+                respuestas.add(respuesta);
+            }
+
+            // Mostrar error si hay preguntas sin responder
+            if (!todasRespondidas) {
+                JOptionPane.showMessageDialog(examenFrame, "Por favor responde todas las preguntas antes de enviar.", "Error", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Intentar procesar el examen
+            try {
+                examen.responderExamen(respuestas);
+                outputArea.append("Examen respondido exitosamente.\n");
+                outputArea.append("Calificación: " + examen.getCalificacion() + "\n");
+                outputArea.append("Estado: " + examen.getEstado() + "\n");
+                progreso.completarActividad(examen);
+                progreso.desempezarActividad();
+                examenFrame.dispose();
+            } catch (RespuestasInconsistentesPruebaException ex) {
+                JOptionPane.showMessageDialog(examenFrame, "Número de respuestas incorrecto. Inténtalo de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
+                outputArea.append("Error: Respuestas inconsistentes.\n");
+            } catch (CompletarActividadQueNoEstaEnProgresoException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        mainPanel.add(enviarButton);
+        examenFrame.setVisible(true);
+    }
+
+
 }
 
