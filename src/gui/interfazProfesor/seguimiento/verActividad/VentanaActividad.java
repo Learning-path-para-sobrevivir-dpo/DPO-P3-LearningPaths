@@ -11,7 +11,7 @@ import gui.interfazProfesor.seguimiento.VentanaSeguimientoProfesor;
 import modelo.actividades.Actividad;
 
 @SuppressWarnings("serial")
-public class VentanaActividadPendienteCalificar extends JFrame {
+public class VentanaActividad extends JFrame {
 
 	private VentanaSeguimientoProfesor ventanaSeguimiento;
 	private PanelBotonesActividadPendiente panelBotones;
@@ -21,7 +21,7 @@ public class VentanaActividadPendienteCalificar extends JFrame {
 	
 	private Actividad actividad;
 	
-	public VentanaActividadPendienteCalificar(VentanaSeguimientoProfesor ventanaSeguimiento, Actividad actividad) throws HeadlessException {
+	public VentanaActividad(VentanaSeguimientoProfesor ventanaSeguimiento, Actividad actividad) throws HeadlessException {
 		this.ventanaSeguimiento = ventanaSeguimiento;
 		this.actividad = actividad;
 		setLayout(new BorderLayout());
@@ -41,7 +41,7 @@ public class VentanaActividadPendienteCalificar extends JFrame {
         setLocationRelativeTo( null );
         setDefaultCloseOperation( DISPOSE_ON_CLOSE );
         setSize( 650, 500 );
-        setTitle( "Ver Actividad Pendiente por Calificar" );
+        setTitle( "Ver Actividad" );
         setLocationRelativeTo( null );
 	}
 

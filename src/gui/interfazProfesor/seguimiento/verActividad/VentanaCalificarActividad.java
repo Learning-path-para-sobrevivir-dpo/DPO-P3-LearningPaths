@@ -17,7 +17,7 @@ import modelo.actividades.Tarea;
 @SuppressWarnings("serial")
 public class VentanaCalificarActividad extends JFrame {
 	
-	private VentanaActividadPendienteCalificar ventanaPendiente;
+	private VentanaActividad ventanaPendiente;
 	private VentanaMostrarPreguntasExamen ventanaPreguntas;
 	
 	private PanelHeader header;
@@ -27,7 +27,7 @@ public class VentanaCalificarActividad extends JFrame {
 	private boolean calificado;
 	private Actividad actividad;
 	
-	public VentanaCalificarActividad(VentanaActividadPendienteCalificar ventanaPendiente, Actividad actividad)
+	public VentanaCalificarActividad(VentanaActividad ventanaPendiente, Actividad actividad)
 	{
 		this.ventanaPendiente = ventanaPendiente;
 		this.actividad = actividad;

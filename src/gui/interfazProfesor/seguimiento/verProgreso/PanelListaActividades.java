@@ -19,7 +19,8 @@ public class PanelListaActividades extends JPanel implements ListSelectionListen
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
 		// TODO Auto-generated method stub
-
+		Actividad  act = listaActividades.getSelectedValue();
+		ventanaProgreso.setActividadSeleccionada(act);
 	}
 
 }
