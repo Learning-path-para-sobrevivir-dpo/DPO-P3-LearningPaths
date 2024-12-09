@@ -58,6 +58,7 @@ public class GUIManejoDatos {
 	{
 		return this.datos;
   
+	}	
 	public List<Actividad> getActividadesSistema() {
 		List<Actividad> acts = new ArrayList<Actividad>();
 		Map<String, Actividad>actsSistema = datos.getActividades();
