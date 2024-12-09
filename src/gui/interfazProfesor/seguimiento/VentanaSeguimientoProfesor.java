@@ -144,7 +144,7 @@ public class VentanaSeguimientoProfesor extends JFrame {
 		{
 			if (ventanaActividad == null || !ventanaActividad.isVisible())
 			{
-				ventanaActividad = new VentanaActividad(this, actividadSeleccionada);
+				ventanaActividad = new VentanaActividad(this, actividadSeleccionada, "Por calificar:");
 				ventanaActividad.setVisible(true);
 			}
 		}

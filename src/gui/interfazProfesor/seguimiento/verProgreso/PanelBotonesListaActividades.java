@@ -20,6 +20,10 @@ public class PanelBotonesListaActividades extends JPanel implements ActionListen
 		setLayout(new FlowLayout());
 		
 		butVerActividad = new JButton("Ver Actividad");
+		butVerActividad.addActionListener(this);
+		butVerActividad.setActionCommand(VER);
+		
+		add(butVerActividad);
 	}
 
 
@@ -27,7 +31,11 @@ public class PanelBotonesListaActividades extends JPanel implements ActionListen
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-
+		String comando = e.getActionCommand( );
+		if (comando.equals(VER))
+		{
+			panelLista.verActividad();
+		}
 	}
 
 }

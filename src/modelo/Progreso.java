@@ -53,6 +53,7 @@ public class Progreso {
 		this.actPendientes = actPendientes;
 		this.actCompletadas = actCompletadas;
 		this.actividadEnProgreso = actividadEnProgreso;
+		this.calcularProgreso();
 	}
 
 	public List<String> getOrdenActividades() {
@@ -410,7 +411,7 @@ public class Progreso {
 	 * Calcula el progreso del estudiante basandose en el número de actividades
 	 * obligatorias completadas y el número de actividades totales completadas
 	 */
-	private void calcularProgreso() {
+	public void calcularProgreso() {
 		// Verifica si las listas son null y las inicializa si es necesario
 	    if (this.actPendientes == null) {
 	        this.actPendientes = new ArrayList<Actividad>();
@@ -427,12 +428,12 @@ public class Progreso {
 		int actTotales = this.actPendientes.size() + this.actCompletadas.size();
 		int actCompletadas = this.actCompletadas.size();
 		if (actTotales != 0)
-			this.progresoTotal = (actCompletadas / actTotales) * 100;
+			this.progresoTotal = (int)(((float)actCompletadas / actTotales) * 100);
 		
 		actTotales = this.actObligatoriasCompletadas.size() + this.actObligatoriasPendientes.size();
 		actCompletadas = this.actObligatoriasCompletadas.size();
 		if (actTotales != 0)
-			this.progresoObligatorio = (actCompletadas / actTotales) * 100;
+			this.progresoObligatorio = (int)(((float)actCompletadas / actTotales) * 100);
 	}
 	
 	

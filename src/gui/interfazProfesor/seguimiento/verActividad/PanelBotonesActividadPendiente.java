@@ -28,6 +28,7 @@ public class PanelBotonesActividadPendiente extends JPanel implements ActionList
 		butCalificar.addActionListener(this);
 		butCalificar.setActionCommand(CALIFICAR);
 		butCalificar.setFont(new Font("Calibri", Font.BOLD, 15));
+		butCalificar.setVisible(true);
 		
 		butCerrar = new JButton("Cerrar");
 		butCerrar.addActionListener(this);
@@ -42,8 +43,6 @@ public class PanelBotonesActividadPendiente extends JPanel implements ActionList
 	{
 		butCalificar.setVisible(false);
 	}
-
-
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

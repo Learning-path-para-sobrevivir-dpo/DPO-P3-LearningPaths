@@ -21,12 +21,12 @@ public class VentanaActividad extends JFrame {
 	
 	private Actividad actividad;
 	
-	public VentanaActividad(VentanaSeguimientoProfesor ventanaSeguimiento, Actividad actividad) throws HeadlessException {
+	public VentanaActividad(VentanaSeguimientoProfesor ventanaSeguimiento, Actividad actividad, String titulo) throws HeadlessException {
 		this.ventanaSeguimiento = ventanaSeguimiento;
 		this.actividad = actividad;
 		setLayout(new BorderLayout());
 		
-		header = new PanelHeader("Por calificar: ");
+		header = new PanelHeader(titulo);
 		panelActividad = new PanelDetallesActividad(actividad);
 		JScrollPane scroll = new JScrollPane(panelActividad);
 		scroll.createVerticalScrollBar();
@@ -65,5 +65,8 @@ public class VentanaActividad extends JFrame {
 		cerrar();
 	}
 	
-	
+	public void deshabilitarCalificar()
+	{
+		panelBotones.deshabilitarCalificar();
+	}
 }

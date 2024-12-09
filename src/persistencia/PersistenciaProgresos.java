@@ -77,6 +77,7 @@ public class PersistenciaProgresos {
             		
             		progreso.setProgresoObligatorio(progresoObligatorio);
             		progreso.setProgresoTotal(progresoTotal);
+            		progreso.calcularProgreso();
 
             		// Agregar progreso al mapa
             		progresos.put(List.of(learningPath, estudiante), progreso);
