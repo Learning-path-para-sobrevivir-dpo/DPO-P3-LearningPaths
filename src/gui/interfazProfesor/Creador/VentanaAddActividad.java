@@ -62,14 +62,10 @@ public class VentanaAddActividad extends JFrame{
 		actsSistema.mostrarActs(listActs);
 	}
 
-
 	public void cambiarActSelected(Actividad seleccionado) {
-		// TODO Auto-generated method stub
-
-		pDetalles.actualizarActividad( seleccionado );
-	    
+		pDetalles.actualizarActividad(seleccionado );
+		
 	}
-
 
 	public void addActividad(String nomPath) {
 	    // Obtén el LearningPath seleccionado

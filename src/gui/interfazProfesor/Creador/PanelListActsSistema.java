@@ -19,16 +19,44 @@ import gui.GUIManejoDatos;
 import modelo.LearningPath;
 import modelo.actividades.Actividad;
 
+@SuppressWarnings("serial")
 public class PanelListActsSistema extends JPanel implements ListSelectionListener{
 
     private DefaultListModel<Actividad> dataModel;
     private JList<Actividad> listaActs;
 	
     private VentanaAddActividad ventanaAddAct;
-	
+	private VentanaClonarAct ventanaClonar;
+    
 	public PanelListActsSistema(VentanaAddActividad ventanaAddAct) {
 		super();
 		this.ventanaAddAct = ventanaAddAct;
+		
+        Font font = new Font("SansSerif", Font.BOLD, 18); 
+        TitledBorder border = BorderFactory.createTitledBorder("Actividades en el Sistema:");
+        border.setTitleFont(font);
+
+        setBorder(border);
+        
+        setLayout(new BorderLayout());
+        
+        dataModel = new DefaultListModel<>( );
+        listaActs = new JList<>( dataModel );
+        listaActs.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
+        listaActs.addListSelectionListener( this );
+
+        // Crear un panel con barras de desplazamiento para la lista
+        JScrollPane scroll = new JScrollPane( listaActs );
+        scroll.setHorizontalScrollBarPolicy( JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
+        scroll.setVerticalScrollBarPolicy( JScrollPane.VERTICAL_SCROLLBAR_ALWAYS );
+
+        add( scroll );
+        
+	}
+	
+	public PanelListActsSistema(VentanaClonarAct ventanaClonar) {
+		super();
+		this.ventanaClonar = ventanaClonar;
 		
         Font font = new Font("SansSerif", Font.BOLD, 18); 
         TitledBorder border = BorderFactory.createTitledBorder("Actividades en el Sistema:");
@@ -69,9 +97,14 @@ public class PanelListActsSistema extends JPanel implements ListSelectionListene
         // Revisa cuál es el restaurante seleccionado actualmente
         Actividad seleccionado = listaActs.getSelectedValue( );
 
-        // Le envía la ventana principal el restaurante seleccionado para que se actualice el resto de la interfaz
-        this.ventanaAddAct.cambiarActSelected( seleccionado );
+        if (ventanaAddAct == null) {
+        	ventanaClonar.cambiarActSelected(seleccionado);
+        }else {
+        	ventanaAddAct.cambiarActSelected(seleccionado);
+        }
     }
+    
+    
     
     public Actividad getActSelected() {
     	return listaActs.getSelectedValue();

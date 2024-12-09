@@ -35,6 +35,7 @@ public class VentanaProfCreadorLP extends JFrame {
 	private VentanaEditarLP ventanaEditarLP;
 	private VentanaCrearLP ventanaCrearLP;
 	private VentanaCrearActividad ventanaCrearAct;
+	private VentanaClonarAct ventanaClonarAct;
 	
 	public VentanaProfCreadorLP(VentanaProfesor ventanaProf, Profesor prof, GUIManejoDatos datos)
 			throws HeadlessException {
@@ -117,6 +118,17 @@ public class VentanaProfCreadorLP extends JFrame {
 			setVisible(false);
 		}
 		
+	}
+
+
+	public void mostrarVentanaClonarAct() {
+		// TODO Auto-generated method stub
+		if (ventanaClonarAct == null || !ventanaClonarAct.isVisible())
+		{
+			ventanaClonarAct = new VentanaClonarAct(this, prof, datos);
+			ventanaClonarAct.setVisible(true);
+			setVisible(false);
+		}		
 	}
 	
 
